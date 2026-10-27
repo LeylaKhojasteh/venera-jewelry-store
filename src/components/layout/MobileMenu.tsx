@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { X, ArrowUpLeft } from 'lucide-react';
 import { Dialog } from '@/components/ui/Dialog';
 import { mainNav, genderNav, demoContact, site } from '@/lib/constants';
+import { formatDigits } from '@/lib/money';
 import type { CategoryData } from '@/types';
 import type { SessionUser } from '@/lib/auth/session';
 
@@ -20,7 +21,7 @@ export function MobileMenu({
 }) {
   return (
     <Dialog open={open} onClose={onClose} side="end" labelledBy="mobile-menu-title" className="border-s border-line bg-paper">
-      <div className="flex h-dvh flex-col">
+      <div className="animate-drawer flex h-dvh flex-col">
         <div className="flex items-center justify-between border-b border-line px-6 py-5">
           <span id="mobile-menu-title" className="font-latin text-xl tracking-[0.32em] text-plum-ink">
             {site.logotype}
@@ -33,14 +34,13 @@ export function MobileMenu({
         <nav aria-label="منوی موبایل" className="flex-1 overflow-y-auto px-6 py-8">
           <ul className="space-y-1">
             {mainNav.map((item, index) => (
-              <li key={item.href}>
+              <li key={item.href} className="animate-menu-link" style={{ animationDelay: `${index * 45}ms` }}>
                 <Link
                   href={item.href}
                   onClick={onClose}
                   className="flex items-baseline justify-between border-b border-line py-4 text-2xl text-plum-ink transition-colors hover:text-plum"
                 >
                   <span className="display">{item.label}</span>
-                  <span className="tabular text-xs text-gold">{String(index + 1).padStart(2, '0')}</span>
                 </Link>
               </li>
             ))}
@@ -49,8 +49,12 @@ export function MobileMenu({
           <div className="mt-10">
             <p className="eyebrow">دسته‌بندی‌ها</p>
             <ul className="mt-4 space-y-1">
-              {categories.map((category) => (
-                <li key={category.slug}>
+              {categories.map((category, index) => (
+                <li
+                  key={category.slug}
+                  className="animate-menu-link"
+                  style={{ animationDelay: `${220 + index * 45}ms` }}
+                >
                   <Link
                     href={`/products?category=${category.slug}`}
                     onClick={onClose}
@@ -62,7 +66,7 @@ export function MobileMenu({
                         {category.latinName}
                       </span>
                     </span>
-                    <span className="text-xs text-ink-soft">{category.productCount} قطعه</span>
+                    <span className="text-xs text-ink-soft">{formatDigits(category.productCount)} قطعه</span>
                   </Link>
                 </li>
               ))}

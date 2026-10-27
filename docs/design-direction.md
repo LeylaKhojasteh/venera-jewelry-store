@@ -3,6 +3,11 @@
 > This document is the contract for the implemented UI. Every token, composition and motion rule below is
 > present in the codebase (`src/app/globals.css`, `src/components/**`). It was written before the page
 > components, then updated to match what was built.
+>
+> **Revision (October 2026):** the small folio/eyebrow captions above page and section titles were removed
+> at the owner’s request. The header now hides on scroll-down and returns on scroll-up, with an animated
+> mega-menu and staggered mobile drawer; the footer was rebuilt compactly and the oversized wordmark was
+> removed. Everything else below still applies.
 
 ## 1. Brand concept
 
@@ -136,13 +141,17 @@ Tokens: `--ease-out: cubic-bezier(.22,1,.36,1)`, `--ease-soft: cubic-bezier(.65,
 
 | Element | Motion | Why |
 | --- | --- | --- |
-| Header | background/height shift 240ms after 24px scroll | keeps context without jump |
+| Header | background/height shift 300ms after 24px scroll; slides away on scroll-down and returns on scroll-up (suppressed while a menu/dialog is open) | keeps context, gives content the screen back |
+| Mega-menu | 240ms fade + 6px rise, thumbnails scale on hover | signals depth without noise |
+| Mobile drawer | 280ms slide, links stagger at 45ms, body scroll locked | spatial clarity, editorial pacing |
+| Nav links | gold hairline grows from the right (RTL) | one precise hover signal |
 | Hero | 900ms staged opacity/translate (image, then 4 text groups at 90ms intervals) | editorial entrance |
 | Section reveals | 18px rise + fade, 620ms, once, `IntersectionObserver` | pacing, never blocks input |
 | Product image hover | cross-fade + 1.03 scale 900ms, ease-out | tactile browsing |
-| Add to cart | button label swap 160ms, check icon, live-region announcement | truthful feedback |
+| Add to cart | button label swap 160ms, check icon, live-region announcement, badge pop | truthful feedback |
 | Drawer / dialog | 280ms translate + scrim 200ms, focus trapped | spatial clarity |
 | Filter chips | 160ms background/colour | immediate state |
+| Footer links | hairline grows on hover, back-to-top arrow lifts 300ms | quiet motion at the end of the page |
 | Reduced motion | all transforms removed, reveals start visible, transitions ≤1ms | accessibility |
 
 No scroll hijacking, no perpetual marquees, no fake counters, no parallax on text.

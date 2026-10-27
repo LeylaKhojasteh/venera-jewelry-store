@@ -623,6 +623,42 @@
   }
 }
 
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes badge-pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes menu-link-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .hero-image-in {
   animation: hero-image-in 1100ms var(--ease-out) both;
 }
@@ -633,6 +669,22 @@
 
 .animate-fade-in {
   animation: fade-in 260ms var(--ease-out) both;
+}
+
+.animate-dropdown {
+  animation: dropdown-in 240ms var(--ease-out) both;
+}
+
+.animate-badge-pop {
+  animation: badge-pop 320ms var(--ease-out) both;
+}
+
+.animate-menu-link {
+  animation: menu-link-in 420ms var(--ease-out) both;
+}
+
+.animate-drawer {
+  animation: drawer-in 280ms var(--ease-out) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

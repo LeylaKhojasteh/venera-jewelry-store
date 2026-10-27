@@ -73,8 +73,9 @@ Stored in [`docs/screenshots`](screenshots). Captured at 375 px and 1440 px wher
 | Auth redirects rendered as 200 + 1 s meta-refresh because a global `loading.tsx` streamed the shell | Removed the group-level loading boundary; loading skeletons are scoped to public catalogue routes. Redirects are now real 307s. |
 | Header mega-menu opened on hover and immediately closed on click (Playwright surfaced it) | Click/Escape/outside-click only; no hover conflict, keyboard accessible |
 | Logo hit area was 38 px tall | `min-h-11` so the logotype meets the 44 px touch target |
-| Hero CTA sat below the fold on 375 px | Mobile hero text panel overlaps the image (`-mt-20`), stats hidden below `sm`, CTA now visible promptly |
+| Hero CTA sat below the fold on 375 px | Mobile hero text panel overlaps the image (`-mt-20`), decorative stats removed, CTA now visible promptly |
 | Contact anti-spam minimum-fill-time rejected very fast (automated) submissions | Removed the timing heuristic; honeypot + rate limit remain |
+| Header/footer read as basic, and the oversized footer wordmark made the page too tall | Rebuilt the header (auto-hide on scroll-down, animated nav underline, thumbnail mega-menu, staggered drawer, badge pop) and the footer (compact structured columns, hover rules, back-to-top); the giant wordmark is gone |
 | Seeded variants accumulated on re-seed (old آرکا lengths stayed) | Seed now removes variants not present in the seed definition |
 | Three necklace photographs were museum *cross pendants* — wrong for this brand | Replaced with chain/torc/bead plates and updated the corresponding Persian copy |
 | `pnpm` could not install on this Windows sandbox (symlink recursion) | Switched the verified workflow to `npm` (lockfile committed); documented |
