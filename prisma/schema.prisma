@@ -1,0 +1,231 @@
+// Venera | ونرا
+// Prisma schema — PostgreSQL. All money is stored as integer Toman.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+enum Gender {
+  WOMEN
+  MEN
+  UNISEX
+}
+
+enum OrderStatus {
+  DEMO_PLACED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum ContactStatus {
+  NEW
+  READ
+  ARCHIVED
+}
+
+enum VariantKind {
+  SIZE
+  COLOR
+  FINISH
+}
+
+model User {
+  id             String    @id @default(cuid())
+  name           String
+  email          String    @unique
+  passwordHash   String
+  role           Role      @default(CUSTOMER)
+  sessionVersion Int       @default(0)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  addresses      Address[]
+  orders         Order[]
+  cart           Cart?
+
+  @@index([role])
+}
+
+model Address {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipient  String
+  phone      String
+  province   String
+  city       String
+  postalCode String
+  street     String
+  label      String?
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  latinName   String
+  tagline     String
+  description String
+  image       String
+  imageAlt    String
+  sortOrder   Int       @default(0)
+  products    Product[]
+
+  @@index([sortOrder])
+}
+
+model Product {
+  id             String           @id @default(cuid())
+  slug           String           @unique
+  name           String
+  description    String
+  story          String
+  categoryId     String
+  category       Category         @relation(fields: [categoryId], references: [id])
+  gender         Gender
+  price          Int
+  compareAtPrice Int?
+  sku            String           @unique
+  materials      String
+  care           String
+  stock          Int              @default(0)
+  isActive       Boolean          @default(true)
+  isFeatured     Boolean          @default(false)
+  isBestSeller   Boolean          @default(false)
+  tags           String[]         @default([])
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  images         ProductImage[]
+  variants       ProductVariant[]
+  cartItems      CartItem[]
+  orderItems     OrderItem[]
+
+  @@index([categoryId, isActive])
+  @@index([gender, isActive])
+  @@index([price])
+  @@index([isBestSeller, isActive])
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  alt       String
+  width     Int     @default(1200)
+  height    Int     @default(1500)
+  sortOrder Int     @default(0)
+
+  @@index([productId, sortOrder])
+}
+
+model ProductVariant {
+  id         String      @id @default(cuid())
+  productId  String
+  product    Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  kind       VariantKind
+  label      String
+  stock      Int         @default(0)
+  priceDelta Int         @default(0)
+  sortOrder  Int         @default(0)
+  cartItems  CartItem[]
+
+  @@unique([productId, kind, label])
+  @@index([productId])
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     CartItem[]
+}
+
+model CartItem {
+  id           String          @id @default(cuid())
+  cartId       String
+  cart         Cart            @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId    String
+  product      Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variantId    String?
+  variant      ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  // variantKey mirrors variantId (or "" when the product has no variant) so a single
+  // unique constraint can prevent duplicate rows in PostgreSQL.
+  variantKey   String          @default("")
+  quantity     Int             @default(1)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  @@unique([cartId, productId, variantKey])
+  @@index([cartId])
+}
+
+model Order {
+  id             String      @id @default(cuid())
+  orderNumber    String      @unique
+  userId         String
+  user           User        @relation(fields: [userId], references: [id], onDelete: Restrict)
+  status         OrderStatus @default(DEMO_PLACED)
+  subtotal       Int
+  shipping       Int
+  total          Int
+  address        Json
+  idempotencyKey String      @unique
+  note           String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  items          OrderItem[]
+
+  @@index([userId, createdAt])
+  @@index([status])
+}
+
+model OrderItem {
+  id            String   @id @default(cuid())
+  orderId       String
+  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId     String?
+  product       Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  name          String
+  slug          String
+  sku           String
+  variantLabel  String?
+  unitPrice     Int
+  quantity      Int
+  lineTotal     Int
+  imageUrl      String
+  createdAt     DateTime @default(now())
+
+  @@index([orderId])
+}
+
+model ContactMessage {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    ContactStatus @default(NEW)
+  ipHash    String?
+  createdAt DateTime      @default(now())
+
+  @@index([status, createdAt])
+}

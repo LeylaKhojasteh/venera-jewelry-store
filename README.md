@@ -1,2 +1,275 @@
-# Venus-Jwelery-Site
+# Venera | ونرا
 
+A Persian-first (RTL) fine-jewellery storefront with a working PostgreSQL backend and a
+**demo-only** checkout. Designed as an editorial magazine rather than a template store:
+ivory paper, plum ink, rose-gold hairlines, museum-plate photography, and deliberate
+asymmetry.
+
+> This is a demonstration project. No payment gateway is connected, no payment is taken,
+> and the contact details are placeholders. Orders are stored in PostgreSQL with the status
+> `DEMO_PLACED` («سفارش آزمایشی ثبت شد»).
+
+- **Brand line:** «جزئیاتی که با تو می‌مانند»
+- **Currency:** integer Toman, formatted with Persian digits (`Intl.NumberFormat('fa-IR')`)
+- **Language:** Persian UI, `lang="fa" dir="rtl"`; Latin only for the logotype and folios
+
+---
+
+## Stack
+
+| Layer | Choice |
+| --- | --- |
+| Framework | Next.js **16.4.3** (App Router, React Server Components, Turbopack) |
+| UI | React **19.3.1**, TypeScript **5.9**, Tailwind CSS **4.3** + custom CSS tokens |
+| Data | PostgreSQL 18, Prisma ORM **6.19** |
+| Auth | First-party credential sessions: bcryptjs (cost 12) + signed JWT cookie (`jose`, HS256) |
+| Validation | Zod **4.6** on the server for every mutation |
+| Forms | React Hook Form + `@hookform/resolvers` for auth, address, contact |
+| Icons | Lucide |
+| Tests | Playwright **1.64** driving installed Microsoft Edge (`channel: 'msedge'`) |
+
+Auth.js was evaluated and deliberately not used: v5 is still beta and its credentials +
+Next 16 integration adds a moving part without improving security here. The custom session
+implementation is documented below and keeps every check on the server.
+
+---
+
+## Quick start
+
+Requirements: Node ≥ 20.9, PostgreSQL ≥ 14 (a local cluster or Neon).
+
+```bash
+# 1. Install
+npm install
+
+# 2. Configure
+cp .env.example .env
+#    edit DATABASE_URL and generate AUTH_SECRET:
+#    openssl rand -base64 32
+
+# 3. Create the schema
+npx prisma migrate deploy        # applies prisma/migrations/*
+npm run db:seed                  # idempotent: 4 categories, 11 products, demo users
+
+# 4. Run
+npm run dev                      # http://localhost:3000
+```
+
+The repository was built and verified against a workspace-local PostgreSQL 18 cluster
+(`postgresql://venera@127.0.0.1:5433/venera`), which is **not** part of the repository.
+
+### Demo accounts (seed only)
+
+| Role | Email | Password |
+| --- | --- | --- |
+| Customer | `demo@venera.example` | `VeneraDemo!1404` |
+| Admin | `admin@venera.example` | `VeneraAdmin!1404` |
+
+These are read from `SEED_ADMIN_*` / `SEED_CUSTOMER_*`. The seed refuses to run without
+them, and the login page labels the customer account as demo-only.
+
+### Scripts
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | development server |
+| `npm run build` | `prisma generate && next build` |
+| `npm start` | serve the production build |
+| `npm run lint` | ESLint (flat config, Next core-web-vitals) |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm run db:deploy` | apply committed migrations |
+| `npm run db:seed` | idempotent seed |
+| `npm run test:e2e` | Playwright suite (requires a running server on :3000) |
+
+---
+
+## Routes
+
+| Route | What it does |
+| --- | --- |
+| `/` | Editorial homepage: hero, category mosaic, best sellers (DB), brand story, gender panels, discounts (DB), craft notes, final CTA |
+| `/products` | Server-side catalogue: search, category, gender, price range, stock, discount, sort, pagination, mobile filter drawer, active chips |
+| `/products/[slug]` | Gallery, variants with per-variant stock, quantity, add-to-cart, accordions, related products, JSON-LD, real 404 |
+| `/cart` | Guest (localStorage) and authenticated (PostgreSQL) cart, live revalidation, totals |
+| `/checkout` | Address selection, review, demo order placement (auth required) |
+| `/order-success/[id]` | Owner-only confirmation with order number |
+| `/login`, `/register` | Credential auth with merge of the guest cart |
+| `/profile` | Summary, recent orders, default address |
+| `/profile/addresses` | Create / edit / delete / set default |
+| `/profile/orders`, `/profile/orders/[id]` | Own order history and details |
+| `/about`, `/contact` | Editorial story; validated contact form persisted to PostgreSQL |
+| `/admin` | Protected dashboard (products, orders, messages), role-gated in layout **and** every action |
+
+`not-found`, route-level `error`, scoped `loading` skeletons, empty states and breadcrumbs
+are implemented. `/profile`, `/checkout`, `/admin`, `/cart`, `/order-success`, `/login`,
+`/register` are `noindex`.
+
+---
+
+## Architecture
+
+```
+prisma/
+  schema.prisma            PostgreSQL models, enums, indexes, check constraint
+  migrations/…/migration.sql
+  seed.ts                  idempotent seed (11 products, variants, demo users)
+src/
+  app/
+    (store)/               storefront layout (header/footer/cart provider) + pages
+    (admin)/admin/         separate admin shell, requireAdmin in the layout
+    layout.tsx             <html lang="fa" dir="rtl">, metadata, font preloads
+    globals.css            design tokens, primitives, motion, reduced-motion
+  actions/                 server actions: auth, cart, checkout, addresses, contact, admin
+  components/
+    layout/ home/ products/ cart/ profile/ admin/ auth/ contact/ ui/
+  lib/
+    db.ts auth/ catalog.ts cart.ts pricing.ts validation.ts money.ts dates.ts …
+  types/index.ts
+e2e/                       Playwright specs + helpers
+docs/                      design direction, asset manifest, QA report, progress
+```
+
+Server Components fetch data directly; Client Components exist only for interaction
+(drawers, menus, forms, cart state, product options). Money is never trusted from the client.
+
+---
+
+## Data and demo-order rules
+
+- All prices are integers in **Toman**. `compareAtPrice` is enforced with a database CHECK
+  constraint to be strictly greater than `price`, so discount percentages are computed from
+  real numbers.
+- The catalogue holds the ten products from the brief plus one extra necklace (نیلو) added at the
+  owner’s request, with four necklace photographs supplied by the owner. All four necklaces are
+  men’s, in 316 stainless steel, priced between 1,000,000 and 2,000,000 Toman. The five discounted
+  items are still 1, 4, 6, 7 and 10; percentages are derived at render time.
+- Seeding is idempotent: products/categories are upserted by slug; images are recreated;
+  variants are upserted and stale variants are removed; demo users are upserted.
+- **Order placement** (`src/actions/checkout.ts`):
+  1. authenticated user + owned address + Zod-validated idempotency key;
+  2. serialisable PostgreSQL transaction;
+  3. every product row (and variant row) is locked with `SELECT … FOR UPDATE` in a
+     deterministic order;
+  4. current price, active flag and stock are re-validated server-side;
+  5. stock and variant stock are decremented once, inside the same transaction;
+  6. `Order` + `OrderItem` snapshots (name, SKU, unit price, image, address JSON) are written;
+  7. the cart is cleared;
+  8. a unique `idempotencyKey` plus a unique `orderNumber` make double submits converge on a
+     single order (both are re-checked inside the transaction).
+- Order status starts at `DEMO_PLACED`; admins can move it to `PROCESSING`, `SHIPPED`,
+  `DELIVERED` or `CANCELLED`. Cancelling does **not** restock — documented in the admin UI.
+- Shipping is a configurable flat fee (`SHIPPING_FLAT_TOMAN`, default 45,000) and free above
+  `FREE_SHIPPING_THRESHOLD_TOMAN` (default 5,000,000). It is calculated on the server.
+- Every customer-facing total is recomputed from the database at checkout; the client only
+  supplies identifiers and quantities.
+
+### Cart
+
+- Guests: a validated `localStorage` array of `{productId, variantId, quantity}`; the cart
+  page resolves live prices/stock through a server action.
+- Signed-in users: `Cart` / `CartItem` rows with a unique `(cartId, productId, variantKey)`
+  constraint (`variantKey` avoids PostgreSQL's NULL-unique pitfall).
+- On login/registration the guest cart is merged server-side, clamped to stock, and
+  conflicts are reported as Persian notices.
+
+---
+
+## Auth & security notes
+
+- Passwords: bcrypt cost 12, max 72 bytes, minimum 8 characters with a letter and a digit.
+- Session: JWT (HS256, `jose`) in an `httpOnly`, `SameSite=Lax`, `Secure` (production)
+  cookie, 7-day expiry, issuer/audience checked. `User.sessionVersion` invalidates old
+  cookies after a security change.
+- All queries that touch user data filter by `userId` from the verified session — never by
+  client-supplied IDs.
+- Every mutation is a Server Action, which Next.js origin-checks; no ad-hoc route handlers
+  mutate data.
+- Validation: Zod on the server for login, register, address, cart, checkout, contact,
+  admin product/order/message updates.
+- Abuse controls: in-process fixed-window rate limits for login (6 / 10 min / IP+email),
+  registration (5 / hour / IP), orders (5 / 10 min / user+IP), contact (6 / 10 min / IP) plus a
+  honeypot and a minimum fill time. **This limiter is per-instance**; a production deployment
+  should move it to Redis/Upstash so limits apply across serverless instances.
+- Admin routes call `requireAdmin()` in the layout and re-check the role inside every admin
+  action. Public registration cannot choose a role.
+- Security headers are set in `next.config.ts`; there is no CSP because Next's inline
+  bootstrap requires a nonce/middleware, which is out of scope here.
+
+---
+
+## Images and fonts
+
+- All imagery is local under `public/images` (30 rendered files, ~4.6 MB), cropped and
+  colour-graded to one warm campaign look. No runtime hotlinks. The four necklace product
+  photographs, the necklace category image and the homepage hero are owner-supplied and
+  recorded as such.
+- Sources, authors and licences are recorded in [`docs/asset-manifest.md`](docs/asset-manifest.md).
+  The majority are CC0 museum plates (The Met via Wikimedia Commons); three modern ring
+  photographs and one torc are CC BY 2.0 and are credited there.
+- Persian typography: Vazirmatn (UI), Markazi Text (display), Cormorant Garamond (Latin).
+  All are self-hosted in `public/fonts` (OFL) with `unicode-range`, not fetched from Google at
+  runtime.
+
+---
+
+## Tests and visual QA
+
+The Playwright suite (`e2e/store.spec.ts`) runs against the production server with Microsoft
+Edge:
+
+```bash
+npm run build && npm start        # terminal 1
+npm run test:e2e                  # terminal 2
+```
+
+It covers: catalogue counts for category/gender/discount/search/empty filters, guest cart →
+registration merge → address creation → demo order → order history, contact persistence,
+protected-route redirects, customer rejection from `/admin`, admin stock editing, contact
+messages in admin, horizontal-overflow checks at **320/375/430/768/1024/1440/1920**, font
+loading, RTL direction, broken images, tap-target sizes, grid column counts and hero CTA
+placement. Screenshots are written to `docs/screenshots/`.
+
+See [`docs/qa-report.md`](docs/qa-report.md) for the recorded run and
+[`docs/screenshots`](docs/screenshots) for the captures.
+
+---
+
+## Deployment (Vercel + Neon)
+
+1. Create a Neon project through the Vercel Marketplace and copy both connection strings.
+2. Set environment variables in Vercel (Production + Preview):
+
+   | Key | Value |
+   | --- | --- |
+   | `DATABASE_URL` | Neon **pooled** URL (`…-pooler…`, `sslmode=require&pgbouncer=true`) |
+   | `DIRECT_URL` | Neon **direct** URL (used only for migrations) |
+   | `AUTH_SECRET` | 32+ random bytes |
+   | `NEXT_PUBLIC_SITE_URL` | `https://<project>.vercel.app` |
+   | `SHIPPING_FLAT_TOMAN`, `FREE_SHIPPING_THRESHOLD_TOMAN` | integers |
+   | `SEED_*` | only if you intend to seed the deployed database |
+
+3. Build command: `prisma generate && next build` (the `build` script already does this).
+4. Apply migrations **before** promoting the deployment, with the direct URL:
+   `DATABASE_URL="$DIRECT_URL" npx prisma migrate deploy`.
+5. Seed once (optional, demo only): `DATABASE_URL="$DIRECT_URL" npm run db:seed`.
+6. No filesystem writes are required at runtime; uploads are not part of this build.
+
+The repository does not contain secrets; `.env` is git-ignored and `.env.example` documents
+every key.
+
+---
+
+## Known limitations
+
+- No payment gateway, email delivery, password recovery or order cancellation restocking —
+  deliberately out of scope, documented in the UI where relevant.
+- Rate limiting is in-process (see above).
+- Imagery is archival/museum photography rather than a commissioned campaign; this is called
+  out on the About page and in the asset manifest. The four necklace photographs and the necklace
+  category image are owner-supplied and their licensing must be confirmed before deployment.
+- The discount sort is resolved in application code over the filtered set because Prisma
+  cannot order by a computed percentage; at this catalogue size it is negligible.
+- Automated screenshots were captured, but this run had no image-capable model to *look* at
+  them; layout quality was verified with computed browser checks (overflow, column count,
+  tap targets, clipping, CTA position, font/image loading). See the QA report for exactly
+  what was and was not inspected.

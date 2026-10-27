@@ -1,0 +1,22 @@
+node_modules
+.next
+out
+build
+.env
+.env.local
+.env.*.local
+.pnpm-store
+.npm-cache
+.dev
+test-results
+playwright-report
+blob-report
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+Thumbs.db
+.vercel
+
+# raw photos dropped for processing (keep the instructions tracked)
+incoming/*
+!incoming/README.md
