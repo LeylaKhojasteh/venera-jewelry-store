@@ -83,18 +83,20 @@ counts are rendered with Persian digits through `Intl.NumberFormat("fa-IR")`; di
 
 ## 5. Page compositions
 
-**Hero (desktop).** 12-column stage, minimum 86vh. Text occupies columns 1–6 (right in RTL), image columns
-7–12 bleeding to the right edge of the viewport. A 1px gold inset frame is offset 18px inside the image, and a
-rotated Latin caption (`VENERA — FINE JEWELLERY`) runs along its inner edge. Folio `۰۱ / کالکشن` top-right,
-display line `«زیبایی، در جزئیات زندگی می‌کند.»` at `--text-4xl`, supporting copy at `--text-lg` with a max
-of 48 characters per line, then two CTAs. A thin index strip at the bottom lists the four categories with
-numerals. Mobile recomposes: portrait crop (4/5) on top with the plum text block overlapping its lower-left
-corner by 24px, display line reduced to `--text-3xl`, CTAs in one row at ≥360px and stacked below that. The
-jewellery focal point is protected by a `object-position` per-image override.
+**Hero (desktop).** 12-column stage inside a 1600px cap. Text occupies columns 1–6 (right in RTL); a square
+image occupies columns 7–12, capped at `min(40rem, 100dvh − 9rem)` so the whole photograph fits inside a
+900px-tall viewport together with the header. A 1px paper inset frame sits inside the image, and a small
+product tag (name + price) is anchored bottom-start. Display line `«زیبایی، در جزئیات زندگی می‌کند.»` at
+`--text-4xl`, supporting copy at `--text-lg` (max 48 characters per line), then two CTAs. No folio, eyebrow
+or index strip: the heading and image carry the composition. Mobile recomposes: a full-width square image
+with the paper text block pulled up over its lower edge by 80px, display line reduced to `--text-4xl`,
+CTAs visible in the first screen. The image is a square 1600×1600 plate so `object-cover` never crops the
+necklace.
 
 **Categories.** Four unequal panels: necklace 7 columns (3/4), bracelet 5 columns (4/5), earrings 5 columns
-(4/5), ring 7 columns (3/4). Overlay typography is bottom-aligned, numerals top-left, and the hover state
-lifts the image scale and reveals a «کشف» line. Below 768px: two stacked full-width panels and two half-width
+(4/5), ring 7 columns (3/4). Overlay typography is bottom-aligned — name, tagline and product count with an
+arrow; no numeral or Latin caption. The hover state lifts the image scale and reveals the count arrow. Below
+768px: two stacked full-width panels and two half-width
 panels, never a shrunken four-across grid.
 
 **Best sellers / discounts.** Four-up product row on desktop (horizontal snap rail at ≤767px), heading with a

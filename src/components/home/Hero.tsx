@@ -14,7 +14,7 @@ export function Hero({ feature }: { feature?: HeroFeature }) {
   return (
     <section className="relative overflow-hidden bg-paper">
       <div className="mx-auto grid w-full max-w-[1600px] grid-cols-1 lg:grid-cols-12">
-        <div className="relative z-10 order-2 mx-3 -mt-20 flex flex-col justify-center bg-paper px-5 pb-14 pt-8 sm:mx-0 sm:px-[clamp(1.25rem,4vw,4.5rem)] lg:order-1 lg:col-span-5 lg:mt-0 lg:bg-transparent lg:px-[clamp(1.25rem,4vw,4.5rem)] lg:py-24 xl:col-span-5">
+        <div className="relative z-10 order-2 mx-3 -mt-20 flex flex-col justify-center bg-paper px-5 pb-14 pt-8 sm:mx-0 sm:px-[clamp(1.25rem,4vw,4.5rem)] lg:order-1 lg:col-span-6 lg:mt-0 lg:bg-transparent lg:px-[clamp(1.25rem,4vw,4.5rem)] lg:py-16 xl:col-span-6">
           <h1 className="display text-4xl">
             <span className="block">زیبایی،</span>
             <span className="block">
@@ -43,14 +43,15 @@ export function Hero({ feature }: { feature?: HeroFeature }) {
           </div>
         </div>
 
-        <div className="relative order-1 lg:order-2 lg:col-span-7">
-          <div className="relative aspect-[4/5] w-full overflow-hidden bg-blush">
+        <div className="relative order-1 lg:order-2 lg:col-span-6">
+          <div className="relative mx-auto aspect-square w-full overflow-hidden bg-blush lg:h-[min(40rem,calc(100dvh-9rem))] lg:w-auto lg:max-w-full">
             <Image
+              id="hero-image"
               src="/images/hero/hero.jpg"
               alt="گردنبند نیلو؛ گل‌های ریز روی زنجیر استیل"
               fill
               priority
-              sizes="(max-width: 1024px) 100vw, 58vw"
+              sizes="(max-width: 1024px) 100vw, 46vw"
               className="hero-image-in object-cover"
             />
 

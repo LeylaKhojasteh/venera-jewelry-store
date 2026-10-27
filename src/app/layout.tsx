@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.faName} | زیورآلات معاصر`,
     description: site.description,
-    images: [{ url: '/images/hero/hero.jpg', width: 1400, height: 1750, alt: 'ونرا — زیورآلات معاصر' }],
+    images: [{ url: '/images/hero/hero.jpg', width: 1600, height: 1600, alt: 'ونرا — زیورآلات معاصر' }],
   },
   twitter: {
     card: 'summary_large_image',

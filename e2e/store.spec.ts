@@ -29,7 +29,7 @@ test.describe('storefront', () => {
     await expect(page.locator('article')).toHaveCount(4);
 
     await page.goto('/products?gender=men');
-    await expect(page.locator('article')).toHaveCount(7);
+    await expect(page.locator('article')).toHaveCount(3);
 
     await page.goto('/products?discount=1');
     await expect(page.locator('article')).toHaveCount(5);
@@ -220,6 +220,13 @@ test.describe('responsive', () => {
 
   test('layout quality: tap targets, grid columns, clipping and hero CTA', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+
+    const mobileHero = await page.locator('#hero-image').boundingBox();
+    expect(mobileHero).not.toBeNull();
+    expect((mobileHero?.y ?? 0) + (mobileHero?.height ?? 0)).toBeLessThanOrEqual(812);
+
     await page.goto('/products');
     await page.waitForLoadState('networkidle');
 
@@ -258,6 +265,10 @@ test.describe('responsive', () => {
     const ctaBox = await page.getByRole('link', { name: /مشاهده کالکشن/ }).first().boundingBox();
     expect(ctaBox).not.toBeNull();
     expect((ctaBox?.y ?? 0) + (ctaBox?.height ?? 0)).toBeLessThan(900);
+
+    const desktopHero = await page.locator('#hero-image').boundingBox();
+    expect(desktopHero).not.toBeNull();
+    expect((desktopHero?.y ?? 0) + (desktopHero?.height ?? 0)).toBeLessThanOrEqual(900);
 
     const clipped = await page.evaluate(() =>
       Array.from(document.querySelectorAll('h1, h2, .tabular'))

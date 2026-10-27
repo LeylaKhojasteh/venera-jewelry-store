@@ -16,7 +16,7 @@ Run date: 2026-10-27 (Asia/Tehran) · Build: Next.js 16.4.3 · Browser: Microsof
 ## 2. Functional coverage (Playwright)
 
 1. **Home + navigation + catalogue filters** — heading, CTAs, product cards; mega-menu opens and
-   routes to `/products`; category count = 4; gender = 7; discounted = 5; search «آرکا» = 1;
+   routes to `/products`; category count = 4; gender = 3 (men’s bracelets and ring); discounted = 5; search «آرکا» = 1;
    `min=2,000,000` returns the branded empty state.
 2. **Guest → account → order** — add a variant to the guest cart, see the guest cart summary,
    register a fresh account, guest cart merges into PostgreSQL, create an address, continue to

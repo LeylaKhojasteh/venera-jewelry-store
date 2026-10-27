@@ -59,5 +59,5 @@ License) in `public/fonts`.
 
 - Products: 1000x1250 (4:5), JPEG q88, progressive.
 - Categories: 1200x1500 (4:5).
-- Hero: 2000x1250 desktop and 1200x1500 mobile.
+- Hero: 1600x1600 square, displayed with a viewport-height cap.
 - Editorial: 1600x1000, 1400x1750 and 2000x1100 plates.

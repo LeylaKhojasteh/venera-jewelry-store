@@ -87,7 +87,7 @@ const products: SeedProduct[] = [
     slug: 'necklace-avid',
     name: 'گردنبند آوید',
     category: 'necklace',
-    gender: 'MEN',
+    gender: 'WOMEN',
     price: 1_490_000,
     compareAtPrice: 1_790_000,
     sku: 'VNR-NC-001',
@@ -114,7 +114,7 @@ const products: SeedProduct[] = [
     slug: 'necklace-mahtab',
     name: 'گردنبند مهتاب',
     category: 'necklace',
-    gender: 'MEN',
+    gender: 'WOMEN',
     price: 1_890_000,
     sku: 'VNR-NC-002',
     description:
@@ -138,20 +138,20 @@ const products: SeedProduct[] = [
     slug: 'necklace-arka',
     name: 'گردنبند آرکا',
     category: 'necklace',
-    gender: 'MEN',
+    gender: 'WOMEN',
     price: 1_390_000,
     sku: 'VNR-NC-003',
     description:
-      'زنجیر باریک و یکدست با بست ساده. برای مردهایی که زنجیر ضخیم نمی‌خواهند و یک خط فلز روی گردن برایشان کافی است.',
+      'زنجیر باریک و یکدست با بست ساده. برای روزهایی که فقط یک خط فلز روی گردن می‌خواهی و چیزی بیشتر نه.',
     story:
       'آرکا ساده‌ترین قطعهٔ مجموعه است: زنجیری با ضخامت کم و بستی که پشت گردن پنهان می‌شود. سطح را مات نگه داشتیم تا در استفادهٔ روزمره، خط‌وخش کمتر دیده شود.',
     materials: 'استیل ۳۱۶',
     care,
     stock: 7,
     isBestSeller: true,
-    tags: ['مردانه', 'مینیمال', 'روزمره'],
+    tags: ['مینیمال', 'استیل', 'روزمره'],
     images: [
-      { file: 'necklace-arka-01.jpg', alt: 'گردنبند آرکا؛ زنجیر باریک استیل مردانه' },
+      { file: 'necklace-arka-01.jpg', alt: 'گردنبند آرکا؛ زنجیر باریک استیل' },
     ],
     variants: [
       { kind: 'SIZE', label: '۵۰ سانتی‌متر', stock: 4 },
@@ -162,7 +162,7 @@ const products: SeedProduct[] = [
     slug: 'necklace-nilo',
     name: 'گردنبند نیلو',
     category: 'necklace',
-    gender: 'MEN',
+    gender: 'WOMEN',
     price: 1_690_000,
     sku: 'VNR-NC-004',
     description:

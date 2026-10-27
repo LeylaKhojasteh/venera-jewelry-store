@@ -141,7 +141,7 @@ Server Components fetch data directly; Client Components exist only for interact
   real numbers.
 - The catalogue holds the ten products from the brief plus one extra necklace (نیلو) added at the
   owner’s request, with four necklace photographs supplied by the owner. All four necklaces are
-  men’s, in 316 stainless steel, priced between 1,000,000 and 2,000,000 Toman. The five discounted
+  women’s, in 316 stainless steel, priced between 1,000,000 and 2,000,000 Toman. The five discounted
   items are still 1, 4, 6, 7 and 10; percentages are derived at render time.
 - Seeding is idempotent: products/categories are upserted by slug; images are recreated;
   variants are upserted and stale variants are removed; demo users are upserted.
