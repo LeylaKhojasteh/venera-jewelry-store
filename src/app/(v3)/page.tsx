@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpLeft } from 'lucide-react';
 import { getProductCards, getHomeContent } from '@/lib/catalog';
-import { NecklaceLine } from '@/components/v3/NecklaceLine';
+import { HeroJewelry } from '@/components/v3/HeroJewelry';
 import { ProductRail } from '@/components/v3/ProductRail';
 import { CatalogGrid } from '@/components/v3/CatalogGrid';
 import { CategoryStory } from '@/components/v3/CategoryStory';
@@ -80,7 +80,7 @@ export default async function V3HomePage() {
               </div>
             </div>
 
-            <NecklaceLine />
+            <HeroJewelry />
           </div>
         </div>
       </section>

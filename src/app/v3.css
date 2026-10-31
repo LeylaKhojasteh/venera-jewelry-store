@@ -684,6 +684,25 @@ body:has(.v3-root) {
   perspective: 900px;
 }
 
+.v3-hero-3d {
+  display: block;
+  height: clamp(22rem, 56vh, 34rem);
+  min-height: 0;
+}
+
+.v3-hero-3d canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media (min-width: 1024px) {
+  .v3-hero-3d {
+    height: calc(100svh - 8rem);
+    min-height: 34rem;
+  }
+}
+
 .v3-art-inner {
   position: relative;
   width: min(100%, 34rem);
@@ -700,8 +719,9 @@ body:has(.v3-root) {
 
 .v3-art-caption {
   position: absolute;
-  bottom: 0;
-  inset-inline-start: 0;
+  bottom: 0.75rem;
+  inset-inline-start: auto;
+  inset-inline-end: 0.75rem;
   font-size: 13px;
   color: var(--bone-dim);
 }

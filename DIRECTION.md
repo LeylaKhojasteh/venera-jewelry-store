@@ -77,6 +77,14 @@ the whole drawing ±7° through springs; scroll lifts it 40px. The pendant keeps
 idle. Reduced motion: the path is fully drawn at first paint, no beads pop, no swing, pointer tilt is
 disabled. Content is visible without JavaScript.
 
+**The 3D stage (v5).** The hero is now a real-time Three.js scene: a torus-link chain with a faceted
+pendant and pearl, a bangle, a pair of drop earrings and a gem ring, all in brushed 316 steel. Custom
+light-formers build the reflection map without downloading an HDRI; a contact shadow grounds the set.
+The group follows the pointer on damped springs, with a slow idle sway. It is lazy-loaded after a
+WebGL capability check, falls back to the line drawing when WebGL is unavailable, and becomes a still
+frame under reduced motion. Framing is computed for the 3.5:1 to 1:1 hero aspect range, so all four
+pieces stay inside the canvas from 320px to 1920px.
+
 **Carried over from the old build.** Header links grow a copper rule from the right on hover/focus
 (300ms, scaleX 0→1); the logotype opens its tracking from .30em to .38em; footer links grow a 12px
 copper rule before the label and warm to the accent. All three are CSS-only and respect reduced
