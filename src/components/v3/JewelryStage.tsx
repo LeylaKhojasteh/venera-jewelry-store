@@ -104,14 +104,19 @@ function Chain({ count = 88 }: { count?: number }) {
         <torusGeometry args={[0.05, 0.011, 6, 18]} />
         <Steel />
       </mesh>
-      <mesh position={[0, -1.11, 0.07]} castShadow>
-        <torusGeometry args={[0.028, 0.008, 6, 14]} />
-        <Steel />
-      </mesh>
-      <mesh position={[-0.211, -1.45, 0.08]} castShadow>
+      <mesh position={[0.06, -1.42, 0.08]} castShadow>
         <extrudeGeometry args={[CRESCENT_SHAPE, CRESCENT_EXTRUDE]} />
-        <Steel roughness={0.14} />
+        <meshStandardMaterial
+          color="#d7d7dc"
+          metalness={0.9}
+          roughness={0.22}
+          envMapIntensity={2.2}
+          emissive="#26262c"
+          emissiveIntensity={0.2}
+          side={THREE.DoubleSide}
+        />
       </mesh>
+      <pointLight position={[0.1, -1.3, 1.1]} intensity={0.7} distance={1.8} color="#ffffff" />
       <mesh position={[0, -0.9, 0.06]} castShadow>
         <sphereGeometry args={[0.055, 18, 18]} />
         <meshStandardMaterial color="#c4714c" metalness={0.7} roughness={0.28} />
@@ -123,21 +128,13 @@ function Chain({ count = 88 }: { count?: number }) {
 function Bracelet() {
   return (
     <group position={[-2.05, -0.95, 0.25]} rotation={[0.55, 0.35, 0.2]} scale={0.92}>
-      <mesh rotation={[0.08, 0.32, 0.14]} castShadow>
-        <torusGeometry args={[0.8, 0.03, 10, 64]} />
+      <mesh rotation={[0.06, 0.28, 0.12]} castShadow>
+        <torusGeometry args={[0.79, 0.03, 10, 64]} />
         <Steel roughness={0.18} />
       </mesh>
-      <mesh position={[0.05, 0.03, 0.05]} rotation={[-0.2, -0.28, -0.32]} castShadow>
-        <torusGeometry args={[0.73, 0.028, 10, 64]} />
+      <mesh position={[0.02, 0.015, 0.02]} rotation={[-0.08, -0.18, -0.18]} castShadow>
+        <torusGeometry args={[0.77, 0.028, 10, 64]} />
         <Steel roughness={0.18} />
-      </mesh>
-      <mesh position={[0.78, -0.02, 0]} castShadow>
-        <sphereGeometry args={[0.06, 16, 16]} />
-        <Steel />
-      </mesh>
-      <mesh position={[-0.74, 0.05, 0.05]} castShadow>
-        <sphereGeometry args={[0.052, 16, 16]} />
-        <Pearl />
       </mesh>
     </group>
   );
@@ -148,6 +145,10 @@ function Earring({ x, rotation = 0 }: { x: number; rotation?: number }) {
     <group position={[x, 0.95, 0.2]} rotation={[0.1, 0.2, rotation]}>
       <mesh castShadow>
         <torusGeometry args={[0.15, 0.017, 8, 28, Math.PI * 1.55]} />
+        <Steel />
+      </mesh>
+      <mesh position={[0.012, -0.2, 0]} rotation={[0, 0, -0.08]} castShadow>
+        <cylinderGeometry args={[0.012, 0.012, 0.14, 8]} />
         <Steel />
       </mesh>
       <mesh position={[0, -0.26, 0]} castShadow>
@@ -169,19 +170,19 @@ function Ring() {
         <torusGeometry args={[0.34, 0.05, 12, 56]} />
         <Steel roughness={0.16} />
       </mesh>
-      <mesh position={[0, 0.32, 0]} castShadow>
-        <cylinderGeometry args={[0.07, 0.1, 0.07, 18]} />
+      <mesh position={[0, 0.335, 0]} castShadow>
+        <cylinderGeometry args={[0.035, 0.05, 0.035, 16]} />
         <Steel roughness={0.18} />
       </mesh>
-      <mesh position={[0, 0.29, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow>
-        <torusGeometry args={[0.095, 0.014, 8, 22]} />
+      <mesh position={[0, 0.325, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+        <torusGeometry args={[0.048, 0.007, 8, 20]} />
         <Steel roughness={0.18} />
       </mesh>
-      <mesh position={[0, 0.52, 0]} scale={[1, 1.35, 1]} castShadow>
-        <sphereGeometry args={[0.16, 32, 32]} />
+      <mesh position={[0, 0.44, 0]} scale={[1, 1.35, 1]} castShadow>
+        <sphereGeometry args={[0.08, 32, 32]} />
         <Pearl />
       </mesh>
-      <pointLight position={[0, 0.85, 0.7]} intensity={0.7} distance={1.4} color="#fff4e6" />
+      <pointLight position={[0, 0.7, 0.6]} intensity={0.35} distance={1.1} color="#fff4e6" />
     </group>
   );
 }
@@ -223,9 +224,10 @@ export function JewelryStage() {
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         style={{ width: '100%', height: '100%', touchAction: 'pan-y' }}
       >
-        <ambientLight intensity={0.4} />
+        <ambientLight intensity={0.55} />
         <directionalLight position={[3, 4, 5]} intensity={2.3} color="#fff5ea" />
         <directionalLight position={[-4, 2, -2]} intensity={1.5} color="#e6ad8b" />
+        <directionalLight position={[0, 2, 8]} intensity={0.65} color="#ffffff" />
         <pointLight position={[0, -3, 3]} intensity={0.7} color="#ffffff" />
 
         <Suspense fallback={null}>
@@ -239,7 +241,7 @@ export function JewelryStage() {
 
         <Scene reduce={reduce} />
 
-        <ContactShadows position={[0, -2.05, 0]} opacity={0.24} scale={3.2} blur={2.4} far={4} color="#3a1b24" />
+        <ContactShadows position={[0, -2.05, 0]} opacity={0.18} scale={3.2} blur={2.4} far={4} color="#3a1b24" />
       </Canvas>
       <span className="v3-art-caption">استیل ۳۱۶ / طراحی تهران</span>
     </div>
