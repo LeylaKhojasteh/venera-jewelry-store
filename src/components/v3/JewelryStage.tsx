@@ -30,7 +30,7 @@ function Pearl() {
   );
 }
 
-function Chain({ count = 46 }: { count?: number }) {
+function Chain({ count = 88 }: { count?: number }) {
   const curve = useMemo(
     () =>
       new THREE.CatmullRomCurve3([
@@ -66,18 +66,18 @@ function Chain({ count = 46 }: { count?: number }) {
     <group>
       {links.map((link, index) => (
         <mesh key={index} position={link.position} quaternion={link.quaternion} castShadow>
-          <torusGeometry args={[0.074, 0.017, 8, 22]} />
+          <torusGeometry args={[0.044, 0.009, 6, 16]} />
           <Steel />
         </mesh>
       ))}
 
       <mesh position={[0, -1.02, 0.06]} castShadow>
-        <torusGeometry args={[0.06, 0.014, 8, 20]} />
+        <torusGeometry args={[0.05, 0.011, 6, 18]} />
         <Steel />
       </mesh>
       <mesh position={[0, -1.34, 0.1]} scale={[0.78, 1.45, 0.5]} castShadow>
-        <octahedronGeometry args={[0.3, 0]} />
-        <Steel roughness={0.16} />
+        <octahedronGeometry args={[0.28, 0]} />
+        <Steel roughness={0.14} />
       </mesh>
       <mesh position={[0, -1.78, 0.1]} castShadow>
         <sphereGeometry args={[0.075, 20, 20]} />
@@ -94,16 +94,20 @@ function Chain({ count = 46 }: { count?: number }) {
 function Bracelet() {
   return (
     <group position={[-2.05, -0.95, 0.25]} rotation={[0.55, 0.35, 0.2]} scale={0.92}>
-      <mesh castShadow>
-        <torusGeometry args={[0.82, 0.05, 14, 72]} />
-        <Steel roughness={0.2} />
+      <mesh rotation={[0.08, 0.32, 0.14]} castShadow>
+        <torusGeometry args={[0.8, 0.03, 10, 64]} />
+        <Steel roughness={0.18} />
       </mesh>
-      <mesh position={[0.82, 0, 0]} castShadow>
-        <sphereGeometry args={[0.09, 18, 18]} />
+      <mesh position={[0.05, 0.03, 0.05]} rotation={[-0.2, -0.28, -0.32]} castShadow>
+        <torusGeometry args={[0.73, 0.028, 10, 64]} />
+        <Steel roughness={0.18} />
+      </mesh>
+      <mesh position={[0.78, -0.02, 0]} castShadow>
+        <sphereGeometry args={[0.06, 16, 16]} />
         <Steel />
       </mesh>
-      <mesh position={[-0.82, 0, 0]} castShadow>
-        <sphereGeometry args={[0.07, 16, 16]} />
+      <mesh position={[-0.74, 0.05, 0.05]} castShadow>
+        <sphereGeometry args={[0.052, 16, 16]} />
         <Pearl />
       </mesh>
     </group>
@@ -133,13 +137,22 @@ function Ring() {
   return (
     <group position={[1.15, -1.55, 0.7]} rotation={[1.12, 0.1, 0.18]} scale={0.92}>
       <mesh castShadow>
-        <torusGeometry args={[0.34, 0.055, 14, 56]} />
-        <Steel roughness={0.2} />
+        <torusGeometry args={[0.34, 0.05, 12, 56]} />
+        <Steel roughness={0.16} />
       </mesh>
-      <mesh position={[0, 0.36, 0]} scale={[0.75, 1.1, 0.55]} castShadow>
-        <octahedronGeometry args={[0.2, 0]} />
-        <Steel roughness={0.12} />
+      <mesh position={[0, 0.36, 0]} scale={[0.8, 1.15, 0.6]} castShadow>
+        <octahedronGeometry args={[0.23, 0]} />
+        <meshStandardMaterial
+          color="#eef4ff"
+          metalness={0.28}
+          roughness={0.03}
+          envMapIntensity={2.8}
+          emissive="#7f9dff"
+          emissiveIntensity={0.28}
+          flatShading
+        />
       </mesh>
+      <pointLight position={[0, 0.55, 0.9]} intensity={1.5} distance={1.8} color="#e8f0ff" />
     </group>
   );
 }
