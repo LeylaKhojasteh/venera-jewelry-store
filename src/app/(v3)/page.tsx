@@ -7,22 +7,29 @@ import { NecklaceLine } from '@/components/v3/NecklaceLine';
 import { ProductRail } from '@/components/v3/ProductRail';
 import { LengthGuide } from '@/components/v3/LengthGuide';
 import { demoContact } from '@/lib/constants';
-import { formatToman } from '@/lib/money';
+import { formatDigits, formatToman } from '@/lib/money';
+import type { ProductCardData } from '@/types';
 
 export const metadata: Metadata = {
-  title: 'ونرا | زیورآلات استیل — خطی که می‌ماند',
+  title: 'ونرا | اکسسوری استیل — برای گردن، گوش، دست',
   description:
-    'چهار گردنبند استیل، طراحی و ساخت تهران. خطی که روی گردن می‌نشیند و با تو می‌ماند.',
+    'گردنبند، دستبند، گوشواره و انگشتر استیل؛ طراحی و ساخت تهران. اندازه و وزن هر قطعه در صفحهٔ محصول نوشته شده است.',
   alternates: { canonical: '/' },
 };
 
 export default async function V3HomePage() {
-  const necklaces = await getProductCards({
-    where: { category: { slug: 'necklace' } },
-    take: 4,
-    orderBy: [{ price: 'asc' }],
+  const products = await getProductCards({
+    take: 12,
+    orderBy: [{ isBestSeller: 'desc' }, { createdAt: 'desc' }],
   });
-  const cover = necklaces[3] ?? necklaces[0];
+
+  const railOrder = ['necklace', 'bracelet', 'earrings', 'ring'] as const;
+  const rail = railOrder
+    .map((slug) => products.find((product) => product.categorySlug === slug))
+    .filter((product): product is ProductCardData => Boolean(product));
+  const railProducts = rail.length > 0 ? rail : products.slice(0, 4);
+  const cover = products.find((product) => product.categorySlug === 'bracelet') ?? products[0];
+  const countOf = (slug: string) => products.filter((product) => product.categorySlug === slug).length;
 
   return (
     <>
@@ -31,13 +38,13 @@ export default async function V3HomePage() {
           <div className="v3-hero-grid">
             <div className="v3-hero-copy">
               <h1 className="v3-display">
-                یک خط،
+                برای گردن،
                 <br />
-                دور گردن.
+                گوش، دست.
               </h1>
               <p className="v3-lead">
-                چهار گردنبند استیل، طراحی و ساخت تهران. طول و وزن هر کدام در صفحهٔ محصول نوشته شده
-                است.
+                گردنبند، دستبند، گوشواره و انگشتر استیل؛ طراحی و ساخت تهران. اندازه و وزن هر قطعه
+                در صفحهٔ محصول نوشته شده است.
               </p>
               <div className="v3-hero-actions">
                 <Link href="/products" className="v3-btn v3-btn-solid">
@@ -50,16 +57,20 @@ export default async function V3HomePage() {
               </div>
               <div className="v3-hero-meta">
                 <span>
-                  <strong>۴ قطعه</strong>
-                  کالکشن گردنبند
+                  <strong>{formatDigits(countOf('necklace'))} گردنبند</strong>
+                  برای گردن
                 </span>
                 <span>
-                  <strong>استیل ۳۱۶</strong>
-                  بدون آبکاری رنگی
+                  <strong>{formatDigits(countOf('bracelet'))} دستبند</strong>
+                  برای مچ
                 </span>
                 <span>
-                  <strong>تهران</strong>
-                  طراحی و ساخت
+                  <strong>{formatDigits(countOf('earrings'))} گوشواره</strong>
+                  برای گوش
+                </span>
+                <span>
+                  <strong>{formatDigits(countOf('ring'))} انگشتر</strong>
+                  برای انگشت
                 </span>
               </div>
             </div>
@@ -69,7 +80,7 @@ export default async function V3HomePage() {
         </div>
       </section>
 
-      <ProductRail products={necklaces} />
+      <ProductRail products={railProducts} />
 
       <LengthGuide />
 
@@ -81,7 +92,8 @@ export default async function V3HomePage() {
                 با نام و قیمت
               </h2>
               <p className="v3-body" style={{ marginTop: '0.75rem', maxWidth: '36ch' }}>
-                چهار گردنبند، از کوتاه تا بلند. قیمت‌ها به تومان و موجودی در صفحهٔ هر قطعه به‌روز است.
+                همهٔ قطعه‌ها، از گردنبند و دستبند تا گوشواره و انگشتر. قیمت‌ها به تومان و موجودی در
+                صفحهٔ هر قطعه به‌روز است.
               </p>
             </div>
             <Link href="/products" className="v3-btn v3-btn-line">
@@ -102,7 +114,7 @@ export default async function V3HomePage() {
             ) : null}
 
             <div className="v3-index">
-              {necklaces.map((product) => (
+              {products.map((product) => (
                 <Link key={product.id} href={`/products/${product.slug}`} className="v3-row">
                   <span className="v3-row-media">
                     <Image src={product.image} alt={product.imageAlt} fill sizes="64px" />
@@ -145,12 +157,13 @@ export default async function V3HomePage() {
         <div className="v3-close">
           <div>
             <h2 id="close-title" className="v3-display">
-              خط را
+              قطعه‌ات را
               <br />
               انتخاب کن.
             </h2>
             <p className="v3-body" style={{ marginTop: '1.25rem', maxWidth: '34ch' }}>
-              اگر بین دو طول ماندی، بنویس؛ با هم انتخاب می‌کنیم. سفارش‌ها از همین سایت ثبت می‌شوند.
+              گردنبند، دستبند یا گوشواره؛ اگر بین دو اندازه ماندی بنویس، با هم انتخاب می‌کنیم. سفارش‌ها
+              از همین سایت ثبت می‌شوند.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '2rem' }}>
               <Link href="/products" className="v3-btn v3-btn-solid">

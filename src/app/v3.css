@@ -224,6 +224,18 @@ body:has(.v3-root) {
   color: var(--bone-dim);
 }
 
+.v3-logo-mark {
+  display: inline-block;
+  transition:
+    letter-spacing 500ms var(--ease),
+    color 300ms var(--ease);
+}
+
+.v3-logo:hover .v3-logo-mark {
+  letter-spacing: 0.38em;
+  color: var(--copper);
+}
+
 .v3-nav {
   display: none;
   align-items: center;
@@ -231,10 +243,29 @@ body:has(.v3-root) {
 }
 
 .v3-nav a {
+  position: relative;
   padding-block: 0.6rem;
   font-size: 16px;
   color: var(--bone-dim);
   transition: color 180ms var(--ease);
+}
+
+.v3-nav a::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--copper);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms var(--ease);
+}
+
+.v3-nav a:hover::after,
+.v3-nav a:focus-visible::after,
+.v3-nav a[aria-current='page']::after {
+  transform: scaleX(1);
 }
 
 .v3-nav a:hover,
@@ -718,6 +749,30 @@ body:has(.v3-root) {
 
 .v3-footer a:hover {
   color: var(--copper);
+}
+
+.v3-foot-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--bone-dim);
+  transition: color 220ms var(--ease);
+}
+
+.v3-foot-link::before {
+  content: '';
+  width: 0;
+  height: 1px;
+  background: var(--copper);
+  transition: width 300ms var(--ease);
+}
+
+.v3-foot-link:hover {
+  color: var(--copper);
+}
+
+.v3-foot-link:hover::before {
+  width: 0.75rem;
 }
 
 .v3-footer-bottom {

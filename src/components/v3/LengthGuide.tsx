@@ -21,11 +21,11 @@ export function LengthGuide() {
         <div className="v3-guide">
           <div>
             <h2 id="fit-title" className="v3-h2">
-              نشستن روی گردن
+              نشستن گردنبند
             </h2>
             <p className="v3-body" style={{ marginTop: '1rem', maxWidth: '36ch' }}>
-              طول زنجیر را انتخاب کن؛ خط روی گردن جابه‌جا می‌شود. اندازه‌ها واقعی‌اند و همان‌هایی که در
-              صفحهٔ محصول انتخاب می‌کنی.
+              طول زنجیر گردنبند را انتخاب کن؛ خط روی گردن جابه‌جا می‌شود. برای دستبند و انگشتر، اندازه
+              در صفحهٔ همان قطعه آمده است.
             </p>
 
             <div className="v3-guide-options" role="group" aria-label="طول گردنبند">

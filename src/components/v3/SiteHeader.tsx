@@ -20,7 +20,7 @@ export function SiteHeader({ user }: { user: SessionUser | null }) {
   const { count } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [light, setLight] = useState(false);
+  const [light, setLight] = useState(true);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -68,7 +68,7 @@ export function SiteHeader({ user }: { user: SessionUser | null }) {
       <div className="v3-shell">
         <div className="v3-header-inner">
           <Link href="/" className="v3-logo" aria-label="ونرا، صفحهٔ اصلی">
-            VENERA <small>ونرا</small>
+            <span className="v3-logo-mark">VENERA</span> <small>ونرا</small>
           </Link>
 
           <nav className="v3-nav" aria-label="ناوبری اصلی">
@@ -118,7 +118,7 @@ export function SiteHeader({ user }: { user: SessionUser | null }) {
         <div className="v3-menu-panel" id="v3-menu" role="dialog" aria-modal="true" aria-label="منوی سایت">
           <div className="v3-menu-head">
             <span className="v3-logo">
-              VENERA <small>ونرا</small>
+              <span className="v3-logo-mark">VENERA</span> <small>ونرا</small>
             </span>
             <button
               type="button"

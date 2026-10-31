@@ -97,7 +97,7 @@ export function NecklaceLine() {
           </motion.g>
         </svg>
       </motion.div>
-      <span className="v3-art-caption">استیل ۳۱۶ / خط ۴۵ سانتیمتر</span>
+      <span className="v3-art-caption">استیل ۳۱۶ / طراحی تهران</span>
     </div>
   );
 }

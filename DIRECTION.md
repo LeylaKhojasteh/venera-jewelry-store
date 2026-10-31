@@ -1,10 +1,11 @@
 # DIRECTION — Venera v3
 
 **Brief (self-authored from the owner's instruction).** A storefront for Venera, a Tehran
-accessories atelier selling steel jewellery. The visitor should understand in ten seconds: this
-is a small, contemporary collection, made of 316 steel, and they can browse four necklaces now.
-The one action: open the collection. The owner asked for a completely new visual taste, no product
-photo as the hero, and real motion inside the visual — not decoration around it.
+accessories atelier selling steel necklaces, bracelets, earrings and rings. The visitor should
+understand in ten seconds: this is a small, contemporary accessories collection, made of 316 steel,
+and they can browse it now. The one action: open the collection. The owner asked for a completely new
+visual taste, no product photo as the hero, real motion inside the visual, a light theme using the
+previous brand palette, and the header/footer hover motion carried over from the old build.
 
 ## The category default being refused
 
@@ -42,10 +43,11 @@ Three explorations considered:
 | Type — Persian | **Estedad** 400 body / 800 display |
 | Type — Latin logotype and numerals | **Bodoni Moda** 500 |
 
-Two grounds, one geometry. **Night** is the default (above). **Light** restores the brand's previous
-ivory/plum/rose-gold palette — paper `#F7F2EA`, raised `#EFE6D9`, ink `#3A1B24`, muted `#5A4740`,
-accent `#A25E4A` — with the same type, grid, line art and motion. The header toggle stores the choice
-in `localStorage`; an inline boot script applies it before first paint, so there is no flash.
+Two grounds, one geometry. **Light** is the default: the brand's ivory/plum/rose-gold palette —
+paper `#F7F2EA`, raised `#EFE6D9`, ink `#3A1B24`, muted `#5A4740`, accent `#A25E4A`. **Night** is the
+optional dark ground (ground `#0B0A0C`, bone `#EDE6D8`, copper `#C4714C`). Type, grid, line art and
+motion are identical in both. The header toggle stores the choice in `localStorage`; an inline boot
+script applies the saved dark theme before first paint, so there is no flash.
 
 Scale: 13 / 16 / 20 / 32–44 / 56–110. Radius: 0 everywhere (the objects are sharp; only the bead is
 round). Grid: 12 columns, 1440 max, 5vw margins. Spacing: 8px base, sections 7–10rem.
@@ -57,10 +59,12 @@ photography used as plates in the rail — never as a hero backdrop. The visitor
 the sections:
 
 1. What is this? → hero: the line, the name, one sentence, one action.
-2. What do you sell? → four-piece rail: name, steel, price.
-3. How will it sit on me? → length guide: 40 / 45 / 50 cm on a drawn neckline.
+2. What do you sell? → accessories rail: one necklace, one bracelet, one pair of earrings, one ring,
+   each with steel and price.
+3. How will it sit on me? → necklace length guide: 40 / 45 / 50 cm on a drawn neckline (other sizes
+   live on each product page).
 4. What is it made of? → one materials statement, set as a sentence.
-5. Which one? → index: four rows, name and price, no cards.
+5. Which one? → the full index: name, category and price, no cards.
 6. How do I reach you? → close with the atelier's contact and the footer.
 
 Five to six sections; no features, no testimonials, no FAQ, no logo strip.
@@ -72,6 +76,11 @@ beads arrive 60ms apart on springs, the pendant settles with a damped swing. Poi
 the whole drawing ±7° through springs; scroll lifts it 40px. The pendant keeps swinging at 7s when
 idle. Reduced motion: the path is fully drawn at first paint, no beads pop, no swing, pointer tilt is
 disabled. Content is visible without JavaScript.
+
+**Carried over from the old build.** Header links grow a copper rule from the right on hover/focus
+(300ms, scaleX 0→1); the logotype opens its tracking from .30em to .38em; footer links grow a 12px
+copper rule before the label and warm to the accent. All three are CSS-only and respect reduced
+motion.
 
 ## Voice
 

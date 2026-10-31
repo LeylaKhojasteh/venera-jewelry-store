@@ -13,7 +13,7 @@ async function shot(page: import('@playwright/test').Page, name: string, width: 
 test.describe('storefront', () => {
   test('home, navigation and catalog filters work against the database', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('heading', { level: 1 })).toContainText('یک خط');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('برای گردن');
     await expect(page.getByRole('link', { name: /دیدن کالکشن/ }).first()).toBeVisible();
     await expect(page.locator('.v3-card')).toHaveCount(4);
 
@@ -214,20 +214,41 @@ test.describe('responsive', () => {
     expect(state.brokenImages).toEqual([]);
   });
 
-  test('light theme toggles, persists and keeps its palette', async ({ page }) => {
+  test('light theme is the default, toggles and persists', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
 
-    await expect(page.locator('.v3-root')).toHaveCSS('background-color', 'rgb(11, 10, 12)');
-    await page.getByRole('button', { name: 'تغییر به تم روشن' }).click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
     await expect(page.locator('.v3-root')).toHaveCSS('background-color', 'rgb(247, 242, 234)');
     await expect(page.locator('h1')).toHaveCSS('color', 'rgb(58, 27, 36)');
 
-    await page.reload();
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
     await page.getByRole('button', { name: 'تغییر به تم تیره' }).click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await expect(page.locator('.v3-root')).toHaveCSS('background-color', 'rgb(11, 10, 12)');
+
+    await page.reload();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await page.getByRole('button', { name: 'تغییر به تم روشن' }).click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  });
+
+  test('header and footer links animate on hover', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+
+    const nav = page.locator('.v3-nav a').filter({ hasText: 'محصولات' });
+    await nav.hover();
+    await page.waitForTimeout(400);
+    const underline = await nav.evaluate((element) => getComputedStyle(element, '::after').transform);
+    expect(underline).toContain('matrix(1');
+
+    const footerLink = page.locator('.v3-foot-link').first();
+    await footerLink.scrollIntoViewIfNeeded();
+    await footerLink.hover();
+    await page.waitForTimeout(400);
+    const rule = await footerLink.evaluate((element) => getComputedStyle(element, '::before').width);
+    expect(rule).toBe('12px');
   });
 
   test('layout quality: tap targets, grid columns, clipping and hero CTA', async ({ page }) => {

@@ -20,7 +20,7 @@ export default async function V3Layout({ children }: { children: ReactNode }) {
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{if(localStorage.getItem('venera-theme')==='light'){document.documentElement.dataset.theme='light'}}catch(e){}",
+              "try{if(localStorage.getItem('venera-theme')==='dark'){document.documentElement.dataset.theme='dark'}}catch(e){}",
           }}
         />
         <link

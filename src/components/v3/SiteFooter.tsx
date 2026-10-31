@@ -4,6 +4,14 @@ import { demoContact } from '@/lib/constants';
 import { formatJalaliNumeric } from '@/lib/dates';
 import type { CategoryData } from '@/types';
 
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link href={href} className="v3-foot-link">
+      {children}
+    </Link>
+  );
+}
+
 export function SiteFooter({ categories }: { categories: CategoryData[] }) {
   const year = formatJalaliNumeric(new Date()).split('/')[0];
 
@@ -13,7 +21,7 @@ export function SiteFooter({ categories }: { categories: CategoryData[] }) {
         <div className="v3-footer-grid">
           <div>
             <Link href="/" className="v3-logo" aria-label="ونرا">
-              VENERA <small>ونرا</small>
+              <span className="v3-logo-mark">VENERA</span> <small>ونرا</small>
             </Link>
             <p className="v3-body" style={{ marginTop: '1.25rem', maxWidth: '24ch' }}>
               زیورآلات استیل، طراحی و ساخت تهران. کالکشن کوچک، جزئیات روشن.
@@ -36,7 +44,7 @@ export function SiteFooter({ categories }: { categories: CategoryData[] }) {
             <ul>
               {categories.map((category) => (
                 <li key={category.slug}>
-                  <Link href={`/products?category=${category.slug}`}>{category.name}</Link>
+                  <FooterLink href={`/products?category=${category.slug}`}>{category.name}</FooterLink>
                 </li>
               ))}
             </ul>
@@ -46,19 +54,19 @@ export function SiteFooter({ categories }: { categories: CategoryData[] }) {
             <h3>فروشگاه</h3>
             <ul>
               <li>
-                <Link href="/products">همهٔ محصولات</Link>
+                <FooterLink href="/products">همهٔ محصولات</FooterLink>
               </li>
               <li>
-                <Link href="/products?sort=bestseller">پرفروش‌ها</Link>
+                <FooterLink href="/products?sort=bestseller">پرفروش‌ها</FooterLink>
               </li>
               <li>
-                <Link href="/products?discount=1">تخفیف‌دارها</Link>
+                <FooterLink href="/products?discount=1">تخفیف‌دارها</FooterLink>
               </li>
               <li>
-                <Link href="/about">داستان ونرا</Link>
+                <FooterLink href="/about">داستان ونرا</FooterLink>
               </li>
               <li>
-                <Link href="/contact">تماس</Link>
+                <FooterLink href="/contact">تماس</FooterLink>
               </li>
             </ul>
           </div>
