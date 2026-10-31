@@ -110,17 +110,17 @@ function Chain({ count = 88 }: { count?: number }) {
   return (
     <group>
       {links.map((link, index) => (
-        <mesh key={index} position={link.position} quaternion={link.quaternion} castShadow>
+        <mesh key={index} position={link.position} quaternion={link.quaternion} castShadow receiveShadow>
           <torusGeometry args={[0.044, 0.009, 6, 16]} />
           <Steel />
         </mesh>
       ))}
 
-      <mesh position={[0, -1.02, 0.06]} castShadow>
+      <mesh position={[0, -1.02, 0.06]} castShadow receiveShadow>
         <torusGeometry args={[0.05, 0.011, 6, 18]} />
         <Steel />
       </mesh>
-      <mesh position={[0.06, -1.42, 0.08]} castShadow>
+      <mesh position={[0.06, -1.42, 0.08]} castShadow receiveShadow>
         <extrudeGeometry args={[CRESCENT_SHAPE, CRESCENT_EXTRUDE]} />
         <meshStandardMaterial
           color="#d7d7dc"
@@ -140,11 +140,11 @@ function Chain({ count = 88 }: { count?: number }) {
 function Bracelet() {
   return (
     <group position={[-2.05, -0.95, 0.25]} rotation={[0.55, 0.35, 0.2]} scale={0.92}>
-      <mesh rotation={[0.06, 0.28, 0.12]} castShadow>
+      <mesh rotation={[0.06, 0.28, 0.12]} castShadow receiveShadow>
         <torusGeometry args={[0.79, 0.03, 10, 64]} />
         <Steel roughness={0.18} />
       </mesh>
-      <mesh position={[0.02, 0.015, 0.02]} rotation={[-0.08, -0.18, -0.18]} castShadow>
+      <mesh position={[0.02, 0.015, 0.02]} rotation={[-0.08, -0.18, -0.18]} castShadow receiveShadow>
         <torusGeometry args={[0.77, 0.028, 10, 64]} />
         <Steel roughness={0.18} />
       </mesh>
@@ -155,23 +155,23 @@ function Bracelet() {
 function Earring({ x, rotation = 0 }: { x: number; rotation?: number }) {
   return (
     <group position={[x, 0.95, 0.2]} rotation={[0.1, 0.2, rotation]}>
-      <mesh castShadow>
+      <mesh castShadow receiveShadow>
         <torusGeometry args={[0.15, 0.017, 8, 28, Math.PI * 1.55]} />
         <Steel />
       </mesh>
-      <mesh position={[0.012, -0.2, 0]} rotation={[0, 0, -0.08]} castShadow>
+      <mesh position={[0.012, -0.2, 0]} rotation={[0, 0, -0.08]} castShadow receiveShadow>
         <cylinderGeometry args={[0.012, 0.012, 0.14, 8]} />
         <Steel />
       </mesh>
-      <mesh position={[0, -0.26, 0]} castShadow>
+      <mesh position={[0, -0.26, 0]} castShadow receiveShadow>
         <sphereGeometry args={[0.04, 14, 14]} />
         <Steel />
       </mesh>
-      <mesh position={[0, -0.275, 0]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh position={[0, -0.275, 0]} rotation={[Math.PI / 2, 0, 0]} receiveShadow>
         <torusGeometry args={[0.045, 0.01, 8, 18]} />
         <meshStandardMaterial color="#7a7a82" metalness={0.2} roughness={0.7} />
       </mesh>
-      <mesh position={[0, -0.44, 0]} scale={[1, 1.25, 1]} castShadow>
+      <mesh position={[0, -0.44, 0]} scale={[1, 1.25, 1]} castShadow receiveShadow>
         <sphereGeometry args={[0.15, 24, 24]} />
         <EarringPearl />
       </mesh>
@@ -185,27 +185,26 @@ function Ring() {
       <mesh castShadow>
         <torusGeometry args={[0.34, 0.05, 12, 56]} />
         <meshStandardMaterial
-          color="#e2e2e7"
+          color="#dedee3"
           metalness={0.9}
-          roughness={0.24}
-          envMapIntensity={2.4}
-          emissive="#2e2e34"
-          emissiveIntensity={0.22}
+          roughness={0.28}
+          envMapIntensity={1.8}
+          emissive="#1c1c20"
+          emissiveIntensity={0.08}
         />
       </mesh>
-      <mesh position={[0, 0.335, 0]} castShadow>
+      <mesh position={[0, 0.335, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[0.035, 0.05, 0.035, 16]} />
         <Steel roughness={0.18} />
       </mesh>
-      <mesh position={[0, 0.325, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+      <mesh position={[0, 0.325, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
         <torusGeometry args={[0.048, 0.007, 8, 20]} />
         <Steel roughness={0.18} />
       </mesh>
-      <mesh position={[0, 0.44, 0]} scale={[1, 1.35, 1]} castShadow>
+      <mesh position={[0, 0.44, 0]} scale={[1, 1.35, 1]} castShadow receiveShadow>
         <sphereGeometry args={[0.08, 32, 32]} />
         <Pearl />
       </mesh>
-      <pointLight position={[-0.18, 0.22, -0.8]} intensity={1} distance={2.2} color="#ffffff" />
       <pointLight position={[0, 0.7, 0.6]} intensity={0.35} distance={1.1} color="#fff4e6" />
     </group>
   );
@@ -243,17 +242,33 @@ export function JewelryStage() {
   return (
     <div className="v3-hero-art v3-hero-3d" data-hero="true">
       <Canvas
+        shadows
         dpr={[1, 1.8]}
         camera={{ position: [0, 0, 12], fov: 34 }}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         style={{ width: '100%', height: '100%', touchAction: 'pan-y' }}
       >
-        <ambientLight intensity={0.55} />
-        <directionalLight position={[3, 4, 5]} intensity={2.3} color="#fff5ea" />
-        <directionalLight position={[-4, 2, -2]} intensity={1.5} color="#e6ad8b" />
-        <directionalLight position={[0, 2, 8]} intensity={0.65} color="#ffffff" />
-        <pointLight position={[2.2, 1.9, 1.5]} intensity={1.1} distance={2.5} color="#fff6e6" />
-        <pointLight position={[0, -3, 3]} intensity={0.7} color="#ffffff" />
+        <ambientLight intensity={0.36} />
+        <directionalLight
+          position={[3, 4, 5]}
+          intensity={2.2}
+          color="#fff5ea"
+          castShadow
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+          shadow-camera-left={-4}
+          shadow-camera-right={4}
+          shadow-camera-top={4}
+          shadow-camera-bottom={-4}
+          shadow-camera-near={0.5}
+          shadow-camera-far={20}
+          shadow-bias={-0.0004}
+          shadow-normalBias={0.02}
+        />
+        <directionalLight position={[-4, 2, -2]} intensity={1.3} color="#e6ad8b" />
+        <directionalLight position={[0, 2, 8]} intensity={0.32} color="#ffffff" />
+        <pointLight position={[2.2, 1.9, 1.5]} intensity={0.55} distance={2.5} color="#fff6e6" />
+        <pointLight position={[0, -3, 3]} intensity={0.5} color="#ffffff" />
 
         <Suspense fallback={null}>
           <Environment resolution={64} frames={1}>
