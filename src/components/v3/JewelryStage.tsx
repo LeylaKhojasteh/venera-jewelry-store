@@ -34,20 +34,29 @@ function Pearl() {
 }
 
 const CRESCENT_SHAPE = (() => {
+  const outerRadius = 0.36;
+  const innerRadius = 0.3;
+  const offset = 0.14;
+  const tipX = (outerRadius * outerRadius + offset * offset - innerRadius * innerRadius) / (2 * offset);
+  const tipY = Math.sqrt(Math.max(0, outerRadius * outerRadius - tipX * tipX));
+  const outerAngle = Math.atan2(tipY, tipX);
+  const innerAngle = Math.atan2(tipY, tipX - offset);
+
   const shape = new THREE.Shape();
-  shape.moveTo(0.02, 0.34);
-  shape.bezierCurveTo(-0.3, 0.28, -0.34, -0.18, 0.02, -0.34);
-  shape.bezierCurveTo(-0.1, -0.16, -0.1, 0.16, 0.02, 0.34);
+  shape.moveTo(tipX, tipY);
+  shape.absarc(0, 0, outerRadius, outerAngle, -outerAngle, false);
+  shape.absarc(offset, 0, innerRadius, -innerAngle, innerAngle, true);
+  shape.closePath();
   return shape;
 })();
 
 const CRESCENT_EXTRUDE = {
   depth: 0.055,
   bevelEnabled: true,
-  bevelSize: 0.012,
-  bevelThickness: 0.012,
-  bevelSegments: 3,
-  curveSegments: 24,
+  bevelSize: 0.01,
+  bevelThickness: 0.01,
+  bevelSegments: 4,
+  curveSegments: 40,
 };
 
 function Chain({ count = 88 }: { count?: number }) {
@@ -95,7 +104,11 @@ function Chain({ count = 88 }: { count?: number }) {
         <torusGeometry args={[0.05, 0.011, 6, 18]} />
         <Steel />
       </mesh>
-      <mesh position={[0, -1.42, 0.08]} castShadow>
+      <mesh position={[0, -1.11, 0.07]} castShadow>
+        <torusGeometry args={[0.028, 0.008, 6, 14]} />
+        <Steel />
+      </mesh>
+      <mesh position={[-0.211, -1.45, 0.08]} castShadow>
         <extrudeGeometry args={[CRESCENT_SHAPE, CRESCENT_EXTRUDE]} />
         <Steel roughness={0.14} />
       </mesh>
@@ -156,10 +169,19 @@ function Ring() {
         <torusGeometry args={[0.34, 0.05, 12, 56]} />
         <Steel roughness={0.16} />
       </mesh>
-      <mesh position={[0, 0.44, 0.02]} scale={[0.5, 0.5, 0.7]} castShadow>
-        <extrudeGeometry args={[CRESCENT_SHAPE, CRESCENT_EXTRUDE]} />
-        <Steel roughness={0.14} />
+      <mesh position={[0, 0.32, 0]} castShadow>
+        <cylinderGeometry args={[0.07, 0.1, 0.07, 18]} />
+        <Steel roughness={0.18} />
       </mesh>
+      <mesh position={[0, 0.29, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+        <torusGeometry args={[0.095, 0.014, 8, 22]} />
+        <Steel roughness={0.18} />
+      </mesh>
+      <mesh position={[0, 0.52, 0]} scale={[1, 1.35, 1]} castShadow>
+        <sphereGeometry args={[0.16, 32, 32]} />
+        <Pearl />
+      </mesh>
+      <pointLight position={[0, 0.85, 0.7]} intensity={0.7} distance={1.4} color="#fff4e6" />
     </group>
   );
 }

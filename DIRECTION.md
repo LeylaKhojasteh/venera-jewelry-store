@@ -78,7 +78,7 @@ idle. Reduced motion: the path is fully drawn at first paint, no beads pop, no s
 disabled. Content is visible without JavaScript.
 
 **The 3D stage (v5).** The hero is now a real-time Three.js scene: a torus-link chain with an extruded
-crescent pendant, a double bangle, pearl-drop earrings and a crescent ring, all in brushed steel with
+crescent pendant, a double bangle, pearl-drop earrings and a pearl ring, all in brushed steel with
 white pearls. Custom light-formers build the reflection map without downloading an HDRI; a contact
 shadow grounds the set.
 The group follows the pointer on damped springs, with a slow idle sway. It is lazy-loaded after a
