@@ -16,6 +16,7 @@ next-env.d.ts
 .DS_Store
 Thumbs.db
 .vercel
+.taste-skill
 
 # raw photos dropped for processing (keep the instructions tracked)
 incoming/*

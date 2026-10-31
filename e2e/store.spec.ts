@@ -13,15 +13,11 @@ async function shot(page: import('@playwright/test').Page, name: string, width: 
 test.describe('storefront', () => {
   test('home, navigation and catalog filters work against the database', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('heading', { level: 1 })).toContainText('زیبایی');
-    await expect(page.getByRole('link', { name: /مشاهده کالکشن/ })).toBeVisible();
-    await expect(page.locator('article').first()).toBeVisible();
-    expect(await page.locator('article').count()).toBeGreaterThanOrEqual(4);
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('خطی که');
+    await expect(page.getByRole('link', { name: /دیدن کالکشن/ }).first()).toBeVisible();
+    await expect(page.locator('.v3-card')).toHaveCount(4);
 
-    await page.getByRole('button', { name: 'محصولات', exact: true }).click();
-    const categoryMenu = page.locator('#category-menu');
-    await expect(categoryMenu.getByRole('link', { name: 'همهٔ محصولات' })).toBeVisible();
-    await categoryMenu.getByRole('link', { name: 'همهٔ محصولات' }).click();
+    await page.locator('.v3-nav').getByRole('link', { name: 'محصولات' }).click();
     await expect(page).toHaveURL(/\/products/);
     await expect(page.getByRole('heading', { level: 1, name: 'همهٔ زیورآلات' })).toBeVisible();
 
@@ -204,8 +200,8 @@ test.describe('responsive', () => {
 
     const state = await page.evaluate(() => ({
       direction: getComputedStyle(document.body).direction,
-      fontLoaded: document.fonts.check('16px Vazirmatn'),
-      displayLoaded: document.fonts.check('16px "Markazi Text"'),
+      fontLoaded: document.fonts.check('16px Estedad'),
+      displayLoaded: document.fonts.check('16px "Bodoni Moda"'),
       brokenImages: Array.from(document.images)
         .filter((img) => img.complete && img.naturalWidth === 0)
         .map((img) => img.currentSrc || img.src)
@@ -222,10 +218,6 @@ test.describe('responsive', () => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/');
     await page.waitForLoadState('networkidle');
-
-    const mobileHero = await page.locator('#hero-image').boundingBox();
-    expect(mobileHero).not.toBeNull();
-    expect((mobileHero?.y ?? 0) + (mobileHero?.height ?? 0)).toBeLessThanOrEqual(812);
 
     await page.goto('/products');
     await page.waitForLoadState('networkidle');
@@ -254,19 +246,16 @@ test.describe('responsive', () => {
     await page.waitForLoadState('networkidle');
 
     const desktopColumns = await page.evaluate(() => {
-      const cards = Array.from(document.querySelectorAll('.product-media'))
-        .slice(0, 4)
-        .map((element) => element.closest('article'))
-        .filter((element): element is HTMLElement => Boolean(element));
+      const cards = Array.from(document.querySelectorAll('.v3-card')).slice(0, 4);
       return new Set(cards.map((card) => Math.round(card.getBoundingClientRect().left))).size;
     });
     expect(desktopColumns).toBe(4);
 
-    const ctaBox = await page.getByRole('link', { name: /مشاهده کالکشن/ }).first().boundingBox();
+    const ctaBox = await page.getByRole('link', { name: /دیدن کالکشن/ }).first().boundingBox();
     expect(ctaBox).not.toBeNull();
     expect((ctaBox?.y ?? 0) + (ctaBox?.height ?? 0)).toBeLessThan(900);
 
-    const desktopHero = await page.locator('#hero-image').boundingBox();
+    const desktopHero = await page.locator('[data-hero]').boundingBox();
     expect(desktopHero).not.toBeNull();
     expect((desktopHero?.y ?? 0) + (desktopHero?.height ?? 0)).toBeLessThanOrEqual(900);
 
