@@ -6,6 +6,7 @@ import { emptyCart, getCartForUser } from '@/lib/cart';
 import { CartProvider } from '@/components/cart/CartProvider';
 import { SiteHeader } from '@/components/v3/SiteHeader';
 import { SiteFooter } from '@/components/v3/SiteFooter';
+import { ScrollProgress } from '@/components/v3/ScrollProgress';
 
 export default async function V3Layout({ children }: { children: ReactNode }) {
   const user = await getCurrentUser();
@@ -37,7 +38,8 @@ export default async function V3Layout({ children }: { children: ReactNode }) {
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <SiteHeader user={user} />
+        <ScrollProgress />
+        <SiteHeader user={user} categories={categories} />
         <main>{children}</main>
         <SiteFooter categories={categories} />
       </div>

@@ -82,6 +82,30 @@ disabled. Content is visible without JavaScript.
 copper rule before the label and warm to the accent. All three are CSS-only and respect reduced
 motion.
 
+## v4 — the motion layer
+
+Six additions, all on the same geometry:
+
+1. **Cinematic menu** — the panel opens as a circular curtain from the menu button, five links rise
+   in sequence, hovering dims the others, and a category photograph previews on the right. Focus is
+   trapped, Escape closes, focus returns.
+2. **Magnetic CTA + theme wipe** — the primary action drifts after a fine pointer on a spring; the
+   theme toggle uses the View Transitions API to reveal the new ground as a circle from the button
+   (instant fallback, reduced-motion respected).
+3. **Quick view** — a product card morphs into a dialog with image, description, sizes, price and
+   add-to-cart, so the old product page is no longer the only way in.
+4. **Cart drawer** — the header bag opens a slide-over with lines, quantity steppers, subtotal,
+   shipping and checkout; adding from quick view opens it.
+5. **Category story** — a 2.4-screen pinned section where the line drawing changes from necklace to
+   bracelet, earring and ring, with the matching piece and price beside it. Below 900px it becomes a
+   plain four-row list.
+6. **Scroll progress + image settle** — a 2px copper progress rule, and images settle from a slight
+   scale as they enter; both CSS-only.
+
+The sources for these patterns were AIMRAN's editorial menu, magnetic button and expanding card,
+useLayouts' theme toggle and scroll-stack patterns, and Watermelon's block catalogue. The glass,
+gradient-border and gooey variants were deliberately not used.
+
 ## Voice
 
 Plain, specific, quiet. No "elevate", no "timeless", no two-beat aphorism. Prices in Toman. Product

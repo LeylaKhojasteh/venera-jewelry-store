@@ -6,6 +6,8 @@ import { getProductCards } from '@/lib/catalog';
 import { NecklaceLine } from '@/components/v3/NecklaceLine';
 import { ProductRail } from '@/components/v3/ProductRail';
 import { LengthGuide } from '@/components/v3/LengthGuide';
+import { CategoryStory } from '@/components/v3/CategoryStory';
+import { Magnetic } from '@/components/v3/Magnetic';
 import { demoContact } from '@/lib/constants';
 import { formatDigits, formatToman } from '@/lib/money';
 import type { ProductCardData } from '@/types';
@@ -47,10 +49,12 @@ export default async function V3HomePage() {
                 در صفحهٔ محصول نوشته شده است.
               </p>
               <div className="v3-hero-actions">
-                <Link href="/products" className="v3-btn v3-btn-solid">
-                  دیدن کالکشن
-                  <ArrowUpLeft aria-hidden="true" size={17} />
-                </Link>
+                <Magnetic>
+                  <Link href="/products" className="v3-btn v3-btn-solid">
+                    دیدن کالکشن
+                    <ArrowUpLeft aria-hidden="true" size={17} />
+                  </Link>
+                </Magnetic>
                 <Link href="/about" className="v3-btn v3-btn-line">
                   داستان ونرا
                 </Link>
@@ -81,6 +85,8 @@ export default async function V3HomePage() {
       </section>
 
       <ProductRail products={railProducts} />
+
+      <CategoryStory products={railProducts} />
 
       <LengthGuide />
 
@@ -166,9 +172,11 @@ export default async function V3HomePage() {
               از همین سایت ثبت می‌شوند.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '2rem' }}>
-              <Link href="/products" className="v3-btn v3-btn-solid">
-                دیدن کالکشن
-              </Link>
+              <Magnetic>
+                <Link href="/products" className="v3-btn v3-btn-solid">
+                  دیدن کالکشن
+                </Link>
+              </Magnetic>
               <a href={`mailto:${demoContact.email}`} className="v3-btn v3-btn-line">
                 نوشتن به ونرا
               </a>

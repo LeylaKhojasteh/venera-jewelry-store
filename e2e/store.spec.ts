@@ -251,6 +251,28 @@ test.describe('responsive', () => {
     expect(rule).toBe('12px');
   });
 
+  test('cinematic menu opens, previews and closes with Escape', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('button', { name: 'منو' }).click();
+    await expect(page.locator('.v3-menu-panel')).toBeVisible();
+    await expect(page.locator('.v3-menu-links a')).toHaveCount(5);
+    await expect(page.locator('.v3-menu-preview img')).toHaveCount(1);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('.v3-menu-panel')).toHaveCount(0);
+  });
+
+  test('quick view adds a piece and opens the cart drawer', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.v3-card-open').first().click();
+    await expect(page.locator('.v3-qv')).toBeVisible();
+    await expect(page.locator('.v3-qv-variants .v3-choice').first()).toBeVisible();
+    await page.locator('.v3-qv-variants .v3-choice').first().click();
+    await page.getByRole('button', { name: 'افزودن به سبد' }).click();
+    await expect(page.locator('.v3-drawer')).toBeVisible();
+    await expect(page.locator('.v3-drawer-line')).toHaveCount(1);
+    await page.getByRole('button', { name: 'بستن سبد' }).click();
+  });
+
   test('layout quality: tap targets, grid columns, clipping and hero CTA', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/');

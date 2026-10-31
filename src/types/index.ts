@@ -44,6 +44,21 @@ export type ProductDetailData = ProductCardData & {
   createdAt: string;
 };
 
+export type QuickViewData = {
+  id: string;
+  slug: string;
+  name: string;
+  price: number;
+  compareAtPrice: number | null;
+  description: string;
+  materials: string;
+  categoryName: string;
+  inStock: boolean;
+  stock: number;
+  images: { url: string; alt: string }[];
+  variants: ProductVariantData[];
+};
+
 export type CartLineData = {
   productId: string;
   slug: string;
