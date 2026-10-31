@@ -33,6 +33,22 @@ function Pearl() {
   );
 }
 
+function EarringPearl() {
+  return (
+    <meshPhysicalMaterial
+      color="#fffaf4"
+      roughness={0.4}
+      metalness={0.02}
+      clearcoat={0.35}
+      clearcoatRoughness={0.4}
+      envMapIntensity={0.65}
+      sheen={0.8}
+      sheenColor="#fff1e2"
+      sheenRoughness={0.5}
+    />
+  );
+}
+
 const CRESCENT_SHAPE = (() => {
   const outerRadius = 0.36;
   const innerRadius = 0.3;
@@ -117,10 +133,6 @@ function Chain({ count = 88 }: { count?: number }) {
         />
       </mesh>
       <pointLight position={[0.1, -1.3, 1.1]} intensity={0.7} distance={1.8} color="#ffffff" />
-      <mesh position={[0, -0.9, 0.06]} castShadow>
-        <sphereGeometry args={[0.055, 18, 18]} />
-        <meshStandardMaterial color="#c4714c" metalness={0.7} roughness={0.28} />
-      </mesh>
     </group>
   );
 }
@@ -155,9 +167,13 @@ function Earring({ x, rotation = 0 }: { x: number; rotation?: number }) {
         <sphereGeometry args={[0.04, 14, 14]} />
         <Steel />
       </mesh>
+      <mesh position={[0, -0.275, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.045, 0.01, 8, 18]} />
+        <meshStandardMaterial color="#7a7a82" metalness={0.2} roughness={0.7} />
+      </mesh>
       <mesh position={[0, -0.44, 0]} scale={[1, 1.25, 1]} castShadow>
         <sphereGeometry args={[0.15, 24, 24]} />
-        <Pearl />
+        <EarringPearl />
       </mesh>
     </group>
   );
@@ -168,7 +184,14 @@ function Ring() {
     <group position={[1.15, -1.55, 0.7]} rotation={[1.12, 0.1, 0.18]} scale={0.92}>
       <mesh castShadow>
         <torusGeometry args={[0.34, 0.05, 12, 56]} />
-        <Steel roughness={0.16} />
+        <meshStandardMaterial
+          color="#e2e2e7"
+          metalness={0.9}
+          roughness={0.24}
+          envMapIntensity={2.4}
+          emissive="#2e2e34"
+          emissiveIntensity={0.22}
+        />
       </mesh>
       <mesh position={[0, 0.335, 0]} castShadow>
         <cylinderGeometry args={[0.035, 0.05, 0.035, 16]} />
@@ -182,6 +205,7 @@ function Ring() {
         <sphereGeometry args={[0.08, 32, 32]} />
         <Pearl />
       </mesh>
+      <pointLight position={[-0.18, 0.22, -0.8]} intensity={1} distance={2.2} color="#ffffff" />
       <pointLight position={[0, 0.7, 0.6]} intensity={0.35} distance={1.1} color="#fff4e6" />
     </group>
   );
@@ -228,6 +252,7 @@ export function JewelryStage() {
         <directionalLight position={[3, 4, 5]} intensity={2.3} color="#fff5ea" />
         <directionalLight position={[-4, 2, -2]} intensity={1.5} color="#e6ad8b" />
         <directionalLight position={[0, 2, 8]} intensity={0.65} color="#ffffff" />
+        <pointLight position={[2.2, 1.9, 1.5]} intensity={1.1} distance={2.5} color="#fff6e6" />
         <pointLight position={[0, -3, 3]} intensity={0.7} color="#ffffff" />
 
         <Suspense fallback={null}>
