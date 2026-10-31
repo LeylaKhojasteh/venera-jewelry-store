@@ -20,15 +20,35 @@ function Steel({ roughness }: { roughness?: number }) {
 function Pearl() {
   return (
     <meshPhysicalMaterial
-      color="#f4e9dc"
-      roughness={0.32}
-      metalness={0.05}
-      clearcoat={0.7}
-      clearcoatRoughness={0.35}
-      envMapIntensity={0.9}
+      color="#fffaf4"
+      roughness={0.24}
+      metalness={0.02}
+      clearcoat={0.9}
+      clearcoatRoughness={0.25}
+      envMapIntensity={1.2}
+      sheen={1}
+      sheenColor="#fff6e8"
+      sheenRoughness={0.4}
     />
   );
 }
+
+const CRESCENT_SHAPE = (() => {
+  const shape = new THREE.Shape();
+  shape.moveTo(0.02, 0.34);
+  shape.bezierCurveTo(-0.3, 0.28, -0.34, -0.18, 0.02, -0.34);
+  shape.bezierCurveTo(-0.1, -0.16, -0.1, 0.16, 0.02, 0.34);
+  return shape;
+})();
+
+const CRESCENT_EXTRUDE = {
+  depth: 0.055,
+  bevelEnabled: true,
+  bevelSize: 0.012,
+  bevelThickness: 0.012,
+  bevelSegments: 3,
+  curveSegments: 24,
+};
 
 function Chain({ count = 88 }: { count?: number }) {
   const curve = useMemo(
@@ -75,13 +95,9 @@ function Chain({ count = 88 }: { count?: number }) {
         <torusGeometry args={[0.05, 0.011, 6, 18]} />
         <Steel />
       </mesh>
-      <mesh position={[0, -1.34, 0.1]} scale={[0.78, 1.45, 0.5]} castShadow>
-        <octahedronGeometry args={[0.28, 0]} />
+      <mesh position={[0, -1.42, 0.08]} castShadow>
+        <extrudeGeometry args={[CRESCENT_SHAPE, CRESCENT_EXTRUDE]} />
         <Steel roughness={0.14} />
-      </mesh>
-      <mesh position={[0, -1.78, 0.1]} castShadow>
-        <sphereGeometry args={[0.075, 20, 20]} />
-        <Pearl />
       </mesh>
       <mesh position={[0, -0.9, 0.06]} castShadow>
         <sphereGeometry args={[0.055, 18, 18]} />
@@ -121,12 +137,12 @@ function Earring({ x, rotation = 0 }: { x: number; rotation?: number }) {
         <torusGeometry args={[0.15, 0.017, 8, 28, Math.PI * 1.55]} />
         <Steel />
       </mesh>
-      <mesh position={[0, -0.34, 0]} scale={[0.7, 1.35, 0.5]} castShadow>
-        <octahedronGeometry args={[0.24, 0]} />
-        <Steel roughness={0.15} />
+      <mesh position={[0, -0.26, 0]} castShadow>
+        <sphereGeometry args={[0.04, 14, 14]} />
+        <Steel />
       </mesh>
-      <mesh position={[0, -0.6, 0]} castShadow>
-        <sphereGeometry args={[0.06, 16, 16]} />
+      <mesh position={[0, -0.44, 0]} scale={[1, 1.25, 1]} castShadow>
+        <sphereGeometry args={[0.15, 24, 24]} />
         <Pearl />
       </mesh>
     </group>
@@ -140,19 +156,10 @@ function Ring() {
         <torusGeometry args={[0.34, 0.05, 12, 56]} />
         <Steel roughness={0.16} />
       </mesh>
-      <mesh position={[0, 0.36, 0]} scale={[0.8, 1.15, 0.6]} castShadow>
-        <octahedronGeometry args={[0.23, 0]} />
-        <meshStandardMaterial
-          color="#eef4ff"
-          metalness={0.28}
-          roughness={0.03}
-          envMapIntensity={2.8}
-          emissive="#7f9dff"
-          emissiveIntensity={0.28}
-          flatShading
-        />
+      <mesh position={[0, 0.44, 0.02]} scale={[0.5, 0.5, 0.7]} castShadow>
+        <extrudeGeometry args={[CRESCENT_SHAPE, CRESCENT_EXTRUDE]} />
+        <Steel roughness={0.14} />
       </mesh>
-      <pointLight position={[0, 0.55, 0.9]} intensity={1.5} distance={1.8} color="#e8f0ff" />
     </group>
   );
 }
