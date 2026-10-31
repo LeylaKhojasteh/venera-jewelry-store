@@ -17,6 +17,12 @@ export default async function V3Layout({ children }: { children: ReactNode }) {
   return (
     <CartProvider initialCart={user ? cart : null} isAuthenticated={Boolean(user)}>
       <div className="v3-root">
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(localStorage.getItem('venera-theme')==='light'){document.documentElement.dataset.theme='light'}}catch(e){}",
+          }}
+        />
         <link
           rel="preload"
           href="/fonts/v3/estedad-arabic-normal-100-900.woff2"

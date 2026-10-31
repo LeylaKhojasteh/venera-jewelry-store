@@ -42,6 +42,11 @@ Three explorations considered:
 | Type — Persian | **Estedad** 400 body / 800 display |
 | Type — Latin logotype and numerals | **Bodoni Moda** 500 |
 
+Two grounds, one geometry. **Night** is the default (above). **Light** restores the brand's previous
+ivory/plum/rose-gold palette — paper `#F7F2EA`, raised `#EFE6D9`, ink `#3A1B24`, muted `#5A4740`,
+accent `#A25E4A` — with the same type, grid, line art and motion. The header toggle stores the choice
+in `localStorage`; an inline boot script applies it before first paint, so there is no flash.
+
 Scale: 13 / 16 / 20 / 32–44 / 56–110. Radius: 0 everywhere (the objects are sharp; only the bead is
 round). Grid: 12 columns, 1440 max, 5vw margins. Spacing: 8px base, sections 7–10rem.
 

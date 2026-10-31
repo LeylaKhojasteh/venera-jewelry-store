@@ -47,12 +47,12 @@ export function NecklaceLine() {
       }}
     >
       <motion.div className="v3-art-inner" style={{ rotateX: tiltX, rotateY: tiltY, y: lift }}>
-        <svg viewBox="0 0 640 700" role="img" aria-label="طرح خطی یک گردنبند استیل ونرا">
+        <svg viewBox="0 0 640 700" role="img" aria-label="طرح خطی یک گردنبند استیل ونرا" style={{ color: 'var(--bone)' }}>
           <motion.path
             ref={pathRef}
             d={PATH}
             fill="none"
-            stroke="#EDE6D8"
+            stroke="currentColor"
             strokeWidth="1.4"
             strokeLinecap="round"
             initial={reduce ? false : { pathLength: 0, opacity: 0.15 }}
@@ -60,8 +60,8 @@ export function NecklaceLine() {
             transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
           />
 
-          <circle cx="120" cy="70" r="3.2" fill="#EDE6D8" />
-          <circle cx="520" cy="70" r="3.2" fill="#EDE6D8" />
+          <circle cx="120" cy="70" r="3.2" fill="currentColor" />
+          <circle cx="520" cy="70" r="3.2" fill="currentColor" />
 
           {beads.map((bead, index) => {
             const accent = index === 4 || index === 10;
@@ -71,7 +71,7 @@ export function NecklaceLine() {
                 cx={bead.x}
                 cy={bead.y}
                 r={accent ? 5 : 3.6}
-                fill={accent ? '#C4714C' : '#EDE6D8'}
+                fill={accent ? 'var(--copper)' : 'currentColor'}
                 initial={reduce ? false : { scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.7 + index * 0.055, type: 'spring', stiffness: 220, damping: 18 }}
@@ -86,9 +86,14 @@ export function NecklaceLine() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.45, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <line x1="320" y1="545" x2="320" y2="568" stroke="#EDE6D8" strokeWidth="1.2" />
-            <path d="M320 568 L336 588 L320 608 L304 588 Z" fill="none" stroke="#C4714C" strokeWidth="1.6" />
-            <circle cx="320" cy="588" r="2.4" fill="#C4714C" />
+            <line x1="320" y1="545" x2="320" y2="568" stroke="currentColor" strokeWidth="1.2" />
+            <path
+              d="M320 568 L336 588 L320 608 L304 588 Z"
+              fill="none"
+              style={{ stroke: 'var(--copper)' }}
+              strokeWidth="1.6"
+            />
+            <circle cx="320" cy="588" r="2.4" style={{ fill: 'var(--copper)' }} />
           </motion.g>
         </svg>
       </motion.div>

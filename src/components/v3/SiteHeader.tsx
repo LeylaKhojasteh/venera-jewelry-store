@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Menu, ShoppingBag, User, X } from 'lucide-react';
+import { Menu, Moon, ShoppingBag, Sun, User, X } from 'lucide-react';
 import { useCart } from '@/components/cart/CartProvider';
 import { formatDigits } from '@/lib/money';
 import type { SessionUser } from '@/lib/auth/session';
@@ -20,6 +20,25 @@ export function SiteHeader({ user }: { user: SessionUser | null }) {
   const { count } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [light, setLight] = useState(false);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      setLight(document.documentElement.dataset.theme === 'light');
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = light ? 'dark' : 'light';
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem('venera-theme', next);
+    } catch {
+      // storage can be blocked; the theme still applies for this visit
+    }
+    setLight(!light);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -65,6 +84,15 @@ export function SiteHeader({ user }: { user: SessionUser | null }) {
           </nav>
 
           <div className="v3-actions">
+            <button
+              type="button"
+              className="v3-icon"
+              onClick={toggleTheme}
+              aria-label={light ? 'تغییر به تم تیره' : 'تغییر به تم روشن'}
+              aria-pressed={light}
+            >
+              {light ? <Moon aria-hidden="true" size={19} /> : <Sun aria-hidden="true" size={19} />}
+            </button>
             <Link href="/cart" className="v3-icon" style={{ position: 'relative' }} aria-label={`سبد خرید، ${formatDigits(count)} قلم`}>
               <ShoppingBag aria-hidden="true" size={19} />
               {count > 0 ? <span className="v3-count">{formatDigits(count)}</span> : null}

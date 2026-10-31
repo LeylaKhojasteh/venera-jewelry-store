@@ -31,12 +31,13 @@ export default async function V3HomePage() {
           <div className="v3-hero-grid">
             <div className="v3-hero-copy">
               <h1 className="v3-display">
-                خطی که
+                یک خط،
                 <br />
-                می‌ماند.
+                دور گردن.
               </h1>
               <p className="v3-lead">
-                چهار گردنبند استیل، طراحی و ساخت تهران. خطی که روی گردن می‌نشیند و با تو می‌ماند.
+                چهار گردنبند استیل، طراحی و ساخت تهران. طول و وزن هر کدام در صفحهٔ محصول نوشته شده
+                است.
               </p>
               <div className="v3-hero-actions">
                 <Link href="/products" className="v3-btn v3-btn-solid">
@@ -77,7 +78,7 @@ export default async function V3HomePage() {
           <div className="v3-index-head">
             <div>
               <h2 id="index-title" className="v3-h2">
-                فهرست
+                با نام و قیمت
               </h2>
               <p className="v3-body" style={{ marginTop: '0.75rem', maxWidth: '36ch' }}>
                 چهار گردنبند، از کوتاه تا بلند. قیمت‌ها به تومان و موجودی در صفحهٔ هر قطعه به‌روز است.
@@ -124,7 +125,7 @@ export default async function V3HomePage() {
         <div className="v3-shell v3-materials">
           <div>
             <h2 id="materials-title" className="v3-h2">
-              استیل، بدون ادعا.
+              استیل ۳۱۶، مروارید پرورشی.
             </h2>
             <p className="v3-lead" style={{ marginTop: '1.25rem', maxWidth: '34ch' }}>
               فلز، استیل ۳۱۶ است؛ بدون آبکاری طلایی و بدون روکش رنگی. مرواریدها پرورشی‌اند. چیزی که
@@ -144,9 +145,9 @@ export default async function V3HomePage() {
         <div className="v3-close">
           <div>
             <h2 id="close-title" className="v3-display">
-              چیزی برای
+              خط را
               <br />
-              ماندن.
+              انتخاب کن.
             </h2>
             <p className="v3-body" style={{ marginTop: '1.25rem', maxWidth: '34ch' }}>
               اگر بین دو طول ماندی، بنویس؛ با هم انتخاب می‌کنیم. سفارش‌ها از همین سایت ثبت می‌شوند.
@@ -161,11 +162,17 @@ export default async function V3HomePage() {
             </div>
           </div>
 
-          <svg className="v3-close-art" viewBox="0 0 300 380" role="img" aria-label="طرح خطی گردنبند">
+          <svg
+            className="v3-close-art"
+            viewBox="0 0 300 380"
+            role="img"
+            aria-label="طرح خطی گردنبند"
+            style={{ color: 'var(--bone)' }}
+          >
             <path
               d="M40 24 C40 220 100 340 150 340 C200 340 260 220 260 24"
               fill="none"
-              stroke="#EDE6D8"
+              stroke="currentColor"
               strokeWidth="1.2"
               strokeOpacity="0.7"
             />
@@ -183,11 +190,16 @@ export default async function V3HomePage() {
                 cx={cx}
                 cy={cy}
                 r={index === 3 ? 5 : 3.2}
-                fill={index === 3 ? '#C4714C' : '#EDE6D8'}
+                style={{ fill: index === 3 ? 'var(--copper)' : 'currentColor' }}
                 fillOpacity={index === 3 ? 1 : 0.8}
               />
             ))}
-            <path d="M150 340 L166 362 L150 382 L134 362 Z" fill="none" stroke="#C4714C" strokeWidth="1.4" />
+            <path
+              d="M150 340 L166 362 L150 382 L134 362 Z"
+              fill="none"
+              style={{ stroke: 'var(--copper)' }}
+              strokeWidth="1.4"
+            />
           </svg>
         </div>
       </section>

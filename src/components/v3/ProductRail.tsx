@@ -25,7 +25,7 @@ export function ProductRail({ products }: { products: ProductCardData[] }) {
         <div className="v3-rail-head">
           <div>
             <h2 id="pieces-title" className="v3-h2">
-              چهار قطعه
+              چهار گردنبند
             </h2>
             <p className="v3-body" style={{ marginTop: '0.75rem', maxWidth: '38ch' }}>
               هر گردنبند یک خط است؛ با طول، وزن و نشستن مشخص. عکس‌ها روی همان زمینهٔ روشن گرفته شده‌اند

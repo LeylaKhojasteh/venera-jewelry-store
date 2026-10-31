@@ -13,7 +13,7 @@ async function shot(page: import('@playwright/test').Page, name: string, width: 
 test.describe('storefront', () => {
   test('home, navigation and catalog filters work against the database', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('heading', { level: 1 })).toContainText('خطی که');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('یک خط');
     await expect(page.getByRole('link', { name: /دیدن کالکشن/ }).first()).toBeVisible();
     await expect(page.locator('.v3-card')).toHaveCount(4);
 
@@ -212,6 +212,22 @@ test.describe('responsive', () => {
     expect(state.fontLoaded).toBe(true);
     expect(state.displayLoaded).toBe(true);
     expect(state.brokenImages).toEqual([]);
+  });
+
+  test('light theme toggles, persists and keeps its palette', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+
+    await expect(page.locator('.v3-root')).toHaveCSS('background-color', 'rgb(11, 10, 12)');
+    await page.getByRole('button', { name: 'تغییر به تم روشن' }).click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+    await expect(page.locator('.v3-root')).toHaveCSS('background-color', 'rgb(247, 242, 234)');
+    await expect(page.locator('h1')).toHaveCSS('color', 'rgb(58, 27, 36)');
+
+    await page.reload();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+    await page.getByRole('button', { name: 'تغییر به تم تیره' }).click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   });
 
   test('layout quality: tap targets, grid columns, clipping and hero CTA', async ({ page }) => {

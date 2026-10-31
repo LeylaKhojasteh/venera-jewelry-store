@@ -21,7 +21,7 @@ export function LengthGuide() {
         <div className="v3-guide">
           <div>
             <h2 id="fit-title" className="v3-h2">
-              چطور می‌نشیند
+              نشستن روی گردن
             </h2>
             <p className="v3-body" style={{ marginTop: '1rem', maxWidth: '36ch' }}>
               طول زنجیر را انتخاب کن؛ خط روی گردن جابه‌جا می‌شود. اندازه‌ها واقعی‌اند و همان‌هایی که در
@@ -59,13 +59,13 @@ export function LengthGuide() {
             <path
               d="M70 420 C120 300 200 250 320 250 C440 250 520 300 570 420"
               fill="none"
-              stroke="rgba(237,230,216,.28)"
+              style={{ stroke: 'var(--line)' }}
               strokeWidth="1.2"
             />
             <path
               d="M230 110 C230 200 270 250 320 250 C370 250 410 200 410 110"
               fill="none"
-              stroke="rgba(237,230,216,.28)"
+              style={{ stroke: 'var(--line)' }}
               strokeWidth="1.2"
             />
 
@@ -77,10 +77,12 @@ export function LengthGuide() {
                   key={item.cm}
                   d={`M250 112 C250 ${y - 40} 285 ${y} 320 ${y} C355 ${y} 390 ${y - 40} 390 112`}
                   fill="none"
-                  stroke={isActive ? '#C4714C' : '#EDE6D8'}
-                  strokeOpacity={isActive ? 1 : 0.16}
-                  strokeWidth={isActive ? 2.2 : 1.2}
-                  style={{ transition: 'stroke 260ms ease, stroke-opacity 260ms ease, stroke-width 260ms ease' }}
+                  style={{
+                    stroke: isActive ? 'var(--copper)' : 'var(--bone)',
+                    strokeOpacity: isActive ? 1 : 0.22,
+                    strokeWidth: isActive ? 2.2 : 1.2,
+                    transition: 'stroke 260ms ease, stroke-opacity 260ms ease, stroke-width 260ms ease',
+                  }}
                 />
               );
             })}
@@ -89,11 +91,18 @@ export function LengthGuide() {
               cx="320"
               cy={bottom}
               r="5"
-              fill="#C4714C"
+              style={{ fill: 'var(--copper)' }}
               animate={{ cy: bottom }}
               transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 200, damping: 22 }}
             />
-            <line x1="320" y1={bottom} x2="320" y2={bottom + 22} stroke="#C4714C" strokeWidth="1.2" />
+            <line
+              x1="320"
+              y1={bottom}
+              x2="320"
+              y2={bottom + 22}
+              style={{ stroke: 'var(--copper)' }}
+              strokeWidth="1.2"
+            />
           </svg>
         </div>
       </div>
