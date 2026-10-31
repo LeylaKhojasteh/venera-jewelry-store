@@ -1967,6 +1967,33 @@ html[data-theme='light'] .v3-footer-bottom {
   }
 }
 
+.v3-grid-compact {
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .v3-grid-compact {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
+  }
+}
+
+.v3-grid-compact .v3-grid-media {
+  aspect-ratio: 1 / 1;
+}
+
+.v3-grid-compact .v3-grid-name {
+  font-size: 16px;
+}
+
+.v3-grid-compact .v3-grid-price {
+  font-size: 14px;
+}
+
+.v3-grid-compact .v3-grid-meta {
+  font-size: 13px;
+}
+
 .v3-grid-card {
   min-width: 0;
 }

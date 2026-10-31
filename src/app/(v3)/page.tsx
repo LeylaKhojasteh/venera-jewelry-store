@@ -6,7 +6,6 @@ import { getProductCards, getHomeContent } from '@/lib/catalog';
 import { NecklaceLine } from '@/components/v3/NecklaceLine';
 import { ProductRail } from '@/components/v3/ProductRail';
 import { CatalogGrid } from '@/components/v3/CatalogGrid';
-import { LengthGuide } from '@/components/v3/LengthGuide';
 import { CategoryStory } from '@/components/v3/CategoryStory';
 import { Magnetic } from '@/components/v3/Magnetic';
 import { demoContact } from '@/lib/constants';
@@ -88,8 +87,6 @@ export default async function V3HomePage() {
 
       <ProductRail products={railProducts} />
 
-      <CategoryStory products={railProducts} />
-
       <section className="v3-section" aria-labelledby="best-title">
         <div className="v3-shell">
           <div className="v3-rail-head">
@@ -105,7 +102,7 @@ export default async function V3HomePage() {
               همهٔ محبوب‌ها
             </Link>
           </div>
-          <CatalogGrid products={bestSellers.slice(0, 4)} layoutPrefix="best" />
+          <CatalogGrid products={bestSellers.slice(0, 4)} layoutPrefix="best" compact />
         </div>
       </section>
 
@@ -124,11 +121,11 @@ export default async function V3HomePage() {
               همهٔ تخفیف‌ها
             </Link>
           </div>
-          <CatalogGrid products={discounted.slice(0, 4)} layoutPrefix="sale" />
+          <CatalogGrid products={discounted.slice(0, 4)} layoutPrefix="sale" compact />
         </div>
       </section>
 
-      <LengthGuide />
+      <CategoryStory products={railProducts} />
 
       <section className="v3-section" aria-labelledby="index-title">
         <div className="v3-shell">
@@ -175,26 +172,6 @@ export default async function V3HomePage() {
                 </Link>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="v3-section" aria-labelledby="materials-title" style={{ background: 'var(--ink-2)' }}>
-        <div className="v3-shell v3-materials">
-          <div>
-            <h2 id="materials-title" className="v3-h2">
-              استیل ۳۱۶، مروارید پرورشی.
-            </h2>
-            <p className="v3-lead" style={{ marginTop: '1.25rem', maxWidth: '34ch' }}>
-              فلز، استیل ۳۱۶ است؛ بدون آبکاری طلایی و بدون روکش رنگی. مرواریدها پرورشی‌اند. چیزی که
-              می‌بینی همان چیزی است که می‌رسد.
-            </p>
-          </div>
-          <div className="v3-materials-facts">
-            <span>استیل ۳۱۶</span>
-            <span>مروارید پرورشی</span>
-            <span>ساخت تهران</span>
-            <span>کالکشن ۱۴۰۵</span>
           </div>
         </div>
       </section>

@@ -12,10 +12,12 @@ export function CatalogGrid({
   products,
   drift = false,
   layoutPrefix = 'grid',
+  compact = false,
 }: {
   products: ProductCardData[];
   drift?: boolean;
   layoutPrefix?: string;
+  compact?: boolean;
 }) {
   const [selected, setSelected] = useState<ProductCardData | null>(null);
   const [detail, setDetail] = useState<QuickViewData | null>(null);
@@ -35,7 +37,7 @@ export function CatalogGrid({
 
   return (
     <>
-      <div className="v3-grid">
+      <div className={`v3-grid${compact ? ' v3-grid-compact' : ''}`}>
         {products.map((product, index) => (
           <article key={product.id} className="v3-grid-card">
             <button
