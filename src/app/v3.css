@@ -2338,6 +2338,397 @@ html[data-theme='light'] .v3-footer-bottom {
   }
 }
 
+/* Cart, account and order */
+.v3-cart {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .v3-cart {
+    grid-template-columns: 1.55fr 0.8fr;
+    gap: 3rem;
+  }
+}
+
+.v3-cart-line {
+  display: flex;
+  gap: 1rem;
+  padding-block: 1.25rem;
+}
+
+.v3-cart-empty {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.v3-cart-suggest {
+  margin-top: 4rem;
+}
+
+.v3-cart-art {
+  width: 9rem;
+  color: var(--copper);
+  flex: none;
+}
+
+@media (max-width: 639px) {
+  .v3-cart-art {
+    display: none;
+  }
+}
+
+.v3-cart-suggest-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .v3-cart-suggest-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.v3-cart-suggest-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+
+.v3-cart-empty-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.v3-cart-empty-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+
+@media (min-width: 768px) {
+  .v3-cart-empty {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+.v3-cart-media {
+  position: relative;
+  width: 7rem;
+  flex: none;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+
+.v3-cart-name {
+  display: block;
+  overflow: hidden;
+  color: var(--bone);
+  font-size: 18px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.v3-profile {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .v3-profile {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    gap: 4rem;
+  }
+}
+
+.v3-profile-side {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.v3-profile-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--bone);
+}
+
+.v3-profile-email {
+  font-size: 13px;
+  color: var(--bone-dim);
+  overflow-wrap: anywhere;
+}
+
+.v3-account-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .v3-account-nav {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+}
+
+.v3-account-nav a,
+.v3-account-nav button {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--bone-dim);
+  font-family: inherit;
+  font-size: 15px;
+  text-align: start;
+  cursor: pointer;
+  transition:
+    background-color 180ms var(--ease),
+    color 180ms var(--ease),
+    border-color 180ms var(--ease);
+}
+
+.v3-account-nav a:hover,
+.v3-account-nav button:hover {
+  border-color: var(--bone);
+  color: var(--bone);
+}
+
+.v3-account-nav a[aria-current='page'] {
+  background: var(--bone);
+  border-color: var(--bone);
+  color: var(--ink);
+}
+
+.v3-account-nav .v3-account-logout {
+  border-color: transparent;
+  margin-top: 0.5rem;
+}
+
+.v3-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 900px) {
+  .v3-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.v3-stat {
+  padding-top: 0.75rem;
+}
+
+.v3-stat dt {
+  font-size: 13px;
+  color: var(--bone-dim);
+}
+
+.v3-stat dd {
+  margin-top: 0.25rem;
+  font-size: 24px;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+
+.v3-order-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.1rem;
+  transition: background-color 200ms var(--ease);
+}
+
+.v3-order-row:hover {
+  background: var(--ink-2);
+}
+
+.v3-order-number {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  color: var(--bone);
+}
+
+.v3-order-meta {
+  margin-top: 0.2rem;
+  font-size: 13px;
+  color: var(--bone-dim);
+}
+
+.v3-order-side {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.v3-status {
+  padding: 0.1rem 0.5rem;
+  background: var(--ink-2);
+  color: var(--bone);
+  font-size: 12px;
+}
+
+.v3-order-total {
+  font-size: 16px;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+
+.v3-order-summary {
+  padding: 1.5rem;
+  background: var(--ink-2);
+}
+
+.v3-order-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 0.9rem;
+}
+
+.v3-order-item-media {
+  position: relative;
+  width: 4.5rem;
+  flex: none;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.v3-order-hero {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.v3-order-hero-mark {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border: 1px solid var(--copper);
+  color: var(--copper);
+}
+
+.v3-steps-flow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .v3-steps-flow {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.v3-flow-step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  color: var(--bone-dim);
+}
+
+.v3-flow-step.is-done {
+  color: var(--bone);
+}
+
+.v3-flow-dot {
+  display: grid;
+  width: 1.6rem;
+  height: 1.6rem;
+  place-items: center;
+  border: 1px solid var(--line);
+  font-size: 12px;
+}
+
+.v3-flow-step.is-done .v3-flow-dot {
+  background: var(--copper);
+  border-color: var(--copper);
+  color: var(--ink);
+}
+
+/* Legacy account form controls, re-skinned inside the v4 root. */
+.v3-root dialog.bg-paper {
+  background: var(--ink);
+  color: var(--bone);
+}
+
+.v3-root .field-label {
+  font-size: 14px;
+  color: var(--bone);
+}
+
+.v3-root .field-input,
+.v3-root .field-select,
+.v3-root .field-textarea {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--bone);
+  font-size: 16px;
+}
+
+.v3-root .field-input:focus,
+.v3-root .field-select:focus,
+.v3-root .field-textarea:focus {
+  border-bottom-color: var(--copper);
+}
+
+.v3-root .field-hint {
+  color: var(--bone-dim);
+}
+
+.v3-root .field-error {
+  color: #d98b7a;
+}
+
+.v3-root .btn-primary {
+  background: var(--bone);
+  color: var(--ink);
+}
+
+.v3-root .btn-outline {
+  background: var(--ink-2);
+  color: var(--bone);
+}
+
+.v3-root .icon-btn:hover {
+  background: var(--ink-2);
+}
+
+.v3-root .summary-card {
+  background: var(--ink-2);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .v3-menu-panel {
     animation: none !important;

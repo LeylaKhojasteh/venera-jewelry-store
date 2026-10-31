@@ -106,11 +106,13 @@ The sources for these patterns were AIMRAN's editorial menu, magnetic button and
 useLayouts' theme toggle and scroll-stack patterns, and Watermelon's block catalogue. The glass,
 gradient-border and gooey variants were deliberately not used.
 
-**Migrated pages (v4).** The catalogue, product page and checkout now live in the `(v3)` route group
-and use the same header, footer, type, grid and motion: filters on the server, a product grid that
-opens quick view, a gallery and buybox with variants and quantity, the fit diagram, the details
-accordion, related pieces, and a checkout with address cards, order review and summary. The cart,
-order-success and account pages are the last legacy surfaces.
+**Migrated pages (v4).** The catalogue, product page, checkout, cart, order-success page and the
+account panel (overview, orders, order detail, addresses) now live in the `(v3)` route group and use
+the same header, footer, type, grid and motion: filters on the server, a product grid that opens quick
+view, a gallery and buybox with variants and quantity, the fit diagram, the details accordion, related
+pieces, a checkout with address cards, a cart with quantity controls and suggestions, and an account
+panel with a v4 sidebar and order rows. The auth pages, about/contact and the admin panel are the last
+legacy surfaces.
 
 ## Voice
 
