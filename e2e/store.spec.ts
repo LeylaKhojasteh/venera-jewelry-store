@@ -17,7 +17,10 @@ test.describe('storefront', () => {
     await expect(page.getByRole('link', { name: /دیدن کالکشن/ }).first()).toBeVisible();
     await expect(page.locator('.v3-card')).toHaveCount(4);
 
-    await page.locator('.v3-nav').getByRole('link', { name: 'محصولات' }).click();
+    await page.locator('.v3-nav').getByRole('button', { name: 'محصولات' }).click();
+    const productsMenu = page.locator('#v3-products-menu');
+    await expect(productsMenu.getByRole('link', { name: 'همهٔ محصولات' })).toBeVisible();
+    await productsMenu.getByRole('link', { name: 'همهٔ محصولات' }).click();
     await expect(page).toHaveURL(/\/products/);
     await expect(page.getByRole('heading', { level: 1, name: 'همهٔ زیورآلات' })).toBeVisible();
 
@@ -237,7 +240,7 @@ test.describe('responsive', () => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
 
-    const nav = page.locator('.v3-nav a').filter({ hasText: 'محصولات' });
+    const nav = page.locator('.v3-nav-trigger');
     await nav.hover();
     await page.waitForTimeout(400);
     const underline = await nav.evaluate((element) => getComputedStyle(element, '::after').transform);

@@ -268,6 +268,149 @@ body:has(.v3-root) {
   transform: scaleX(1);
 }
 
+.v3-nav-item {
+  position: relative;
+}
+
+.v3-nav-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-block: 0.6rem;
+  border: 0;
+  background: none;
+  color: var(--bone-dim);
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 180ms var(--ease);
+}
+
+.v3-nav-trigger:hover,
+.v3-nav-trigger[data-active='true'],
+.v3-nav-trigger[aria-expanded='true'] {
+  color: var(--copper);
+}
+
+.v3-nav-trigger svg {
+  transition: transform 220ms var(--ease);
+}
+
+.v3-nav-trigger svg.is-open {
+  transform: rotate(180deg);
+}
+
+.v3-nav-trigger::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--copper);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms var(--ease);
+}
+
+.v3-nav-trigger:hover::after,
+.v3-nav-trigger[data-active='true']::after,
+.v3-nav-trigger[aria-expanded='true']::after {
+  transform: scaleX(1);
+}
+
+.v3-products-menu {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  inset-inline-start: 0;
+  z-index: 50;
+  width: 19rem;
+  padding: 0.5rem;
+  background: var(--ink);
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.5);
+  animation: v3-dropdown 190ms var(--ease) both;
+}
+
+.v3-products-menu a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0.55rem;
+  color: var(--bone-dim);
+  font-size: 15px;
+  transition:
+    background-color 160ms var(--ease),
+    color 160ms var(--ease);
+}
+
+.v3-products-menu a:hover {
+  background: var(--ink-2);
+  color: var(--bone);
+}
+
+.v3-products-menu small {
+  font-size: 12px;
+  color: var(--copper);
+}
+
+.v3-products-all {
+  margin-top: 0.35rem;
+  border-top: 1px solid var(--line);
+  color: var(--copper) !important;
+}
+
+.v3-menu-accordion {
+  width: 100%;
+}
+
+.v3-menu-accordion summary {
+  display: flex;
+  min-height: 2.75rem;
+  cursor: pointer;
+  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 15px;
+  color: var(--bone);
+}
+
+.v3-menu-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.v3-menu-accordion summary svg {
+  transition: transform 220ms var(--ease);
+}
+
+.v3-menu-accordion[open] summary svg {
+  transform: rotate(180deg);
+}
+
+.v3-menu-accordion-body {
+  display: grid;
+  gap: 0.15rem;
+  padding-bottom: 0.5rem;
+}
+
+.v3-menu-accordion-body a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.25rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--bone-dim);
+  font-size: 15px;
+}
+
+.v3-menu-accordion-body small {
+  color: var(--copper);
+  font-size: 12px;
+}
+
 .v3-nav a:hover,
 .v3-nav a[aria-current='page'] {
   color: var(--bone);
@@ -985,6 +1128,17 @@ body:has(.v3-root) {
   }
   to {
     clip-path: circle(150% at var(--mx) var(--my));
+  }
+}
+
+@keyframes v3-dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -2624,6 +2778,46 @@ html[data-theme='light'] .v3-footer-bottom {
   display: flex;
   align-items: center;
   gap: 0.9rem;
+}
+
+.v3-auth,
+.v3-about-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.v3-auth-art,
+.v3-about-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-height: 72vh;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+
+.v3-auth-art img,
+.v3-about-media img {
+  object-fit: cover;
+}
+
+.v3-auth-quote {
+  position: absolute;
+  inset-inline: 1.25rem;
+  bottom: 1.25rem;
+  font-family: 'Estedad', sans-serif;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 600;
+  color: #f7f2ea;
+}
+
+@media (min-width: 900px) {
+  .v3-auth,
+  .v3-about-hero {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
 }
 
 .v3-order-hero-mark {

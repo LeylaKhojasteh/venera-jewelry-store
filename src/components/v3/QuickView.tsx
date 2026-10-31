@@ -14,11 +14,13 @@ export function QuickView({
   detail,
   loading,
   onClose,
+  layoutPrefix = 'qv',
 }: {
   product: ProductCardData;
   detail: QuickViewData | null;
   loading: boolean;
   onClose: () => void;
+  layoutPrefix?: string;
 }) {
   const { add } = useCart();
   const [variantId, setVariantId] = useState<string | null>(null);
@@ -91,7 +93,7 @@ export function QuickView({
           <X aria-hidden="true" size={20} />
         </button>
 
-        <motion.div layoutId={`v3-media-${product.id}`} className="v3-qv-media">
+        <motion.div layoutId={`${layoutPrefix}-media-${product.id}`} className="v3-qv-media">
           <Image src={image} alt={imageAlt} fill sizes="(max-width: 768px) 100vw, 42vw" className="object-cover" />
         </motion.div>
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/lib/auth/session';
 import { safeNextPath } from '@/lib/request';
-import { AuthShell } from '@/components/auth/AuthShell';
+import { AuthShellV4 } from '@/components/v3/AuthShellV4';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 import { site } from '@/lib/constants';
 
@@ -25,16 +25,16 @@ export default async function RegisterPage({
   if (user) redirect(next);
 
   return (
-    <AuthShell
-      folio="۱۰"
-      eyebrow="ثبت‌نام"
-      title="از اینجا شروع کن."
-      intro="با یک حساب ساده، سفارش‌ها و نشانی‌هایت را یک‌جا نگه می‌داری."
-      image="/images/editorial/men-panel.jpg"
-      imageAlt="دستبند مردانهٔ ونرا روی زمینهٔ تیره"
-      quote={site.tagline}
-    >
-      <RegisterForm next={next} />
-    </AuthShell>
+    <div className="v3-shell v3-section">
+      <AuthShellV4
+        title="از اینجا شروع کن."
+        intro="با یک حساب ساده، سفارش‌ها و نشانی‌هایت را یک‌جا نگه می‌داری."
+        image="/images/products/bracelet-ares-01.jpg"
+        imageAlt="دستبند آرس روی زمینهٔ روشن"
+        quote={site.tagline}
+      >
+        <RegisterForm next={next} />
+      </AuthShellV4>
+    </div>
   );
 }

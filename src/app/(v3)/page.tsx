@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpLeft } from 'lucide-react';
-import { getProductCards } from '@/lib/catalog';
+import { getProductCards, getHomeContent } from '@/lib/catalog';
 import { NecklaceLine } from '@/components/v3/NecklaceLine';
 import { ProductRail } from '@/components/v3/ProductRail';
+import { CatalogGrid } from '@/components/v3/CatalogGrid';
 import { LengthGuide } from '@/components/v3/LengthGuide';
 import { CategoryStory } from '@/components/v3/CategoryStory';
 import { Magnetic } from '@/components/v3/Magnetic';
@@ -24,6 +25,7 @@ export default async function V3HomePage() {
     take: 12,
     orderBy: [{ isBestSeller: 'desc' }, { createdAt: 'desc' }],
   });
+  const { bestSellers, discounted } = await getHomeContent();
 
   const railOrder = ['necklace', 'bracelet', 'earrings', 'ring'] as const;
   const rail = railOrder
@@ -87,6 +89,44 @@ export default async function V3HomePage() {
       <ProductRail products={railProducts} />
 
       <CategoryStory products={railProducts} />
+
+      <section className="v3-section" aria-labelledby="best-title">
+        <div className="v3-shell">
+          <div className="v3-rail-head">
+            <div>
+              <h2 id="best-title" className="v3-h2">
+                محبوب‌ها
+              </h2>
+              <p className="v3-body" style={{ marginTop: '0.75rem', maxWidth: '38ch' }}>
+                قطعه‌هایی که بیشتر از همه انتخاب می‌شوند؛ از گردنبند تا انگشتر.
+              </p>
+            </div>
+            <Link href="/products?sort=bestseller" className="v3-btn v3-btn-line">
+              همهٔ محبوب‌ها
+            </Link>
+          </div>
+          <CatalogGrid products={bestSellers.slice(0, 4)} layoutPrefix="best" />
+        </div>
+      </section>
+
+      <section className="v3-section" aria-labelledby="sale-title" style={{ background: 'var(--ink-2)' }}>
+        <div className="v3-shell">
+          <div className="v3-rail-head">
+            <div>
+              <h2 id="sale-title" className="v3-h2">
+                تخفیف‌دارها
+              </h2>
+              <p className="v3-body" style={{ marginTop: '0.75rem', maxWidth: '38ch' }}>
+                قیمت پیش از تخفیف خط می‌خورد و مبلغ نهایی همان است که در صفحهٔ محصول می‌بینی.
+              </p>
+            </div>
+            <Link href="/products?discount=1" className="v3-btn v3-btn-line">
+              همهٔ تخفیف‌ها
+            </Link>
+          </div>
+          <CatalogGrid products={discounted.slice(0, 4)} layoutPrefix="sale" />
+        </div>
+      </section>
 
       <LengthGuide />
 

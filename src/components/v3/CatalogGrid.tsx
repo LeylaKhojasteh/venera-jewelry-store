@@ -8,7 +8,15 @@ import { getQuickView } from '@/actions/quick-view';
 import { formatDigits, formatToman } from '@/lib/money';
 import type { ProductCardData, QuickViewData } from '@/types';
 
-export function CatalogGrid({ products, drift = false }: { products: ProductCardData[]; drift?: boolean }) {
+export function CatalogGrid({
+  products,
+  drift = false,
+  layoutPrefix = 'grid',
+}: {
+  products: ProductCardData[];
+  drift?: boolean;
+  layoutPrefix?: string;
+}) {
   const [selected, setSelected] = useState<ProductCardData | null>(null);
   const [detail, setDetail] = useState<QuickViewData | null>(null);
   const [loading, startTransition] = useTransition();
@@ -36,7 +44,7 @@ export function CatalogGrid({ products, drift = false }: { products: ProductCard
               onClick={() => open(product)}
               aria-label={`نمای سریع ${product.name}`}
             >
-              <motion.div layoutId={`v3-media-${product.id}`} className="v3-grid-media">
+              <motion.div layoutId={`${layoutPrefix}-media-${product.id}`} className="v3-grid-media">
                 <Image
                   src={product.image}
                   alt={product.imageAlt}
@@ -86,6 +94,7 @@ export function CatalogGrid({ products, drift = false }: { products: ProductCard
             detail={detail}
             loading={loading}
             onClose={() => setSelected(null)}
+            layoutPrefix={layoutPrefix}
           />
         ) : null}
       </AnimatePresence>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { Menu, Moon, ShoppingBag, Sun, User, X } from 'lucide-react';
+import { ChevronDown, Menu, Moon, ShoppingBag, Sun, User, X } from 'lucide-react';
 import { useCart } from '@/components/cart/CartProvider';
 import { CartDrawer } from '@/components/v3/CartDrawer';
 import { formatDigits } from '@/lib/money';
@@ -27,6 +27,7 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
   const { count } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [light, setLight] = useState(true);
   const [hovered, setHovered] = useState<number | null>(null);
@@ -34,6 +35,8 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const themeButtonRef = useRef<HTMLButtonElement>(null);
+  const productsRef = useRef<HTMLDivElement>(null);
+  const hoverTimer = useRef<number | null>(null);
 
   const previews = [
     categories[0]?.image ?? '/images/hero/hero.jpg',
@@ -49,6 +52,23 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onPointerDown = (event: MouseEvent) => {
+      if (productsRef.current && !productsRef.current.contains(event.target as Node)) {
+        setProductsOpen(false);
+      }
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setProductsOpen(false);
+    };
+    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('keydown', onKey);
+    };
   }, []);
 
   useEffect(() => {
@@ -174,7 +194,64 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
             </Link>
 
             <nav className="v3-nav" aria-label="ناوبری اصلی">
-              {nav.map((item) => (
+              <Link
+                href="/"
+                aria-current={pathname === '/' ? 'page' : undefined}
+              >
+                خانه
+              </Link>
+
+              <div
+                className="v3-nav-item"
+                ref={productsRef}
+                onPointerEnter={() => {
+                  if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
+                  hoverTimer.current = window.setTimeout(() => setProductsOpen(true), 140);
+                }}
+                onPointerLeave={() => {
+                  if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
+                  setProductsOpen(false);
+                }}
+              >
+                <button
+                  type="button"
+                  className="v3-nav-trigger"
+                  data-active={pathname.startsWith('/products')}
+                  aria-expanded={productsOpen}
+                  aria-controls="v3-products-menu"
+                  onClick={() => {
+                    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
+                    setProductsOpen((value) => !value);
+                  }}
+                >
+                  محصولات
+                  <ChevronDown
+                    aria-hidden="true"
+                    size={15}
+                    className={productsOpen ? 'is-open' : undefined}
+                  />
+                </button>
+
+                {productsOpen ? (
+                  <div className="v3-products-menu" id="v3-products-menu">
+                    {categories.map((category) => (
+                      <Link
+                        key={category.slug}
+                        href={`/products?category=${category.slug}`}
+                        onClick={() => setProductsOpen(false)}
+                      >
+                        <span>{category.name}</span>
+                        <small>{formatDigits(category.productCount)} قطعه</small>
+                      </Link>
+                    ))}
+                    <Link href="/products" className="v3-products-all" onClick={() => setProductsOpen(false)}>
+                      همهٔ محصولات
+                    </Link>
+                  </div>
+                ) : null}
+              </div>
+
+              {nav.slice(2).map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -281,12 +358,23 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
           </div>
 
           <div className="v3-menu-cats">
-            {categories.map((category) => (
-              <Link key={category.slug} href={`/products?category=${category.slug}`} onClick={closeMenu}>
-                <span>{category.name}</span>
-                <small>{formatDigits(category.productCount)}</small>
-              </Link>
-            ))}
+            <details className="v3-menu-accordion">
+              <summary>
+                دسته‌بندی محصولات
+                <ChevronDown aria-hidden="true" size={18} />
+              </summary>
+              <div className="v3-menu-accordion-body">
+                {categories.map((category) => (
+                  <Link key={category.slug} href={`/products?category=${category.slug}`} onClick={closeMenu}>
+                    <span>{category.name}</span>
+                    <small>{formatDigits(category.productCount)}</small>
+                  </Link>
+                ))}
+                <Link href="/products" className="v3-products-all" onClick={closeMenu}>
+                  همهٔ محصولات
+                </Link>
+              </div>
+            </details>
           </div>
 
           <p className="v3-menu-foot">تهران · اکسسوری استیل · ۱۴۰۵</p>

@@ -69,7 +69,7 @@ export function ProductRail({ products }: { products: ProductCardData[] }) {
                 onClick={() => open(product)}
                 aria-label={`نمای سریع ${product.name}`}
               >
-                <motion.div layoutId={`v3-media-${product.id}`} className="v3-card-media">
+                <motion.div layoutId={`rail-media-${product.id}`} className="v3-card-media">
                   <Image
                     src={product.image}
                     alt={product.imageAlt}
@@ -108,6 +108,7 @@ export function ProductRail({ products }: { products: ProductCardData[] }) {
             detail={detail}
             loading={loading}
             onClose={() => setSelected(null)}
+            layoutPrefix="rail"
           />
         ) : null}
       </AnimatePresence>
