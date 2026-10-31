@@ -292,7 +292,7 @@ test.describe('responsive', () => {
     expect(tinyTargets).toEqual([]);
 
     const mobileColumns = await page.evaluate(() => {
-      const cards = Array.from(document.querySelectorAll('.product-media'))
+      const cards = Array.from(document.querySelectorAll('.v3-grid-media'))
         .slice(0, 4)
         .map((element) => element.closest('article'))
         .filter((element): element is HTMLElement => Boolean(element));

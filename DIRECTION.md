@@ -106,6 +106,12 @@ The sources for these patterns were AIMRAN's editorial menu, magnetic button and
 useLayouts' theme toggle and scroll-stack patterns, and Watermelon's block catalogue. The glass,
 gradient-border and gooey variants were deliberately not used.
 
+**Migrated pages (v4).** The catalogue, product page and checkout now live in the `(v3)` route group
+and use the same header, footer, type, grid and motion: filters on the server, a product grid that
+opens quick view, a gallery and buybox with variants and quantity, the fit diagram, the details
+accordion, related pieces, and a checkout with address cards, order review and summary. The cart,
+order-success and account pages are the last legacy surfaces.
+
 ## Voice
 
 Plain, specific, quiet. No "elevate", no "timeless", no two-beat aphorism. Prices in Toman. Product
