@@ -13,7 +13,7 @@ async function shot(page: import('@playwright/test').Page, name: string, width: 
 test.describe('storefront', () => {
   test('home, navigation and catalog filters work against the database', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('heading', { level: 1 })).toContainText('برای گردن');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('اکسسوری لوکس');
     await expect(page.getByRole('link', { name: /دیدن کالکشن/ }).first()).toBeVisible();
     await expect(page.locator('.v3-category-card')).toHaveCount(4);
 
@@ -267,7 +267,7 @@ test.describe('responsive', () => {
 
   test('quick view adds a piece and opens the cart drawer', async ({ page }) => {
     await page.goto('/');
-    await page.locator('.v3-grid-open').first().click();
+    await page.locator('.v3-grid-open').first().click({ force: true });
     await expect(page.locator('.v3-qv')).toBeVisible();
     await expect(page.locator('.v3-qv-variants .v3-choice').first()).toBeVisible();
     await page.locator('.v3-qv-variants .v3-choice').first().click();

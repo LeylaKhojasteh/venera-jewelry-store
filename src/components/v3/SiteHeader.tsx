@@ -192,7 +192,7 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
         <div className="v3-shell">
           <div className="v3-header-inner">
             <Link href="/" className="v3-logo" aria-label="اکسسوری ونرا">
-              <span className="v3-logo-mark">VENERA</span> <small>اکسسوری ونرا</small>
+              <span className="v3-logo-mark">VENERA</span>
             </Link>
 
             <nav className="v3-nav" aria-label="ناوبری اصلی">

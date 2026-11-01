@@ -85,12 +85,11 @@ export function CategoryStory({ products }: { products: ProductCardData[] }) {
 
           <div className="v3-story-copy">
             <h2 id="story-title" className="v3-h2">
-              چهار دسته، یک زبان.
+              تنوع به سبک ونرا
             </h2>
 
             <div className="v3-story-panels">
               {products.map((product, index) => {
-                const shape = shapes.find((item) => item.slug === product.categorySlug) ?? shapes[index % shapes.length];
                 return (
                   <div
                     key={product.id}
@@ -107,7 +106,6 @@ export function CategoryStory({ products }: { products: ProductCardData[] }) {
                       />
                     </div>
                     <div className="v3-story-text">
-                      <p className="v3-small">{shape?.label ?? product.categoryName}</p>
                       <h3 className="v3-story-name">{product.name}</h3>
                       <p className="v3-story-price">{formatToman(product.price)}</p>
                       <Link
@@ -133,7 +131,7 @@ export function CategoryStory({ products }: { products: ProductCardData[] }) {
       </div>
 
       <div className="v3-story-mobile v3-shell">
-        <h2 className="v3-h2">چهار دسته، یک زبان.</h2>
+        <h2 className="v3-h2">تنوع به سبک ونرا</h2>
         <div className="v3-story-mobile-list">
           {products.map((product) => (
             <Link key={product.id} href={`/products/${product.slug}`} className="v3-story-mobile-row">
@@ -141,7 +139,6 @@ export function CategoryStory({ products }: { products: ProductCardData[] }) {
                 <Image src={product.image} alt={product.imageAlt} fill sizes="96px" className="object-cover" />
               </span>
               <span>
-                <span className="v3-small">{product.categoryName}</span>
                 <span className="v3-story-name">{product.name}</span>
               </span>
               <span className="v3-story-mobile-price">{formatToman(product.price)}</span>

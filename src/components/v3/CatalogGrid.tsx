@@ -13,11 +13,13 @@ export function CatalogGrid({
   drift = false,
   layoutPrefix = 'grid',
   compact = false,
+  motionKind,
 }: {
   products: ProductCardData[];
   drift?: boolean;
   layoutPrefix?: string;
   compact?: boolean;
+  motionKind?: 'float' | 'sway';
 }) {
   const [selected, setSelected] = useState<ProductCardData | null>(null);
   const [detail, setDetail] = useState<QuickViewData | null>(null);
@@ -37,7 +39,7 @@ export function CatalogGrid({
 
   return (
     <>
-      <div className={`v3-grid${compact ? ' v3-grid-compact' : ''}`}>
+      <div className={`v3-grid${compact ? ' v3-grid-compact' : ''}${motionKind ? ` v3-grid-motion-${motionKind}` : ''}`}>
         {products.map((product, index) => (
           <article key={product.id} className="v3-grid-card">
             <button

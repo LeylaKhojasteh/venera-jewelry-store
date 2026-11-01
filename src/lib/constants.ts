@@ -40,7 +40,7 @@ export const sortOptions = [
   { value: 'latest', label: 'تازه‌ترین‌ها' },
   { value: 'price-asc', label: 'ارزان‌ترین' },
   { value: 'price-desc', label: 'گران‌ترین' },
-  { value: 'bestseller', label: 'محبوب‌ترین' },
+  { value: 'bestseller', label: 'پرفروش‌ترین' },
   { value: 'discount', label: 'بیشترین تخفیف' },
 ] as const;
 

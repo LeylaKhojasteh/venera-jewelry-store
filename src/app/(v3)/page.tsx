@@ -11,7 +11,7 @@ import { Magnetic } from '@/components/v3/Magnetic';
 import type { ProductCardData } from '@/types';
 
 export const metadata: Metadata = {
-  title: 'ونرا | اکسسوری استیل — برای گردن، گوش، دست',
+  title: 'اکسسوری لوکس ونرا | بهترین قیمت و بیشترین تنوع',
   description:
     'گردنبند، دستبند، گوشواره و انگشتر استیل؛ طراحی و ساخت تهران. اندازه و وزن هر آیتم در صفحهٔ محصول نوشته شده است.',
   alternates: { canonical: '/' },
@@ -39,12 +39,8 @@ export default async function V3HomePage() {
         <div className="v3-shell">
           <div className="v3-hero-grid">
             <div className="v3-hero-copy">
-              <h1 className="v3-display">
-                برای گردن،
-                <br />
-                گوش، دست.
-              </h1>
-              <p className="v3-lead">اکسسوری مدرن برای تمام سلیقه‌ها</p>
+              <h1 className="v3-display">اکسسوری لوکس ونرا</h1>
+              <p className="v3-lead">بهترین قیمت و بیشترین تنوع</p>
               <div className="v3-hero-actions">
                 <Magnetic>
                   <Link href="/products" className="v3-btn v3-btn-solid">
@@ -70,17 +66,14 @@ export default async function V3HomePage() {
           <div className="v3-rail-head">
             <div>
               <h2 id="best-title" className="v3-h2">
-                محبوب‌ها
+                پرفروش‌ها
               </h2>
-              <p className="v3-body" style={{ marginTop: '0.75rem', maxWidth: '38ch' }}>
-                آیتم‌هایی که بیشتر از همه انتخاب می‌شوند؛ از گردنبند تا انگشتر.
-              </p>
             </div>
             <Link href="/products?sort=bestseller" className="v3-btn v3-btn-line">
-              همهٔ محبوب‌ها
+              همه پرفروش‌ها
             </Link>
           </div>
-          <CatalogGrid products={bestSellers.slice(0, 4)} layoutPrefix="best" compact />
+          <CatalogGrid products={bestSellers.slice(0, 4)} layoutPrefix="best" compact motionKind="float" />
         </div>
       </section>
 
@@ -99,7 +92,7 @@ export default async function V3HomePage() {
               همهٔ تخفیف‌ها
             </Link>
           </div>
-          <CatalogGrid products={discounted.slice(0, 4)} layoutPrefix="sale" compact />
+          <CatalogGrid products={discounted.slice(0, 4)} layoutPrefix="sale" compact motionKind="sway" />
         </div>
       </section>
 

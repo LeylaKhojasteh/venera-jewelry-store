@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowUpLeft } from 'lucide-react';
 import { formatDigits } from '@/lib/money';
 import type { CategoryData, ProductCardData } from '@/types';
 
@@ -19,9 +18,6 @@ export function CategoryRail({
             <h2 id="categories-title" className="v3-h2">
               دسته‌بندی
             </h2>
-            <p className="v3-body" style={{ marginTop: '0.75rem', maxWidth: '38ch' }}>
-              از گردنبند و دستبند تا گوشواره و انگشتر؛ دستهٔ خودت را انتخاب کن.
-            </p>
           </div>
         </div>
 
@@ -40,10 +36,8 @@ export function CategoryRail({
                   ) : null}
                 </span>
                 <span className="v3-category-body">
-                  <span className="v3-category-name">{category.name}</span>
-                  <span className="v3-category-meta">
-                    {formatDigits(category.productCount)} آیتم
-                    <ArrowUpLeft aria-hidden="true" size={15} />
+                  <span className="v3-category-name">
+                    {category.name} <span className="v3-category-count">({formatDigits(category.productCount)})</span>
                   </span>
                 </span>
               </Link>
