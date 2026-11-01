@@ -1,5 +1,5 @@
-// Venera | ونرا
-// Prisma schema — PostgreSQL. All money is stored as integer Toman.
+// Venera - Persian RTL jewellery store
+// Prisma schema - PostgreSQL. All money is stored as integer Toman.
 
 generator client {
   provider = "prisma-client-js"

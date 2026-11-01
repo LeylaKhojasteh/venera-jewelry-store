@@ -25,20 +25,6 @@ export default async function V3Layout({ children }: { children: ReactNode }) {
               "try{if(localStorage.getItem('venera-theme')==='dark'){document.documentElement.dataset.theme='dark'}}catch(e){}",
           }}
         />
-        <link
-          rel="preload"
-          href="/fonts/v3/estedad-arabic-normal-100-900.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/v3/estedad-latin-normal-100-900.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
         <ScrollProgress />
         <SiteHeader user={user} categories={categories} />
         <main>{children}</main>

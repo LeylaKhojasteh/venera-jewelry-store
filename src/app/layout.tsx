@@ -6,25 +6,25 @@ import { site } from '@/lib/constants';
 export const metadata: Metadata = {
   metadataBase: new URL(env.siteUrl),
   title: {
-    default: `${site.faName} | زیورآلات معاصر`,
+    default: 'اکسسوری لوکس ونرا | بهترین قیمت و بیشترین تنوع',
     template: `%s | ${site.faName}`,
   },
   description: site.description,
   applicationName: site.name,
-  keywords: ['زیورآلات', 'ونرا', 'گردنبند', 'دستبند', 'گوشواره', 'انگشتر', 'طلا', 'نقره'],
+  keywords: ['زیورآلات', 'ونرا', 'گردنبند', 'دستبند', 'گوشواره', 'انگشتر', 'اکسسوری'],
   authors: [{ name: site.name }],
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: site.locale,
     siteName: site.name,
-    title: `${site.faName} | زیورآلات معاصر`,
+    title: 'اکسسوری لوکس ونرا',
     description: site.description,
-    images: [{ url: '/images/hero/hero.jpg', width: 1600, height: 1600, alt: 'ونرا — زیورآلات معاصر' }],
+    images: [{ url: '/images/hero/hero.jpg', width: 1600, height: 1600, alt: 'اکسسوری لوکس ونرا' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${site.faName} | زیورآلات معاصر`,
+    title: 'اکسسوری لوکس ونرا',
     description: site.description,
     images: ['/images/hero/hero.jpg'],
   },
@@ -35,8 +35,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#F7F2EA',
-  colorScheme: 'light',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#F7F2EA' },
+    { media: '(prefers-color-scheme: dark)', color: '#0B0A0C' },
+  ],
+  colorScheme: 'light dark',
   width: 'device-width',
   initialScale: 1,
 };
@@ -47,21 +50,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link
           rel="preload"
-          href="/fonts/vazirmatn-arabic-normal-100-900.woff2"
+          href="/fonts/v3/estedad-arabic-normal-100-900.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/vazirmatn-latin-normal-100-900.woff2"
+          href="/fonts/v3/estedad-latin-normal-100-900.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/markazi-arabic-normal-400-700.woff2"
+          href="/fonts/v3/bodoni-latin-normal-400-900.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"

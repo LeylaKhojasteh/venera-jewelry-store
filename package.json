@@ -2,7 +2,7 @@
   "name": "venera",
   "version": "1.0.0",
   "private": true,
-  "description": "Venera | ونرا — Persian RTL fine-jewellery storefront with a demo-only checkout.",
+  "description": "Venera - Persian RTL accessories storefront with PostgreSQL, Next.js and a demo-only checkout.",
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",

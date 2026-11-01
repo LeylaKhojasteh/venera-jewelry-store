@@ -11,7 +11,7 @@ import { Magnetic } from '@/components/v3/Magnetic';
 import type { ProductCardData } from '@/types';
 
 export const metadata: Metadata = {
-  title: 'اکسسوری لوکس ونرا | بهترین قیمت و بیشترین تنوع',
+  title: { absolute: 'اکسسوری لوکس ونرا | بهترین قیمت و بیشترین تنوع' },
   description:
     'گردنبند، دستبند، گوشواره و انگشتر استیل؛ طراحی و ساخت تهران. اندازه و وزن هر آیتم در صفحهٔ محصول نوشته شده است.',
   alternates: { canonical: '/' },
@@ -61,7 +61,7 @@ export default async function V3HomePage() {
 
       <CategoryRail categories={categories} products={products} />
 
-      <section className="v3-section" aria-labelledby="best-title">
+      <section className="v3-section" aria-labelledby="best-title" style={{ background: 'var(--ink-2)' }}>
         <div className="v3-shell">
           <div className="v3-rail-head">
             <div>
@@ -77,7 +77,7 @@ export default async function V3HomePage() {
         </div>
       </section>
 
-      <section className="v3-section" aria-labelledby="sale-title" style={{ background: 'var(--ink-2)' }}>
+      <section className="v3-section" aria-labelledby="sale-title">
         <div className="v3-shell">
           <div className="v3-rail-head">
             <div>

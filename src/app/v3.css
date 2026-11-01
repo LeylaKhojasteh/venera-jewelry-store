@@ -473,10 +473,6 @@ body:has(.v3-root) {
     letter-spacing: 0.18em;
   }
 
-  .v3-logo small {
-    font-size: 11px;
-  }
-
   .v3-actions {
     gap: 0;
   }

@@ -9,7 +9,7 @@ asymmetry.
 > and the contact details are placeholders. Orders are stored in PostgreSQL with the status
 > `DEMO_PLACED` («سفارش آزمایشی ثبت شد»).
 
-- **Brand line:** «جزئیاتی که با تو می‌مانند»
+- **Brand line:** «اکسسوری لوکس ونرا» / «بهترین قیمت و بیشترین تنوع»
 - **Currency:** integer Toman, formatted with Persian digits (`Intl.NumberFormat('fa-IR')`)
 - **Language:** Persian UI, `lang="fa" dir="rtl"`; Latin only for the logotype and folios
 
@@ -87,7 +87,7 @@ them, and the login page labels the customer account as demo-only.
 
 | Route | What it does |
 | --- | --- |
-| `/` | Editorial homepage: hero, category mosaic, best sellers (DB), brand story, gender panels, discounts (DB), craft notes, final CTA |
+| `/` | Editorial homepage: 3D jewellery hero, category mosaic, best sellers (DB), discount row (DB), pinned 3D category story, FAQ |
 | `/products` | Server-side catalogue: search, category, gender, price range, stock, discount, sort, pagination, mobile filter drawer, active chips |
 | `/products/[slug]` | Gallery, variants with per-variant stock, quantity, add-to-cart, accordions, related products, JSON-LD, real 404 |
 | `/cart` | Guest (localStorage) and authenticated (PostgreSQL) cart, live revalidation, totals |
@@ -115,18 +115,20 @@ prisma/
   seed.ts                  idempotent seed (11 products, variants, demo users)
 src/
   app/
-    (store)/               storefront layout (header/footer/cart provider) + pages
-    (admin)/admin/         separate admin shell, requireAdmin in the layout
-    layout.tsx             <html lang="fa" dir="rtl">, metadata, font preloads
-    globals.css            design tokens, primitives, motion, reduced-motion
-  actions/                 server actions: auth, cart, checkout, addresses, contact, admin
+    (v3)/                   v4 storefront layout (header/footer/cart provider) + all pages
+    (admin)/admin/          v4 admin shell, requireAdmin in the layout
+    layout.tsx              <html lang="fa" dir="rtl">, metadata, font preloads
+    v3.css                  v4 tokens, components, motion, reduced-motion
+  actions/                  server actions: auth, cart, checkout, addresses, contact, admin
   components/
-    layout/ home/ products/ cart/ profile/ admin/ auth/ contact/ ui/
+    v3/                     storefront components (3D hero, catalog, cart, profile, auth)
+    admin/                  admin components
+    ui/                     shared dialog and field primitives
   lib/
     db.ts auth/ catalog.ts cart.ts pricing.ts validation.ts money.ts dates.ts …
   types/index.ts
-e2e/                       Playwright specs + helpers
-docs/                      design direction, asset manifest, QA report, progress
+e2e/                        Playwright specs + helpers
+docs/                       screenshots and QA notes
 ```
 
 Server Components fetch data directly; Client Components exist only for interaction
@@ -206,9 +208,9 @@ Server Components fetch data directly; Client Components exist only for interact
 - Sources, authors and licences are recorded in [`docs/asset-manifest.md`](docs/asset-manifest.md).
   The majority are CC0 museum plates (The Met via Wikimedia Commons); three modern ring
   photographs and one torc are CC BY 2.0 and are credited there.
-- Persian typography: Vazirmatn (UI), Markazi Text (display), Cormorant Garamond (Latin).
-  All are self-hosted in `public/fonts` (OFL) with `unicode-range`, not fetched from Google at
-  runtime.
+- Persian typography: Estedad (Persian + Latin) and Bodoni Moda (Latin display), self-hosted
+  under `public/fonts/v3` (OFL), not fetched from Google at runtime. The legacy font files remain
+  only for the old `(store)` error/not-found shell.
 
 ---
 
@@ -258,6 +260,19 @@ The repository does not contain secrets; `.env` is git-ignored and `.env.example
 every key.
 
 ---
+
+## Before launch checklist
+
+The code is deployable, but these are product/business decisions, not code gaps:
+
+- [ ] Replace the placeholder phone, email and address in `src/lib/constants.ts` (`demoContact`) and the About page.
+- [ ] Replace demo seed credentials and never run the demo seed on the production database with the published passwords.
+- [ ] Add the owner photographs for bracelets, earrings and rings; confirm the licence for every image in `docs/asset-manifest.md`.
+- [ ] Decide whether checkout stays demo-only (`DEMO_PLACED`) or gets a real payment gateway; the current UI never claims a payment was taken.
+- [ ] Add shipping, returns, privacy and terms pages; they are not part of the current routes.
+- [ ] Move the in-process rate limiter to Redis/Upstash if the site runs on more than one serverless instance.
+- [ ] Add a CSP with a nonce before handling real customer accounts; security headers are already set, CSP is not.
+- [ ] Expand the admin only if needed: it edits price, stock and visibility, but does not create products or upload images.
 
 ## Known limitations
 
