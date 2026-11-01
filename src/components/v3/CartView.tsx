@@ -113,7 +113,7 @@ export function CartView() {
                       {line.variantLabel ? <p className="v3-small">{line.variantLabel}</p> : null}
                       <p className="v3-small">{formatToman(line.price)}</p>
                       {!line.isActive || line.stock === 0 ? (
-                        <p className="v3-qv-error">این قطعه فعلاً قابل سفارش نیست.</p>
+                        <p className="v3-qv-error">این آیتم فعلاً قابل سفارش نیست.</p>
                       ) : null}
                     </div>
                     <button
@@ -167,7 +167,7 @@ export function CartView() {
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', marginTop: '1.5rem' }}>
           <Link href="/products" className="link-quiet text-sm">
-            افزودن قطعهٔ دیگر
+            افزودن آیتم دیگر
           </Link>
           <span className="v3-small" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
             {pending ? <Loader2 aria-hidden="true" size={14} className="animate-spin" /> : null}

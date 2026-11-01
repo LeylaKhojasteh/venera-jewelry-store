@@ -76,7 +76,7 @@ const CRESCENT_EXTRUDE = {
   curveSegments: 40,
 };
 
-function Chain({ count = 88 }: { count?: number }) {
+export function Chain({ count = 88 }: { count?: number }) {
   const curve = useMemo(
     () =>
       new THREE.CatmullRomCurve3([
@@ -138,7 +138,7 @@ function Chain({ count = 88 }: { count?: number }) {
   );
 }
 
-function Bracelet() {
+export function Bracelet() {
   return (
     <group position={[-2.05, -0.95, 0.25]} rotation={[0.55, 0.35, 0.2]} scale={0.92}>
       <mesh rotation={[0.06, 0.28, 0.12]} castShadow receiveShadow>
@@ -153,7 +153,7 @@ function Bracelet() {
   );
 }
 
-function Earring({ x, rotation = 0 }: { x: number; rotation?: number }) {
+export function Earring({ x, rotation = 0 }: { x: number; rotation?: number }) {
   return (
     <group position={[x, 0.95, 0.2]} rotation={[0.1, 0.2, rotation]}>
       <mesh castShadow receiveShadow>
@@ -180,7 +180,7 @@ function Earring({ x, rotation = 0 }: { x: number; rotation?: number }) {
   );
 }
 
-function Ring() {
+export function Ring() {
   return (
     <group position={[1.15, -1.55, 0.7]} rotation={[1.12, 0.1, 0.18]} scale={0.92}>
       <mesh castShadow>
@@ -299,7 +299,6 @@ export function JewelryStage() {
         <ContactShadows position={[0, -2.05, 0]} opacity={0.18} scale={3.2} blur={2.4} far={4} color="#3a1b24" />
       </Canvas>
       <StageSkeleton ready={ready} />
-      <span className="v3-art-caption">استیل ۳۱۶ / طراحی تهران</span>
     </div>
   );
 }

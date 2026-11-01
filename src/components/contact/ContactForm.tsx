@@ -107,7 +107,7 @@ export function ContactForm() {
         <Textarea
           label="پیام"
           rows={6}
-          placeholder="سؤالت را بنویس؛ اگر دربارهٔ یک قطعهٔ خاص است، نامش را هم بیاور."
+          placeholder="سؤالت را بنویس؛ اگر دربارهٔ یک آیتم خاص است، نامش را هم بیاور."
           error={form.formState.errors.message?.message}
           {...form.register('message')}
         />

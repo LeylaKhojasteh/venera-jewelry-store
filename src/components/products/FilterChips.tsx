@@ -53,7 +53,7 @@ export function CountLabel({ total, sort }: { total: number; sort?: string }) {
   const sortLabel = sortOptions.find((option) => option.value === (sort ?? 'latest'))?.label;
   return (
     <p className="text-xs text-ink-soft">
-      <span className="tabular text-plum-ink">{new Intl.NumberFormat('fa-IR').format(total)}</span> قطعه
+      <span className="tabular text-plum-ink">{new Intl.NumberFormat('fa-IR').format(total)}</span> آیتم
       {sortLabel ? <span className="text-ink-soft/70"> · {sortLabel}</span> : null}
     </p>
   );

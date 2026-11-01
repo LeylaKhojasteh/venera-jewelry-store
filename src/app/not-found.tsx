@@ -8,7 +8,7 @@ export default function NotFound() {
       <div className="shell flex min-h-[70vh] flex-col justify-center py-20">
         <h1 className="display max-w-2xl text-4xl">این صفحه پیدا نشد.</h1>
         <p className="mt-5 max-w-lg text-base leading-9 text-ink-soft">
-          شاید نشانی تغییر کرده یا قطعه از کالکشن خارج شده باشد. از این‌جا دوباره شروع کن.
+          شاید نشانی تغییر کرده یا آیتم از کالکشن خارج شده باشد. از این‌جا دوباره شروع کن.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <ButtonLink href="/">بازگشت به خانه</ButtonLink>

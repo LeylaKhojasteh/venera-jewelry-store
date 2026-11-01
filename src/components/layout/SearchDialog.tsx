@@ -44,7 +44,7 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
               name="q"
               value={value}
               onChange={(event) => setValue(event.target.value)}
-              placeholder="نام قطعه، جنس یا دسته‌بندی…"
+              placeholder="نام آیتم، جنس یا دسته‌بندی…"
               className="w-full bg-transparent text-lg outline-none placeholder:text-ink-soft/60"
               autoComplete="off"
             />

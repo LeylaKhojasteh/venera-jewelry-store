@@ -74,7 +74,7 @@ export default async function ProductsPage({ searchParams }: PageProps) {
             هر نتیجه همان چیزی است که در انبار هست.
           </p>
         </div>
-        <p className="v3-catalog-count">{formatDigits(catalog.total)} قطعه</p>
+        <p className="v3-catalog-count">{formatDigits(catalog.total)} آیتم</p>
       </div>
 
       <div className="v3-catalog-layout">
@@ -93,7 +93,7 @@ export default async function ProductsPage({ searchParams }: PageProps) {
               <h2 className="v3-h2">چیزی با این فیلترها پیدا نشد</h2>
               <p className="v3-body">ترکیب فیلترها را ساده‌تر کن یا جست‌وجو را پاک کن.</p>
               <Link href="/products" className="v3-btn v3-btn-line">
-                دیدن همهٔ محصولات
+                دیدن همه محصولات
               </Link>
             </div>
           ) : (

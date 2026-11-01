@@ -32,7 +32,7 @@ export function Footer({ categories, isAdmin = false }: { categories: CategoryDa
               «{site.tagline}»
             </p>
             <p className="mt-4 max-w-sm text-sm leading-8 text-paper/60">
-              کالکشن محدودی از زیورآلات؛ هر قطعه با مواد مشخص، اندازهٔ دقیق و طراحی ساده.
+              کالکشن محدودی از زیورآلات؛ هر آیتم با مواد مشخص، اندازهٔ دقیق و طراحی ساده.
             </p>
             <Link href="/about" className="link-quiet mt-6 inline-flex text-sm text-gold-soft">
               داستان ونرا
@@ -56,7 +56,7 @@ export function Footer({ categories, isAdmin = false }: { categories: CategoryDa
               <p className="text-[0.68rem] tracking-wide text-paper/40">فروشگاه</p>
               <ul className="mt-4 space-y-2.5 text-sm">
                 <li>
-                  <FooterLink href="/products">همهٔ محصولات</FooterLink>
+                  <FooterLink href="/products">همه محصولات</FooterLink>
                 </li>
                 <li>
                   <FooterLink href="/products?gender=women">زنانه</FooterLink>

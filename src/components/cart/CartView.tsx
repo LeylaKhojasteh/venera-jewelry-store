@@ -35,7 +35,7 @@ export function CartView() {
       <div className="mt-10">
         <EmptyState
           title="هنوز چیزی به سبدت اضافه نکردی."
-          description="کالکشن کوچک است اما هر قطعه داستان خودش را دارد. از دسته‌بندی‌ها شروع کن یا همهٔ محصولات را ببین."
+          description="کالکشن کوچک است اما هر آیتم داستان خودش را دارد. از دسته‌بندی‌ها شروع کن یا همه محصولات را ببین."
           icon={<ShoppingBag aria-hidden="true" className="size-8" />}
           action={<EmptyLink href="/products" label="کشف زیورآلات ونرا" />}
         />
@@ -84,7 +84,7 @@ export function CartView() {
                       ) : null}
                       <p className="mt-1 text-[0.7rem] text-ink-soft">{formatToman(line.price)}</p>
                       {!line.isActive || line.stock === 0 ? (
-                        <p className="mt-2 text-xs text-error">این قطعه فعلاً قابل سفارش نیست.</p>
+                        <p className="mt-2 text-xs text-error">این آیتم فعلاً قابل سفارش نیست.</p>
                       ) : null}
                     </div>
                     <button
@@ -116,7 +116,7 @@ export function CartView() {
 
         <div className="mt-6 flex items-center justify-between text-xs text-ink-soft">
           <Link href="/products" className="link-quiet">
-            افزودن قطعهٔ دیگر
+            افزودن آیتم دیگر
           </Link>
           <span className="flex items-center gap-1.5">
             {pending ? <Loader2 aria-hidden="true" className="size-3.5 animate-spin" /> : null}

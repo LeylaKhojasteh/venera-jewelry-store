@@ -27,7 +27,7 @@ export function CategoryMosaic({ categories }: { categories: CategoryData[] }) {
           eyebrow="کاوش"
           title={<span id="categories-title">چهار راه برای شروع</span>}
           description="هر دسته یک لحن دارد؛ از زنجیر نازک روزمره تا انگشتر سنگین شب. از جایی شروع کن که به تو نزدیک‌تر است."
-          action={<QuietLink href="/products">همهٔ محصولات</QuietLink>}
+          action={<QuietLink href="/products">همه محصولات</QuietLink>}
         />
 
         <div className="mt-8 grid grid-cols-12 gap-3 lg:auto-rows-[21.5rem] lg:gap-5">
@@ -71,7 +71,7 @@ export function CategoryMosaic({ categories }: { categories: CategoryData[] }) {
                       <p className="mt-1.5 text-xs text-paper/80">{category.tagline}</p>
                     </div>
                     <span className="flex items-center gap-1.5 text-[0.68rem] text-paper/80">
-                      {formatDigits(category.productCount)} قطعه
+                      {formatDigits(category.productCount)} آیتم
                       <ArrowUpLeft
                         aria-hidden="true"
                         className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"

@@ -98,7 +98,6 @@ export function NecklaceLine({ animate = true }: { animate?: boolean }) {
           </motion.g>
         </svg>
       </motion.div>
-      <span className="v3-art-caption">استیل ۳۱۶ / طراحی تهران</span>
     </div>
   );
 }

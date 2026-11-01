@@ -46,7 +46,7 @@ export function ProductRail({ products }: { products: ProductCardData[] }) {
               اکسسوری‌ها
             </h2>
             <p className="v3-body" style={{ marginTop: '0.75rem', maxWidth: '38ch' }}>
-              گردنبند، دستبند، گوشواره و انگشتر؛ هر کدام با اندازه و وزن مشخص. روی هر قطعه بزن تا
+              گردنبند، دستبند، گوشواره و انگشتر؛ هر کدام با اندازه و وزن مشخص. روی هر آیتم بزن تا
               همین‌جا باز شود.
             </p>
           </div>
@@ -90,9 +90,6 @@ export function ProductRail({ products }: { products: ProductCardData[] }) {
                 <span className="v3-card-body">
                   <span className="v3-card-name">{product.name}</span>
                   <span className="v3-card-price">{formatToman(product.price)}</span>
-                </span>
-                <span className="v3-small" style={{ display: 'block', marginTop: '0.15rem' }}>
-                  {product.categoryName} · استیل ۳۱۶
                 </span>
               </button>
             </Tilt>

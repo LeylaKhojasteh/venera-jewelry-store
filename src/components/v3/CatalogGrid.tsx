@@ -79,9 +79,6 @@ export function CatalogGrid({
                     <span className="v3-grid-compare">{formatToman(product.compareAtPrice)}</span>
                   ) : null}
                 </span>
-                <span className="v3-grid-meta">
-                  {product.categoryName} · {product.gender === 'MEN' ? 'مردانه' : product.gender === 'WOMEN' ? 'زنانه' : 'یونیسکس'}
-                </span>
               </span>
             </button>
           </article>

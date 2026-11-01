@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 import { demoContact } from '@/lib/constants';
 import { formatJalaliNumeric } from '@/lib/dates';
 import type { CategoryData } from '@/types';
@@ -20,13 +20,10 @@ export function SiteFooter({ categories }: { categories: CategoryData[] }) {
       <div className="v3-shell">
         <div className="v3-footer-grid">
           <div>
-            <Link href="/" className="v3-logo" aria-label="ونرا">
-              <span className="v3-logo-mark">VENERA</span> <small>ونرا</small>
+            <Link href="/" className="v3-logo" aria-label="اکسسوری ونرا">
+              <span className="v3-logo-mark">VENERA</span> <small>اکسسوری ونرا</small>
             </Link>
-            <p className="v3-body" style={{ marginTop: '1.25rem', maxWidth: '24ch' }}>
-              زیورآلات استیل، طراحی و ساخت تهران. کالکشن کوچک، جزئیات روشن.
-            </p>
-            <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+            <div style={{ marginTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
               <a href={`mailto:${demoContact.email}`} className="v3-small" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                 <Mail aria-hidden="true" size={15} /> <span dir="ltr">{demoContact.email}</span>
               </a>
@@ -54,7 +51,7 @@ export function SiteFooter({ categories }: { categories: CategoryData[] }) {
             <h3>فروشگاه</h3>
             <ul>
               <li>
-                <FooterLink href="/products">همهٔ محصولات</FooterLink>
+                <FooterLink href="/products">همه محصولات</FooterLink>
               </li>
               <li>
                 <FooterLink href="/products?sort=bestseller">پرفروش‌ها</FooterLink>
@@ -66,18 +63,14 @@ export function SiteFooter({ categories }: { categories: CategoryData[] }) {
                 <FooterLink href="/about">داستان ونرا</FooterLink>
               </li>
               <li>
-                <FooterLink href="/contact">تماس</FooterLink>
+                <FooterLink href="/contact">تماس با ما</FooterLink>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="v3-footer-bottom">
-          <p>© {year} ونرا — تمام حقوق محفوظ است.</p>
-          <a href="#top" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-            بازگشت به بالا
-            <ArrowUp aria-hidden="true" size={14} />
-          </a>
+          <p>© {year} اکسسوری ونرا — تمام حقوق محفوظ است.</p>
         </div>
       </div>
     </footer>

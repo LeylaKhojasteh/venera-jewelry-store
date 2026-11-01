@@ -66,7 +66,7 @@ export function MobileMenu({
                         {category.latinName}
                       </span>
                     </span>
-                    <span className="text-xs text-ink-soft">{formatDigits(category.productCount)} قطعه</span>
+                    <span className="text-xs text-ink-soft">{formatDigits(category.productCount)} آیتم</span>
                   </Link>
                 </li>
               ))}

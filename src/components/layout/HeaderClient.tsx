@@ -196,7 +196,7 @@ export function HeaderClient({ categories, user }: { categories: CategoryData[];
 
                     <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-ink-soft">
                       <Link href="/products" className="font-medium text-plum-ink transition-colors hover:text-plum">
-                        همهٔ محصولات
+                        همه محصولات
                       </Link>
                       {genderNav.map((gender) => (
                         <Link

@@ -14,8 +14,8 @@ import type { SessionUser } from '@/lib/auth/session';
 const nav = [
   { href: '/', label: 'خانه' },
   { href: '/products', label: 'محصولات' },
-  { href: '/about', label: 'داستان' },
-  { href: '/contact', label: 'تماس' },
+  { href: '/about', label: 'داستان ونرا' },
+  { href: '/contact', label: 'تماس با ما' },
 ];
 
 type ViewTransitionDocument = Document & {
@@ -189,8 +189,8 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
       <header className="v3-header" data-scrolled={scrolled}>
         <div className="v3-shell">
           <div className="v3-header-inner">
-            <Link href="/" className="v3-logo" aria-label="ونرا، صفحهٔ اصلی">
-              <span className="v3-logo-mark">VENERA</span> <small>ونرا</small>
+            <Link href="/" className="v3-logo" aria-label="اکسسوری ونرا">
+              <span className="v3-logo-mark">VENERA</span> <small>اکسسوری ونرا</small>
             </Link>
 
             <nav className="v3-nav" aria-label="ناوبری اصلی">
@@ -241,11 +241,11 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
                         onClick={() => setProductsOpen(false)}
                       >
                         <span>{category.name}</span>
-                        <small>{formatDigits(category.productCount)} قطعه</small>
+                        <small>{formatDigits(category.productCount)} آیتم</small>
                       </Link>
                     ))}
                     <Link href="/products" className="v3-products-all" onClick={() => setProductsOpen(false)}>
-                      همهٔ محصولات
+                      همه محصولات
                     </Link>
                   </div>
                 ) : null}
@@ -318,7 +318,7 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
         >
           <div className="v3-menu-head">
             <span id="v3-menu-title" className="v3-logo">
-              <span className="v3-logo-mark">VENERA</span> <small>ونرا</small>
+              <span className="v3-logo-mark">VENERA</span> <small>اکسسوری ونرا</small>
             </span>
             <button type="button" className="v3-icon" onClick={closeMenu} aria-label="بستن منو" autoFocus>
               <X aria-hidden="true" size={22} />
@@ -371,7 +371,7 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
                   </Link>
                 ))}
                 <Link href="/products" className="v3-products-all" onClick={closeMenu}>
-                  همهٔ محصولات
+                  همه محصولات
                 </Link>
               </div>
             </details>

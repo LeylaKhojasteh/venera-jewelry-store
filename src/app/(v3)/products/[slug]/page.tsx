@@ -73,7 +73,7 @@ export default async function ProductPage({ params }: PageProps) {
 
             <div className="v3-details enter">
               <details open>
-                <summary>داستان قطعه</summary>
+                <summary>داستان آیتم</summary>
                 <p>{product.story}</p>
               </details>
               <details>
@@ -95,7 +95,7 @@ export default async function ProductPage({ params }: PageProps) {
 
             <div className="v3-meta-grid enter-2">
               <div>
-                کد قطعه
+                کد آیتم
                 <strong dir="ltr">{product.sku}</strong>
               </div>
               <div>

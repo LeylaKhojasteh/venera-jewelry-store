@@ -126,7 +126,7 @@ export default async function AdminOverviewPage() {
           </h2>
           <ul className="v3-order-summary" style={{ marginTop: '0.75rem' }}>
             {lowStock.length === 0 ? (
-              <li className="v3-body">همهٔ محصولات موجودی کافی دارند.</li>
+              <li className="v3-body">همه محصولات موجودی کافی دارند.</li>
             ) : (
               lowStock.map((product) => (
                 <li key={product.id} className="v3-drawer-row" style={{ paddingBlock: '0.5rem' }}>

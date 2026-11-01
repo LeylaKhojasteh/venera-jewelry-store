@@ -9,8 +9,8 @@ export function BestSellers({ products }: { products: ProductCardData[] }) {
       <div className="shell">
         <SectionHeading
           title={<span id="best-sellers-title">محبوب‌ترین انتخاب‌های شما</span>}
-          description="قطعه‌هایی که بیشتر از همه دیده و انتخاب شده‌اند؛ از زنجیرهای سبک تا انگشترهای سنگین‌تر."
-          action={<QuietLink href="/products?sort=bestseller">همهٔ محصولات</QuietLink>}
+          description="آیتم‌هایی که بیشتر از همه دیده و انتخاب شده‌اند؛ از زنجیرهای سبک تا انگشترهای سنگین‌تر."
+          action={<QuietLink href="/products?sort=bestseller">همه محصولات</QuietLink>}
         />
         <div className="mt-9 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
           {products.slice(0, 4).map((product, index) => (
@@ -34,7 +34,7 @@ export function SaleSection({ products }: { products: ProductCardData[] }) {
               فرصتی برای درخشیدن
             </h2>
             <p className="mt-5 max-w-sm text-base leading-8 text-ink-soft">
-              تعداد محدودی از قطعه‌ها با قیمت پیش از تخفیف مشخص عرضه شده‌اند. درصدها از اختلاف واقعی دو قیمت
+              تعداد محدودی از آیتم‌ها با قیمت پیش از تخفیف مشخص عرضه شده‌اند. درصدها از اختلاف واقعی دو قیمت
               محاسبه می‌شوند، نه از یک عدد گرد.
             </p>
             <p className="mt-4 max-w-sm text-xs leading-6 text-ink-soft/80">

@@ -17,7 +17,7 @@ export function BrandLine() {
           </div>
           <div className="md:col-span-4 md:text-end">
             <p className="text-sm leading-8 text-paper/60">
-              کالکشن محدود زیورآلات، با تمرکز بر فرم، وزن و ماندگاری. هر قطعه یک بار ساخته می‌شود و تا وقتی
+              کالکشن محدود زیورآلات، با تمرکز بر فرم، وزن و ماندگاری. هر آیتم یک بار ساخته می‌شود و تا وقتی
               دوستش داشته باشی می‌ماند.
             </p>
           </div>
@@ -88,7 +88,7 @@ export function CraftNotes() {
   const notes = [
     {
       title: 'مواد، بدون ابهام',
-      text: 'جنس فلز، نوع سنگ و اندازهٔ هر قطعه در صفحهٔ محصول نوشته شده است؛ همان چیزی که می‌بینی، همان چیزی است که می‌رسد.',
+      text: 'جنس فلز، نوع سنگ و اندازهٔ هر آیتم در صفحهٔ محصول نوشته شده است؛ همان چیزی که می‌بینی، همان چیزی است که می‌رسد.',
     },
     {
       title: 'اندازه، پیش از خرید',
@@ -96,7 +96,7 @@ export function CraftNotes() {
     },
     {
       title: 'نگهداری، ساده',
-      text: 'هر قطعه با یک دستور نگهداری کوتاه همراه است: دور از عطر، خشک و جدا از قطعات دیگر. همین کافی است.',
+      text: 'هر آیتم با یک دستور نگهداری کوتاه همراه است: دور از عطر، خشک و جدا از آیتم‌ها دیگر. همین کافی است.',
     },
   ];
 
@@ -133,10 +133,10 @@ export function FinalCta() {
       <div className="absolute inset-0 bg-gradient-to-l from-plum-deep/85 via-plum-deep/80 to-plum-deep/95" aria-hidden="true" />
       <div className="shell relative section text-center">
         <h2 className="display mx-auto max-w-3xl text-4xl text-paper">
-          سبک خودت را با یک قطعهٔ درست کامل کن.
+          سبک خودت را با یک آیتم درست کامل کن.
         </h2>
         <p className="mx-auto mt-6 max-w-xl text-sm leading-8 text-paper/70">
-          کالکشن کوچک است؛ اما هر قطعه با دقت انتخاب شده. اگر مطمئن نیستی از کجا شروع کنی، با ما حرف بزن.
+          کالکشن کوچک است؛ اما هر آیتم با دقت انتخاب شده. اگر مطمئن نیستی از کجا شروع کنی، با ما حرف بزن.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Link href="/products" className="btn btn-light min-w-[11rem]">

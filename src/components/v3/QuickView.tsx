@@ -163,7 +163,7 @@ export function QuickView({
               </div>
             </>
           ) : (
-            <p className="v3-small">جزئیات این قطعه در دسترس نیست.</p>
+            <p className="v3-small">جزئیات این آیتم در دسترس نیست.</p>
           )}
         </div>
       </motion.div>

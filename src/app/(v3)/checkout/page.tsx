@@ -27,7 +27,7 @@ export default async function CheckoutPage() {
       <div className="v3-shell v3-section">
         <h1 className="v3-display">چیزی برای ثبت نیست</h1>
         <p className="v3-body" style={{ marginTop: '1rem', maxWidth: '38ch' }}>
-          سبد خرید خالی است. پیش از تکمیل سفارش، یک قطعه انتخاب کن.
+          سبد خرید خالی است. پیش از تکمیل سفارش، یک آیتم انتخاب کن.
         </p>
         <Link href="/products" className="v3-btn v3-btn-solid" style={{ marginTop: '1.5rem' }}>
           دیدن کالکشن

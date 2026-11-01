@@ -25,7 +25,7 @@ export function LengthGuide() {
             </h2>
             <p className="v3-body" style={{ marginTop: '1rem', maxWidth: '36ch' }}>
               طول زنجیر گردنبند را انتخاب کن؛ خط روی گردن جابه‌جا می‌شود. برای دستبند و انگشتر، اندازه
-              در صفحهٔ همان قطعه آمده است.
+              در صفحهٔ همان آیتم آمده است.
             </p>
 
             <div className="v3-guide-options" role="group" aria-label="طول گردنبند">

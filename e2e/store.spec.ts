@@ -19,8 +19,8 @@ test.describe('storefront', () => {
 
     await page.locator('.v3-nav').getByRole('button', { name: 'محصولات' }).click();
     const productsMenu = page.locator('#v3-products-menu');
-    await expect(productsMenu.getByRole('link', { name: 'همهٔ محصولات' })).toBeVisible();
-    await productsMenu.getByRole('link', { name: 'همهٔ محصولات' }).click();
+    await expect(productsMenu.getByRole('link', { name: 'همه محصولات' })).toBeVisible();
+    await productsMenu.getByRole('link', { name: 'همه محصولات' }).click();
     await expect(page).toHaveURL(/\/products/);
     await expect(page.getByRole('heading', { level: 1, name: 'همهٔ زیورآلات' })).toBeVisible();
 

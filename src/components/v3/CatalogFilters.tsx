@@ -63,7 +63,7 @@ export function CatalogFilters({
           id={`${idPrefix}-q`}
           name="q"
           defaultValue={current.q ?? ''}
-          placeholder="نام قطعه…"
+          placeholder="نام آیتم…"
           className="v3-field-input"
         />
         {current.category ? <input type="hidden" name="category" value={current.category} /> : null}

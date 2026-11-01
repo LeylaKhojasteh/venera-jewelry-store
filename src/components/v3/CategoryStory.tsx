@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { motion, useMotionValueEvent, useScroll } from 'motion/react';
+import { CategoryStage } from '@/components/v3/CategoryStage';
 import { formatToman } from '@/lib/money';
 import type { ProductCardData } from '@/types';
 
@@ -68,16 +69,18 @@ export function CategoryStory({ products }: { products: ProductCardData[] }) {
 
   if (products.length === 0) return null;
 
+  const activeShape =
+    shapes.find((shape) => shape.slug === products[active]?.categorySlug) ?? shapes[0];
+
   return (
     <section className="v3-story" ref={ref} aria-labelledby="story-title">
       <div className="v3-story-sticky">
         <div className="v3-shell v3-story-grid">
           <div className="v3-story-art" aria-hidden="true">
-            {shapes.map((shape, index) => (
-              <div key={shape.slug} className={`v3-story-shape${index === active ? ' is-active' : ''}`}>
-                <svg viewBox="0 0 400 400">{shape.svg}</svg>
-              </div>
-            ))}
+            <CategoryStage
+              kind={activeShape.slug}
+              fallback={<svg viewBox="0 0 400 400">{activeShape.svg}</svg>}
+            />
           </div>
 
           <div className="v3-story-copy">
@@ -112,7 +115,7 @@ export function CategoryStory({ products }: { products: ProductCardData[] }) {
                         className="v3-btn v3-btn-line"
                         tabIndex={index === active ? 0 : -1}
                       >
-                        دیدن قطعه
+                        دیدن آیتم
                       </Link>
                     </div>
                   </div>
