@@ -39,10 +39,11 @@ function Showcase({ kind, reduce }: { kind: string; reduce: boolean }) {
       break;
     case 'ring':
       model = (
-        <group scale={2.1}>
+        <group scale={1.7}>
           <group position={[-1.15, 1.55, 0]}>
             <Ring />
           </group>
+          <pointLight position={[1.6, 2.2, 3.4]} intensity={0.7} distance={5} color="#ffffff" />
         </group>
       );
       break;

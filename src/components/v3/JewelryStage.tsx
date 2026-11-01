@@ -184,14 +184,14 @@ export function Ring() {
   return (
     <group position={[1.15, -1.55, 0.7]} rotation={[1.12, 0.1, 0.18]} scale={0.92}>
       <mesh castShadow>
-        <torusGeometry args={[0.32, 0.04, 12, 56]} />
+        <torusGeometry args={[0.3, 0.03, 12, 56]} />
         <meshStandardMaterial
           color="#dedee3"
           metalness={0.9}
-          roughness={0.28}
+          roughness={0.3}
           envMapIntensity={1.8}
           emissive="#1c1c20"
-          emissiveIntensity={0.08}
+          emissiveIntensity={0.12}
         />
       </mesh>
       <mesh position={[0, 0.335, 0]} castShadow receiveShadow>
@@ -202,8 +202,8 @@ export function Ring() {
         <torusGeometry args={[0.048, 0.007, 8, 20]} />
         <Steel roughness={0.18} />
       </mesh>
-      <mesh position={[0, 0.44, 0]} scale={[1, 1.35, 1]} castShadow receiveShadow>
-        <sphereGeometry args={[0.08, 32, 32]} />
+      <mesh position={[0, 0.44, 0]} scale={[1, 1.05, 1]} castShadow receiveShadow>
+        <sphereGeometry args={[0.085, 32, 32]} />
         <Pearl />
       </mesh>
       <pointLight position={[0, 0.7, 0.6]} intensity={0.35} distance={1.1} color="#fff4e6" />

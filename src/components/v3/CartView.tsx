@@ -62,16 +62,19 @@ export function CartView() {
           {suggestions.map((item, index) => (
             <Link
               key={item.slug}
-              href="/products"
-              className={`v3-cart-empty-media enter-${index < 2 ? 2 : 3}`}
+              href={`/products/${item.slug}`}
+              className={`v3-cart-empty-item enter-${index < 2 ? 2 : 3}`}
             >
-              <Image
-                src={item.image}
-                alt={item.name}
-                fill
-                sizes="(max-width: 768px) 40vw, 18vw"
-                className="animate-drift object-cover"
-              />
+              <span className="v3-cart-empty-media">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  fill
+                  sizes="(max-width: 768px) 40vw, 18vw"
+                  className="object-cover"
+                />
+              </span>
+              <span className="v3-cart-empty-name">{item.name}</span>
             </Link>
           ))}
         </div>
@@ -95,13 +98,13 @@ export function CartView() {
           </div>
         ) : null}
 
-        <ul style={{ opacity: pending ? 0.75 : 1, transition: 'opacity 180ms ease' }}>
+        <ul className="v3-cart-lines" style={{ opacity: pending ? 0.75 : 1, transition: 'opacity 180ms ease' }}>
           {lines.map((line) => {
             const variantKey = line.variantId ?? '';
             return (
               <li key={`${line.productId}-${variantKey}`} className="v3-cart-line">
                 <Link href={`/products/${line.slug}`} className="v3-cart-media">
-                  <Image src={line.image} alt={line.imageAlt} fill sizes="128px" className="object-cover" />
+                  <Image src={line.image} alt={line.imageAlt} fill sizes="64px" className="object-cover" />
                 </Link>
 
                 <div style={{ minWidth: 0, flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -133,7 +136,7 @@ export function CartView() {
                       justifyContent: 'space-between',
                       gap: '1rem',
                       marginTop: 'auto',
-                      paddingTop: '1rem',
+                      paddingTop: '0.6rem',
                     }}
                   >
                     <div className="v3-qty">
@@ -155,7 +158,7 @@ export function CartView() {
                         <Plus aria-hidden="true" size={14} />
                       </button>
                     </div>
-                    <p style={{ color: 'var(--bone)', fontSize: 16, whiteSpace: 'nowrap' }}>
+                    <p style={{ color: 'var(--bone)', fontSize: 14, whiteSpace: 'nowrap' }}>
                       {formatToman(line.lineTotal)}
                     </p>
                   </div>
@@ -165,14 +168,11 @@ export function CartView() {
           })}
         </ul>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', marginTop: '1.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', marginTop: '1rem' }}>
           <Link href="/products" className="link-quiet text-sm">
             افزودن آیتم دیگر
           </Link>
-          <span className="v3-small" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
-            {pending ? <Loader2 aria-hidden="true" size={14} className="animate-spin" /> : null}
-            موجودی و قیمت‌ها از پایگاه‌داده خوانده می‌شوند.
-          </span>
+          {pending ? <Loader2 aria-hidden="true" size={14} className="animate-spin" /> : null}
         </div>
       </div>
 

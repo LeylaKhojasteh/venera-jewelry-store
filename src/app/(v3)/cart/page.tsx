@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { prisma } from '@/lib/db';
+import { formatToman } from '@/lib/money';
 import { CartView } from '@/components/v3/CartView';
 import { CartArt } from '@/components/v3/CartArt';
 
@@ -10,7 +12,14 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function CartPage() {
+export default async function CartPage() {
+  const suggestions = await prisma.product.findMany({
+    where: { isActive: true },
+    orderBy: { createdAt: 'asc' },
+    take: 4,
+    include: { images: { orderBy: { sortOrder: 'asc' }, take: 1, select: { url: true } } },
+  });
+
   return (
     <div className="v3-shell v3-section">
       <nav className="v3-crumbs" aria-label="مسیر">
@@ -23,8 +32,7 @@ export default function CartPage() {
         <div>
           <h1 className="v3-display enter">سبد خرید</h1>
           <p className="v3-lead enter-2" style={{ marginTop: '1rem', maxWidth: '40ch' }}>
-            آنچه انتخاب کرده‌ای اینجاست. تعداد را می‌توانی همین‌جا عوض کنی؛ قیمت‌ها از پایگاه‌داده
-            خوانده می‌شوند.
+            سفارشت را بررسی کن و ادامه بده.
           </p>
         </div>
         <CartArt />
@@ -37,15 +45,22 @@ export default function CartPage() {
           پیشنهاد برای تو
         </h2>
         <div className="v3-cart-suggest-grid">
-          {[
-            { src: '/images/products/necklace-nilo-01.jpg', alt: 'گردنبند نیلو' },
-            { src: '/images/products/bracelet-ares-01.jpg', alt: 'دستبند آرس' },
-            { src: '/images/products/earrings-alara-01.jpg', alt: 'گوشواره الانا' },
-            { src: '/images/products/ring-diyar-01.jpg', alt: 'انگشتر دیار' },
-          ].map((item) => (
-            <Link key={item.src} href="/products" className="v3-cart-suggest-item enter-2">
+          {suggestions.map((product) => (
+            <Link key={product.id} href={`/products/${product.slug}`} className="v3-cart-suggest-item enter-2">
               <span className="v3-cart-suggest-media">
-                <Image src={item.src} alt={item.alt} fill sizes="22vw" className="animate-drift object-cover" />
+                {product.images[0] ? (
+                  <Image
+                    src={product.images[0].url}
+                    alt={product.name}
+                    fill
+                    sizes="(max-width: 768px) 40vw, 15vw"
+                    className="object-cover"
+                  />
+                ) : null}
+              </span>
+              <span className="v3-cart-suggest-body">
+                <span className="v3-cart-suggest-name">{product.name}</span>
+                <span className="v3-cart-suggest-price">{formatToman(product.price)}</span>
               </span>
             </Link>
           ))}

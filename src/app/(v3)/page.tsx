@@ -6,6 +6,7 @@ import { HeroJewelry } from '@/components/v3/HeroJewelry';
 import { ProductRail } from '@/components/v3/ProductRail';
 import { CatalogGrid } from '@/components/v3/CatalogGrid';
 import { CategoryStory } from '@/components/v3/CategoryStory';
+import { Faq } from '@/components/v3/Faq';
 import { Magnetic } from '@/components/v3/Magnetic';
 import type { ProductCardData } from '@/types';
 
@@ -112,8 +113,8 @@ export default async function V3HomePage() {
             </p>
           </div>
 
-          <div className="v3-faq-list">
-            {[
+          <Faq
+            items={[
               {
                 question: 'چطور می‌تونم پرداخت کنم؟',
                 answer: 'از قسمت سبد خرید روی تسویه حساب بزنید و وارد درگاه پرداخت شوید.',
@@ -127,13 +128,8 @@ export default async function V3HomePage() {
                 answer:
                   'تحویل توسط پست و بین ۷ الی ۱۰ روز کاری انجام می‌شود و می‌توانید از قسمت سفارشات پروفایل پیگیری کنید.',
               },
-            ].map((item) => (
-              <details key={item.question} className="v3-faq-item">
-                <summary>{item.question}</summary>
-                <p className="v3-body">{item.answer}</p>
-              </details>
-            ))}
-          </div>
+            ]}
+          />
         </div>
       </section>
     </>
