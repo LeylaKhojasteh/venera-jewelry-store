@@ -15,7 +15,7 @@ test.describe('storefront', () => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toContainText('برای گردن');
     await expect(page.getByRole('link', { name: /دیدن کالکشن/ }).first()).toBeVisible();
-    await expect(page.locator('.v3-card')).toHaveCount(4);
+    await expect(page.locator('.v3-category-card')).toHaveCount(4);
 
     await page.locator('.v3-nav').getByRole('button', { name: 'محصولات' }).click();
     const productsMenu = page.locator('#v3-products-menu');
@@ -267,7 +267,7 @@ test.describe('responsive', () => {
 
   test('quick view adds a piece and opens the cart drawer', async ({ page }) => {
     await page.goto('/');
-    await page.locator('.v3-card-open').first().click();
+    await page.locator('.v3-grid-open').first().click();
     await expect(page.locator('.v3-qv')).toBeVisible();
     await expect(page.locator('.v3-qv-variants .v3-choice').first()).toBeVisible();
     await page.locator('.v3-qv-variants .v3-choice').first().click();
@@ -309,7 +309,7 @@ test.describe('responsive', () => {
     await page.waitForLoadState('networkidle');
 
     const desktopColumns = await page.evaluate(() => {
-      const cards = Array.from(document.querySelectorAll('.v3-card')).slice(0, 4);
+      const cards = Array.from(document.querySelectorAll('.v3-category-card')).slice(0, 4);
       return new Set(cards.map((card) => Math.round(card.getBoundingClientRect().left))).size;
     });
     expect(desktopColumns).toBe(4);

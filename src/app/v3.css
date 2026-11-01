@@ -1146,10 +1146,11 @@ body:has(.v3-root) {
   bottom: clamp(1rem, 3vw, 2rem);
   z-index: 35;
   display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+  width: 2.75rem;
   min-height: 2.75rem;
-  padding: 0.5rem 0.8rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   border: 0;
   background: var(--bone);
   color: var(--ink);
@@ -2090,6 +2091,103 @@ html[data-theme='light'] .v3-footer-bottom {
   width: 5rem;
 }
 
+.v3-price-slider {
+  margin-top: 0.75rem;
+}
+
+.v3-price-values {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  direction: ltr;
+  color: var(--bone);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.v3-price-track {
+  position: relative;
+  height: 2.75rem;
+  margin-top: 0.15rem;
+  direction: ltr;
+}
+
+.v3-price-track::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 2px;
+  background: var(--line);
+}
+
+.v3-price-track-fill {
+  position: absolute;
+  top: 50%;
+  left: var(--from);
+  right: calc(100% - var(--to));
+  height: 2px;
+  background: var(--copper);
+}
+
+.v3-price-track input[type='range'] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 2.75rem;
+  margin: 0;
+  appearance: none;
+  background: none;
+  pointer-events: none;
+}
+
+.v3-price-track input[type='range']::-webkit-slider-runnable-track {
+  height: 2px;
+  background: transparent;
+}
+
+.v3-price-track input[type='range']::-webkit-slider-thumb {
+  width: 20px;
+  height: 20px;
+  margin-top: -9px;
+  appearance: none;
+  border: 2px solid var(--copper);
+  border-radius: 50%;
+  background: var(--bone);
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.v3-price-track input[type='range']:focus-visible::-webkit-slider-thumb {
+  outline: 3px solid var(--copper);
+  outline-offset: 2px;
+}
+
+.v3-price-track input[type='range']::-moz-range-track {
+  height: 2px;
+  background: transparent;
+}
+
+.v3-price-track input[type='range']::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--copper);
+  border-radius: 50%;
+  background: var(--bone);
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.v3-price-ends {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  direction: ltr;
+  margin-top: 0.15rem;
+  color: var(--bone-dim);
+  font-size: 13px;
+}
+
 .v3-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2167,7 +2265,7 @@ html[data-theme='light'] .v3-footer-bottom {
   background: var(--copper);
   color: var(--ink);
   padding: 0.12rem 0.45rem;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .v3-badge-quiet {
@@ -3140,6 +3238,78 @@ html[data-theme='light'] .v3-footer-bottom {
   background: var(--ink-2);
 }
 
+/* Categories */
+.v3-category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 0.75rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .v3-category-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+.v3-category-card {
+  display: block;
+}
+
+.v3-category-card:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 4px;
+}
+
+.v3-category-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+
+.v3-category-media img {
+  transition: transform 700ms var(--ease);
+}
+
+.v3-category-card:hover .v3-category-media img {
+  transform: scale(1.04);
+}
+
+.v3-category-body {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.65rem;
+}
+
+.v3-category-name {
+  color: var(--bone);
+  font-size: 20px;
+}
+
+.v3-category-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--bone-dim);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+@media (max-width: 639px) {
+  .v3-category-name {
+    font-size: 16px;
+  }
+
+  .v3-category-meta {
+    font-size: 13px;
+  }
+}
+
 /* Admin */
 .v3-admin-header {
   position: sticky;
@@ -3417,8 +3587,7 @@ html[data-theme='light'] .v3-footer-bottom {
 }
 
 .v3-faq-item {
-  background: var(--ink-2);
-  padding: 0 1.25rem;
+  background: transparent;
 }
 
 .v3-faq-question {
@@ -3429,8 +3598,9 @@ html[data-theme='light'] .v3-footer-bottom {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  padding: 0 1.25rem;
   border: 0;
-  background: none;
+  background: var(--ink-2);
   color: var(--bone);
   font-family: inherit;
   font-size: 18px;
@@ -3444,7 +3614,7 @@ html[data-theme='light'] .v3-footer-bottom {
 }
 
 .v3-faq-answer {
-  padding-bottom: 1rem;
+  padding: 0.9rem 1.25rem 1.1rem;
   max-width: 58ch;
   animation: v3-faq-in 200ms var(--ease);
 }

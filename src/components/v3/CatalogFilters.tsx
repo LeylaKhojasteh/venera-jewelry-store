@@ -1,13 +1,21 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import { useState, useTransition, type CSSProperties } from 'react';
 import { RotateCcw } from 'lucide-react';
-import { buildCatalogHref, pricePresets, type CatalogParams } from '@/lib/catalog-url';
+import { buildCatalogHref, type CatalogParams } from '@/lib/catalog-url';
 import { genderNav, sortOptions } from '@/lib/constants';
-import { formatDigits } from '@/lib/money';
+import { formatDigits, formatToman } from '@/lib/money';
 import { cn } from '@/lib/utils';
 import type { CategoryData } from '@/types';
+
+const PRICE_MIN = 0;
+const PRICE_MAX = 2_000_000;
+const PRICE_STEP = 50_000;
+
+function clampPrice(value: number) {
+  return Math.min(PRICE_MAX, Math.max(PRICE_MIN, Math.round(value / PRICE_STEP) * PRICE_STEP));
+}
 
 export function CatalogFilters({
   current,
@@ -20,17 +28,24 @@ export function CatalogFilters({
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
-  const [min, setMin] = useState(current.min ?? '');
-  const [max, setMax] = useState(current.max ?? '');
+  const [min, setMin] = useState(() => clampPrice(Number(current.min ?? PRICE_MIN)));
+  const [max, setMax] = useState(() => clampPrice(Number(current.max ?? PRICE_MAX)));
 
   const go = (overrides: Record<string, string | number | null | undefined>) => {
     startTransition(() => router.push(buildCatalogHref(current, overrides), { scroll: false }));
   };
 
-  const activePreset = pricePresets.findIndex(
-    (preset) =>
-      String(preset.min ?? '') === (current.min ?? '') && String(preset.max ?? '') === (current.max ?? ''),
-  );
+  const commitPrice = (nextMin = min, nextMax = max) => {
+    go({
+      min: nextMin > PRICE_MIN ? String(nextMin) : null,
+      max: nextMax < PRICE_MAX ? String(nextMax) : null,
+    });
+  };
+
+  const rangeStyle = {
+    '--from': `${(min / PRICE_MAX) * 100}%`,
+    '--to': `${(max / PRICE_MAX) * 100}%`,
+  } as CSSProperties;
 
   return (
     <div className={cn('v3-filters', pending && 'is-pending')}>
@@ -122,49 +137,40 @@ export function CatalogFilters({
 
       <fieldset className="v3-filter-group">
         <legend>بازهٔ قیمت</legend>
-        <div className="v3-filter-options">
-          {pricePresets.map((preset, index) => (
-            <button
-              key={preset.label}
-              type="button"
-              className="v3-choice"
-              aria-pressed={activePreset === index}
-              onClick={() =>
-                go({
-                  min: preset.min !== undefined ? preset.min : null,
-                  max: preset.max !== undefined ? preset.max : null,
-                })
-              }
-            >
-              {preset.label}
-            </button>
-          ))}
-        </div>
-        <div className="v3-price-range">
-          <input
-            aria-label="کمترین قیمت"
-            inputMode="numeric"
-            value={min}
-            onChange={(event) => setMin(event.target.value.replace(/[^\d]/g, ''))}
-            placeholder="از"
-            className="v3-field-input"
-          />
-          <span>—</span>
-          <input
-            aria-label="بیشترین قیمت"
-            inputMode="numeric"
-            value={max}
-            onChange={(event) => setMax(event.target.value.replace(/[^\d]/g, ''))}
-            placeholder="تا"
-            className="v3-field-input"
-          />
-          <button
-            type="button"
-            className="v3-choice"
-            onClick={() => go({ min: min || null, max: max || null })}
-          >
-            اعمال
-          </button>
+        <div className="v3-price-slider" style={rangeStyle}>
+          <div className="v3-price-values">
+            <span>{formatToman(min)}</span>
+            <span>{max >= PRICE_MAX ? '۲٬۰۰۰٬۰۰۰+ تومان' : formatToman(max)}</span>
+          </div>
+          <div className="v3-price-track">
+            <span className="v3-price-track-fill" aria-hidden="true" />
+            <input
+              type="range"
+              min={PRICE_MIN}
+              max={PRICE_MAX}
+              step={PRICE_STEP}
+              value={min}
+              aria-label="کمترین قیمت"
+              onChange={(event) => setMin(Math.min(Number(event.target.value), max - PRICE_STEP))}
+              onPointerUp={() => commitPrice()}
+              onKeyUp={() => commitPrice()}
+            />
+            <input
+              type="range"
+              min={PRICE_MIN}
+              max={PRICE_MAX}
+              step={PRICE_STEP}
+              value={max}
+              aria-label="بیشترین قیمت"
+              onChange={(event) => setMax(Math.max(Number(event.target.value), min + PRICE_STEP))}
+              onPointerUp={() => commitPrice()}
+              onKeyUp={() => commitPrice()}
+            />
+          </div>
+          <div className="v3-price-ends">
+            <span>ارزان‌تر</span>
+            <span>گران‌تر</span>
+          </div>
         </div>
       </fieldset>
 

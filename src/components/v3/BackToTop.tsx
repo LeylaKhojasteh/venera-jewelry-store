@@ -22,7 +22,6 @@ export function BackToTop() {
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
     >
       <ArrowUp aria-hidden="true" size={18} />
-      <span>بازگشت به بالا</span>
     </button>
   );
 }

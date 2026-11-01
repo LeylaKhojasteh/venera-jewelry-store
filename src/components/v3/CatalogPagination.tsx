@@ -5,7 +5,8 @@ import type { CatalogParams } from '@/lib/catalog-url';
 function hrefFor(current: CatalogParams, page: number) {
   const query = new URLSearchParams();
   for (const [key, value] of Object.entries(current)) {
-    if (value) query.set(key, value);
+    if (key === 'page' || !value) continue;
+    query.set(key, value);
   }
   if (page > 1) query.set('page', String(page));
   const suffix = query.toString();

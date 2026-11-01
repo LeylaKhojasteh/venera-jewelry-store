@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpLeft } from 'lucide-react';
-import { getProductCards, getHomeContent } from '@/lib/catalog';
+import { getProductCards, getHomeContent, getCategories } from '@/lib/catalog';
 import { HeroJewelry } from '@/components/v3/HeroJewelry';
-import { ProductRail } from '@/components/v3/ProductRail';
+import { CategoryRail } from '@/components/v3/CategoryRail';
 import { CatalogGrid } from '@/components/v3/CatalogGrid';
 import { CategoryStory } from '@/components/v3/CategoryStory';
 import { Faq } from '@/components/v3/Faq';
@@ -18,11 +18,14 @@ export const metadata: Metadata = {
 };
 
 export default async function V3HomePage() {
-  const products = await getProductCards({
-    take: 12,
-    orderBy: [{ isBestSeller: 'desc' }, { createdAt: 'desc' }],
-  });
-  const { bestSellers, discounted } = await getHomeContent();
+  const [products, { bestSellers, discounted }, categories] = await Promise.all([
+    getProductCards({
+      take: 12,
+      orderBy: [{ isBestSeller: 'desc' }, { createdAt: 'desc' }],
+    }),
+    getHomeContent(),
+    getCategories(),
+  ]);
 
   const railOrder = ['necklace', 'bracelet', 'earrings', 'ring'] as const;
   const rail = railOrder
@@ -60,7 +63,7 @@ export default async function V3HomePage() {
         </div>
       </section>
 
-      <ProductRail products={railProducts} />
+      <CategoryRail categories={categories} products={products} />
 
       <section className="v3-section" aria-labelledby="best-title">
         <div className="v3-shell">
@@ -109,7 +112,7 @@ export default async function V3HomePage() {
               سؤالات پرتکرار
             </h2>
             <p className="v3-body" style={{ marginTop: '1rem', maxWidth: '30ch' }}>
-              پاسخ سه سؤالی که بیشتر از همه پرسیده می‌شود.
+              پاسخ به سوالات پرتکرار شما
             </p>
           </div>
 

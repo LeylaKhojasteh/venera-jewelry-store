@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
-import { motion, useMotionValueEvent, useScroll } from 'motion/react';
+import { useMotionValueEvent, useScroll } from 'motion/react';
 import { CategoryStage } from '@/components/v3/CategoryStage';
 import { formatToman } from '@/lib/money';
 import type { ProductCardData } from '@/types';

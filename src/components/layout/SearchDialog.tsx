@@ -1,12 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { useRef, useState, useEffect } from 'react';
 import { Search, X, ArrowLeft } from 'lucide-react';
 import { Dialog } from '@/components/ui/Dialog';
-import { formatDigits } from '@/lib/money';
-
-const suggestions = ['گردنبند', 'دستبند', 'گوشواره', 'انگشتر'];
 
 export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -24,7 +20,7 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
         <div className="flex items-start justify-between gap-4">
           <div>
             <h2 id="search-title" className="display text-2xl">
-              دنبال چه چیزی هستی؟
+              دنبال چی هستی؟
             </h2>
           </div>
           <button type="button" onClick={onClose} className="icon-btn" aria-label="بستن جست‌وجو">
@@ -44,7 +40,7 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
               name="q"
               value={value}
               onChange={(event) => setValue(event.target.value)}
-              placeholder="نام آیتم، جنس یا دسته‌بندی…"
+              placeholder="نام محصول…"
               className="w-full bg-transparent text-lg outline-none placeholder:text-ink-soft/60"
               autoComplete="off"
             />
@@ -53,28 +49,8 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
               <ArrowLeft aria-hidden="true" className="size-4" />
             </button>
           </div>
-          <p className="mt-3 text-xs text-ink-soft">
-            جست‌وجو روی نام، توضیحات و جنس محصولات انجام می‌شود.
-          </p>
+          <p className="mt-3 text-xs text-ink-soft">جست‌وجو فقط بر اساس نام محصول انجام می‌شود.</p>
         </form>
-
-        <div className="mt-10 border-t border-line pt-6">
-          <p className="eyebrow">پیشنهادها</p>
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {suggestions.map((item, index) => (
-              <li key={item}>
-                <Link
-                  href={`/products?q=${encodeURIComponent(item)}`}
-                  onClick={onClose}
-                  className="chip"
-                >
-                  <span className="tabular text-[0.65rem] text-gold">{formatDigits(index + 1)}</span>
-                  {item}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </Dialog>
   );

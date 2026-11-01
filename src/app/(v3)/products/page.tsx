@@ -79,13 +79,18 @@ export default async function ProductsPage({ searchParams }: PageProps) {
 
       <div className="v3-catalog-layout">
         <aside className="v3-catalog-side" aria-label="فیلتر محصولات">
-          <CatalogFilters current={current} categories={categories} />
+          <CatalogFilters key={`filters-${JSON.stringify(current)}`} current={current} categories={categories} />
         </aside>
 
         <div>
           <details className="v3-filters-mobile">
             <summary>فیلترها و مرتب‌سازی</summary>
-            <CatalogFilters current={current} categories={categories} idPrefix="mobile" />
+            <CatalogFilters
+              key={`mobile-${JSON.stringify(current)}`}
+              current={current}
+              categories={categories}
+              idPrefix="mobile"
+            />
           </details>
 
           {catalog.items.length === 0 ? (

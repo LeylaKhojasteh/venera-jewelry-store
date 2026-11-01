@@ -49,14 +49,7 @@ export function buildProductWhere(query: ProductQueryLike): Prisma.ProductWhereI
   const q = query.q ? normalizePersian(query.q) : '';
 
   if (q) {
-    and.push({
-      OR: [
-        { name: { contains: q, mode: 'insensitive' } },
-        { description: { contains: q, mode: 'insensitive' } },
-        { materials: { contains: q, mode: 'insensitive' } },
-        { tags: { has: q } },
-      ],
-    });
+    and.push({ name: { contains: q, mode: 'insensitive' } });
   }
   if (query.category) and.push({ category: { slug: query.category } });
   if (query.gender) {
