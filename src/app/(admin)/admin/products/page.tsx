@@ -16,25 +16,25 @@ export default async function AdminProductsPage() {
 
   return (
     <div>
-      <div className="flex flex-wrap items-end justify-between gap-4">
+      <div className="v3-catalog-head" style={{ marginBottom: '1rem' }}>
         <div>
-          <h1 className="display text-3xl">قیمت، موجودی و نمایش</h1>
-          <p className="mt-2 max-w-2xl text-sm leading-7 text-ink-soft">
+          <h1 className="v3-display">قیمت، موجودی و نمایش</h1>
+          <p className="v3-lead" style={{ marginTop: '0.75rem', maxWidth: '52ch' }}>
             تغییرها بلافاصله روی فروشگاه اعمال می‌شوند. قیمت پیش از تخفیف باید از قیمت فعال بزرگ‌تر باشد،
             وگرنه ذخیره نمی‌شود.
           </p>
         </div>
-        <Link href="/products" className="btn btn-outline btn-sm">
+        <Link href="/products" className="v3-btn v3-btn-line">
           دیدن فروشگاه
         </Link>
       </div>
 
-      <p className="mt-6 text-xs text-ink-soft">
+      <p className="v3-small" style={{ marginTop: '1rem' }}>
         {new Intl.NumberFormat('fa-IR').format(products.length)} محصول · موجودی کل:{' '}
         {new Intl.NumberFormat('fa-IR').format(products.reduce((sum, product) => sum + product.stock, 0))} عدد
       </p>
 
-      <div className="mt-5 space-y-3">
+      <div style={{ marginTop: '1rem', display: 'grid', gap: '0.5rem' }}>
         {products.map((product) => (
           <ProductEditorRow
             key={product.id}
@@ -56,7 +56,7 @@ export default async function AdminProductsPage() {
         ))}
       </div>
 
-      <p className="mt-6 text-[0.65rem] leading-6 text-ink-soft">
+      <p className="v3-small" style={{ marginTop: '1.5rem' }}>
         نمونه: قیمت فعال و قیمت پیش از تخفیف با اعداد کامل تومان ذخیره می‌شوند (
         {formatToman(1_490_000)}).
       </p>

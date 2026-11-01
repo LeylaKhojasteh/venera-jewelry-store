@@ -42,21 +42,21 @@ export function AdminOrderRow({ order }: { order: AdminOrder }) {
   };
 
   return (
-    <div className="grid gap-3 border border-line bg-paper-soft p-4 md:grid-cols-[1fr_1fr_8rem_10rem_9rem] md:items-center">
+    <div className="v3-admin-row v3-admin-order-row grid">
       <div>
-        <p className="font-latin text-xs tracking-[0.08em] text-plum-ink" dir="ltr">
+        <p className="font-latin" style={{ color: 'var(--bone)', fontSize: 14, letterSpacing: '0.06em' }} dir="ltr">
           {order.orderNumber}
         </p>
-        <p className="mt-1 text-[0.65rem] text-ink-soft">{order.createdAtLabel}</p>
+        <p className="v3-small">{order.createdAtLabel}</p>
       </div>
-      <div className="text-xs">
-        <p className="text-plum-ink">{order.customer}</p>
-        <p className="mt-0.5 text-ink-soft">{order.city}</p>
+      <div style={{ fontSize: 14 }}>
+        <p style={{ color: 'var(--bone)' }}>{order.customer}</p>
+        <p className="v3-small">{order.city}</p>
       </div>
-      <div className="text-xs text-ink-soft">
-        {new Intl.NumberFormat('fa-IR').format(order.itemCount)} عدد
+      <div className="v3-small">{new Intl.NumberFormat('fa-IR').format(order.itemCount)} عدد</div>
+      <div style={{ color: 'var(--bone)', fontSize: 14, fontVariantNumeric: 'tabular-nums' }}>
+        {formatToman(order.total)}
       </div>
-      <div className="tabular text-xs text-plum-ink">{formatToman(order.total)}</div>
       <div>
         <label htmlFor={`status-${order.id}`} className="sr-only">
           وضعیت سفارش {order.orderNumber}
@@ -66,7 +66,7 @@ export function AdminOrderRow({ order }: { order: AdminOrder }) {
           value={status}
           disabled={saving}
           onChange={(event) => update(event.target.value as AdminOrder['status'])}
-          className="h-10 w-full border border-line bg-paper px-2 text-xs"
+          className="v3-admin-input"
         >
           {Object.entries(orderStatusLabels).map(([value, label]) => (
             <option key={value} value={value}>
@@ -74,13 +74,11 @@ export function AdminOrderRow({ order }: { order: AdminOrder }) {
             </option>
           ))}
         </select>
-        <div className="mt-1 flex items-center gap-1 text-[0.6rem] text-ink-soft">
-          {saving ? <Loader2 aria-hidden="true" className="size-3 animate-spin" /> : null}
+        <div className="v3-small" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginTop: '0.25rem' }}>
+          {saving ? <Loader2 aria-hidden="true" size={12} className="animate-spin" /> : null}
           {message ??
             (status === 'DEMO_PLACED' ? (
-              <Link href={`/admin/orders?focus=${order.id}`} className="hover:text-plum">
-                جزئیات
-              </Link>
+              <Link href={`/admin/orders?focus=${order.id}`}>جزئیات</Link>
             ) : null)}
         </div>
       </div>

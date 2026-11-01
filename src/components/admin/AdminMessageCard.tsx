@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { updateContactStatusAction } from '@/actions/admin';
 import { contactStatusLabels } from '@/lib/constants';
-import { cn } from '@/lib/utils';
 
 export type AdminMessage = {
   id: string;
@@ -33,57 +32,42 @@ export function AdminMessageCard({ message }: { message: AdminMessage }) {
   };
 
   return (
-    <article
-      className={cn(
-        'border bg-paper-soft p-5',
-        status === 'NEW' ? 'border-plum/40' : 'border-line',
-      )}
-    >
-      <div className="flex flex-wrap items-start justify-between gap-3">
+    <article className={`v3-admin-message${status === 'NEW' ? ' is-new' : ''}`}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', justifyContent: 'space-between', gap: '0.75rem' }}>
         <div>
-          <p className="text-sm font-medium text-plum-ink">{message.subject}</p>
-          <p className="mt-1 text-[0.68rem] text-ink-soft">
+          <p style={{ color: 'var(--bone)', fontSize: 16, fontWeight: 600 }}>{message.subject}</p>
+          <p className="v3-small" style={{ marginTop: '0.25rem' }}>
             {message.name} · <span dir="ltr">{message.email}</span>
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <span className={cn('badge', status === 'NEW' ? 'badge' : 'badge-soft')}>
-            {contactStatusLabels[status]}
-          </span>
-          <span className="text-[0.62rem] text-ink-soft">{message.createdAtLabel}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span className="v3-status">{contactStatusLabels[status]}</span>
+          <span className="v3-small">{message.createdAtLabel}</span>
         </div>
       </div>
 
-      <p className="mt-4 whitespace-pre-line text-sm leading-8 text-ink-soft">{message.message}</p>
+      <p className="v3-body" style={{ marginTop: '0.75rem', whiteSpace: 'pre-line' }}>
+        {message.message}
+      </p>
 
-      <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-line pt-3 text-xs">
-        {pending ? <Loader2 aria-hidden="true" className="size-3.5 animate-spin text-ink-soft" /> : null}
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.85rem', marginTop: '0.85rem', paddingTop: '0.75rem', borderTop: '1px solid var(--line)', fontSize: 13 }}>
+        {pending ? <Loader2 aria-hidden="true" size={14} className="animate-spin" /> : null}
         {status !== 'READ' ? (
-          <button type="button" onClick={() => update('READ')} disabled={pending} className="text-plum hover:underline">
+          <button type="button" onClick={() => update('READ')} disabled={pending} className="v3-small">
             علامت‌گذاری به‌عنوان خوانده‌شده
           </button>
         ) : null}
         {status !== 'ARCHIVED' ? (
-          <button
-            type="button"
-            onClick={() => update('ARCHIVED')}
-            disabled={pending}
-            className="text-ink-soft hover:text-plum"
-          >
+          <button type="button" onClick={() => update('ARCHIVED')} disabled={pending} className="v3-small">
             بایگانی
           </button>
         ) : null}
         {status !== 'NEW' ? (
-          <button
-            type="button"
-            onClick={() => update('NEW')}
-            disabled={pending}
-            className="text-ink-soft hover:text-plum"
-          >
+          <button type="button" onClick={() => update('NEW')} disabled={pending} className="v3-small">
             بازگرداندن به تازه
           </button>
         ) : null}
-        <a href={`mailto:${message.email}`} className="ms-auto text-ink-soft hover:text-plum" dir="ltr">
+        <a href={`mailto:${message.email}`} className="v3-small" style={{ marginInlineStart: 'auto' }} dir="ltr">
           {message.email}
         </a>
       </div>

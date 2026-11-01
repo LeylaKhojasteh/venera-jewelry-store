@@ -36,75 +36,78 @@ export default async function AdminOverviewPage() {
 
   return (
     <div>
-      <div className="flex flex-wrap items-end justify-between gap-4">
+      <div className="v3-catalog-head" style={{ marginBottom: '1rem' }}>
         <div>
-          <h1 className="display text-3xl">نمای کلی فروشگاه</h1>
-          <p className="mt-2 text-sm text-ink-soft">اعداد از پایگاه‌دادهٔ همین نسخه خوانده می‌شوند.</p>
+          <h1 className="v3-display">نمای کلی فروشگاه</h1>
+          <p className="v3-lead" style={{ marginTop: '0.75rem', maxWidth: '40ch' }}>
+            اعداد از پایگاه‌دادهٔ همین نسخه خوانده می‌شوند.
+          </p>
         </div>
-        <Link href="/admin/products" className="btn btn-primary btn-sm">
+        <Link href="/admin/products" className="v3-btn v3-btn-solid">
           مدیریت محصولات
         </Link>
       </div>
 
-      <dl className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="v3-admin-metrics">
         {metrics.map((metric) => {
           const Icon = metric.icon;
           return (
-            <Link key={metric.label} href={metric.href} className="group border border-line bg-paper-soft p-5 transition-colors hover:border-plum/40">
-              <dt className="flex items-center justify-between text-xs text-ink-soft">
+            <Link key={metric.label} href={metric.href} className="v3-admin-card">
+              <span className="v3-admin-card-head">
                 {metric.label}
-                <Icon aria-hidden="true" className="size-4 text-gold" />
-              </dt>
-              <dd className="tabular mt-3 text-xl text-plum-ink">{metric.value}</dd>
-              <dd className="mt-1 text-[0.65rem] text-ink-soft">{metric.detail}</dd>
+                <Icon aria-hidden="true" size={16} style={{ color: 'var(--copper)' }} />
+              </span>
+              <span className="v3-admin-card-value">{metric.value}</span>
+              <span className="v3-admin-card-detail">{metric.detail}</span>
             </Link>
           );
         })}
-      </dl>
+      </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-12">
-        <section className="lg:col-span-8" aria-labelledby="admin-recent-orders">
-          <div className="flex items-center justify-between">
-            <h2 id="admin-recent-orders" className="font-display text-xl text-plum-ink">
+      <div className="v3-checkout" style={{ marginTop: '2rem' }}>
+        <section aria-labelledby="admin-recent-orders">
+          <div className="v3-admin-section-title">
+            <h2 id="admin-recent-orders" className="v3-h3">
               آخرین سفارش‌ها
             </h2>
-            <Link href="/admin/orders" className="text-xs text-ink-soft hover:text-plum">
+            <Link href="/admin/orders" className="v3-small">
               همه
             </Link>
           </div>
-          <div className="mt-3 overflow-x-auto border border-line bg-paper-soft">
-            <table className="w-full min-w-[34rem] text-start text-sm">
-              <thead className="border-b border-line text-[0.68rem] text-ink-soft">
+
+          <div className="v3-admin-table-wrap" style={{ marginTop: '0.75rem' }}>
+            <table className="v3-admin-table">
+              <thead>
                 <tr>
-                  <th className="p-3 text-start font-medium">شماره</th>
-                  <th className="p-3 text-start font-medium">مشتری</th>
-                  <th className="p-3 text-start font-medium">تاریخ</th>
-                  <th className="p-3 text-start font-medium">وضعیت</th>
-                  <th className="p-3 text-start font-medium">مبلغ</th>
-                  <th className="p-3" />
+                  <th>شماره</th>
+                  <th>مشتری</th>
+                  <th>تاریخ</th>
+                  <th>وضعیت</th>
+                  <th>مبلغ</th>
+                  <th />
                 </tr>
               </thead>
-              <tbody className="divide-y divide-line">
+              <tbody>
                 {recentOrders.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="p-6 text-center text-xs text-ink-soft">
+                    <td colSpan={6} className="v3-admin-muted" style={{ textAlign: 'center', padding: '1.5rem' }}>
                       هنوز سفارشی ثبت نشده است.
                     </td>
                   </tr>
                 ) : (
                   recentOrders.map((order) => (
                     <tr key={order.id}>
-                      <td className="p-3 font-latin text-xs" dir="ltr">
+                      <td className="font-latin" dir="ltr" style={{ fontSize: 13 }}>
                         {order.orderNumber}
                       </td>
-                      <td className="p-3 text-xs">{order.user.name}</td>
-                      <td className="p-3 text-xs text-ink-soft">{formatJalali(order.createdAt)}</td>
-                      <td className="p-3">
-                        <span className="badge badge-soft">{orderStatusLabels[order.status] ?? order.status}</span>
+                      <td style={{ fontSize: 13 }}>{order.user.name}</td>
+                      <td className="v3-admin-muted">{formatJalali(order.createdAt)}</td>
+                      <td>
+                        <span className="v3-status">{orderStatusLabels[order.status] ?? order.status}</span>
                       </td>
-                      <td className="tabular p-3 text-xs">{formatToman(order.total)}</td>
-                      <td className="p-3">
-                        <Link href={`/admin/orders?focus=${order.id}`} className="text-xs text-plum hover:underline">
+                      <td style={{ fontSize: 13 }}>{formatToman(order.total)}</td>
+                      <td>
+                        <Link href={`/admin/orders?focus=${order.id}`} className="v3-small">
                           مدیریت
                         </Link>
                       </td>
@@ -116,30 +119,30 @@ export default async function AdminOverviewPage() {
           </div>
         </section>
 
-        <section className="lg:col-span-4" aria-labelledby="admin-low-stock">
-          <h2 id="admin-low-stock" className="flex items-center gap-2 font-display text-xl text-plum-ink">
-            <TriangleAlert aria-hidden="true" className="size-4 text-gold" />
+        <aside aria-labelledby="admin-low-stock">
+          <h2 id="admin-low-stock" className="v3-h3" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <TriangleAlert aria-hidden="true" size={16} style={{ color: 'var(--copper)' }} />
             موجودی کم
           </h2>
-          <ul className="mt-3 divide-y divide-line border-y border-line bg-paper-soft">
+          <ul className="v3-order-summary" style={{ marginTop: '0.75rem' }}>
             {lowStock.length === 0 ? (
-              <li className="p-4 text-xs text-ink-soft">همهٔ محصولات موجودی کافی دارند.</li>
+              <li className="v3-body">همهٔ محصولات موجودی کافی دارند.</li>
             ) : (
               lowStock.map((product) => (
-                <li key={product.id} className="flex items-center justify-between gap-3 p-3 text-xs">
-                  <Link href={`/products/${product.slug}`} className="truncate text-plum-ink hover:text-plum">
+                <li key={product.id} className="v3-drawer-row" style={{ paddingBlock: '0.5rem' }}>
+                  <Link href={`/products/${product.slug}`} style={{ color: 'var(--bone)' }}>
                     {product.name}
                   </Link>
-                  <span className="tabular text-ink-soft">{new Intl.NumberFormat('fa-IR').format(product.stock)} عدد</span>
+                  <span>{new Intl.NumberFormat('fa-IR').format(product.stock)} عدد</span>
                 </li>
               ))
             )}
           </ul>
-          <Link href="/admin/products" className="link-quiet mt-4 inline-flex text-xs text-plum-ink">
+          <Link href="/admin/products" className="v3-small" style={{ display: 'inline-flex', gap: '0.3rem', marginTop: '0.75rem' }}>
             به‌روزرسانی موجودی
-            <ArrowUpLeft aria-hidden="true" className="size-3.5 text-gold" />
+            <ArrowUpLeft aria-hidden="true" size={14} />
           </Link>
-        </section>
+        </aside>
       </div>
     </div>
   );

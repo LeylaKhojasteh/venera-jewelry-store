@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import '@/app/v3.css';
 import { requireAdmin } from '@/lib/auth/session';
 import { AdminNav } from '@/components/admin/AdminNav';
 
@@ -11,11 +12,19 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   const user = await requireAdmin();
 
   return (
-    <div className="min-h-screen bg-paper-deep/40">
+    <div className="v3-root">
+      <script
+        dangerouslySetInnerHTML={{
+          __html:
+            "try{if(localStorage.getItem('venera-theme')==='dark'){document.documentElement.dataset.theme='dark'}}catch(e){}",
+        }}
+      />
       <AdminNav name={user.name} />
-      <main className="shell py-8 lg:py-10">{children}</main>
-      <footer className="shell border-t border-line py-5 text-[0.65rem] text-ink-soft">
-        محیط مدیریت ونرا — دسترسی فقط برای نقش مدیر. همهٔ تغییرها روی پایگاه‌دادهٔ واقعی اعمال می‌شوند.
+      <main className="v3-shell v3-admin-main">{children}</main>
+      <footer className="v3-admin-footer">
+        <div className="v3-shell">
+          محیط مدیریت ونرا — دسترسی فقط برای نقش مدیر. همهٔ تغییرها روی پایگاه‌دادهٔ واقعی اعمال می‌شوند.
+        </div>
       </footer>
     </div>
   );

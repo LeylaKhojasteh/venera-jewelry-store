@@ -15,21 +15,21 @@ export default async function AdminMessagesPage() {
   return (
     <div>
       <div>
-        <h1 className="display text-3xl">پیام‌های تماس</h1>
-        <p className="mt-2 max-w-2xl text-sm leading-7 text-ink-soft">
+        <h1 className="v3-display">پیام‌های تماس</h1>
+        <p className="v3-lead" style={{ marginTop: '0.75rem', maxWidth: '56ch' }}>
           پیام‌های فرم تماس، مستقیم از پایگاه‌داده. در این نسخه ایمیل خودکار ارسال نمی‌شود؛ وضعیت را برای
           پیگیری داخلی تغییر بده.
         </p>
       </div>
 
-      <p className="mt-5 text-xs text-ink-soft">
+      <p className="v3-small" style={{ marginTop: '1rem' }}>
         {new Intl.NumberFormat('fa-IR').format(newCount)} پیام تازه از{' '}
         {new Intl.NumberFormat('fa-IR').format(messages.length)} پیام
       </p>
 
-      <div className="mt-4 space-y-3">
+      <div style={{ marginTop: '1rem', display: 'grid', gap: '0.75rem' }}>
         {messages.length === 0 ? (
-          <p className="border border-dashed border-line bg-paper-soft p-8 text-center text-sm text-ink-soft">
+          <p className="v3-empty" style={{ background: 'var(--ink-2)', padding: '2rem', textAlign: 'center' }}>
             هنوز پیامی ثبت نشده است. فرم تماس را از فروشگاه امتحان کن.
           </p>
         ) : (

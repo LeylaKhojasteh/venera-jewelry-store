@@ -123,7 +123,8 @@ product grid that opens quick view, a gallery and buybox with variants and quant
 the details accordion, related pieces, a checkout with address cards, a cart with quantity controls
 and suggestions, an account panel with a v4 sidebar and order rows, and a product mega-menu that opens
 under its nav item (hover, click, and a mobile accordion). The homepage also restores the best-seller
-and discounted rows, in the same grid. Only the admin panel remains on the legacy layout.
+and discounted rows, in the same grid. The admin panel now shares the same v4 shell, including its theme
+toggle and product, order and message screens.
 
 ## Voice
 

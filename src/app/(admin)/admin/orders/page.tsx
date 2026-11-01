@@ -24,26 +24,26 @@ export default async function AdminOrdersPage({
   return (
     <div>
       <div>
-        <h1 className="display text-3xl">سفارش‌ها</h1>
-        <p className="mt-2 max-w-2xl text-sm leading-7 text-ink-soft">
+        <h1 className="v3-display">سفارش‌ها</h1>
+        <p className="v3-lead" style={{ marginTop: '0.75rem', maxWidth: '56ch' }}>
           وضعیت را تغییر بده تا در پنل مشتری و صفحهٔ سفارش نمایش داده شود. تغییر وضعیت موجودی را بازنمی‌گرداند؛
           سفارش‌های لغوشده فقط از جمع درآمد کنار می‌روند.
         </p>
       </div>
 
       {focus ? (
-        <p className="mt-5 border-s-2 border-gold bg-paper px-4 py-3 text-xs text-ink-soft">
+        <p className="v3-small" style={{ marginTop: '1rem', background: 'var(--ink-2)', padding: '0.75rem' }}>
           سفارش انتخاب‌شده در فهرست مشخص شده است. برای جزئیات کامل، شمارهٔ سفارش را در پنل مشتری ببین.
         </p>
       ) : null}
 
-      <p className="mt-5 text-xs text-ink-soft">
+      <p className="v3-small" style={{ marginTop: '1rem' }}>
         {new Intl.NumberFormat('fa-IR').format(orders.length)} سفارش ثبت‌شده
       </p>
 
-      <div className="mt-4 space-y-3">
+      <div style={{ marginTop: '1rem', display: 'grid', gap: '0.5rem' }}>
         {orders.length === 0 ? (
-          <p className="border border-dashed border-line bg-paper-soft p-8 text-center text-sm text-ink-soft">
+          <p className="v3-empty" style={{ background: 'var(--ink-2)', padding: '2rem', textAlign: 'center' }}>
             هنوز سفارشی ثبت نشده است.
           </p>
         ) : (
