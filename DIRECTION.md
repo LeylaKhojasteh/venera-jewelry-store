@@ -82,9 +82,10 @@ crescent pendant, a double bangle, pearl-drop earrings and a pearl ring, all in 
 white pearls. Custom light-formers build the reflection map without downloading an HDRI; a contact
 shadow grounds the set.
 The group follows the pointer on damped springs, with a slow idle sway. It is lazy-loaded after a
-WebGL capability check, falls back to the line drawing when WebGL is unavailable, and becomes a still
-frame under reduced motion. Framing is computed for the 3.5:1 to 1:1 hero aspect range, so all four
-pieces stay inside the canvas from 320px to 1920px.
+WebGL capability check: a neutral plate holds the space while the scene arrives (never the old line
+animation), then the group scales in over 0.9s. WebGL-less browsers get a static line drawing, and
+reduced motion gets a still frame. Framing is computed for the 3.5:1 to 1:1 hero aspect range, so all
+four pieces stay inside the canvas from 320px to 1920px.
 
 **Carried over from the old build.** Header links grow a copper rule from the right on hover/focus
 (300ms, scaleX 0→1); the logotype opens its tracking from .30em to .38em; footer links grow a 12px

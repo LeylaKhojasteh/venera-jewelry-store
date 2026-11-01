@@ -1,10 +1,11 @@
 'use client';
 
-import { Suspense, useMemo, useRef } from 'react';
+import { Suspense, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { ContactShadows, Environment, Lightformer } from '@react-three/drei';
 import { useReducedMotion } from 'motion/react';
 import * as THREE from 'three';
+import { StageSkeleton } from '@/components/v3/StageSkeleton';
 
 const STEEL = {
   color: '#d7d7dc',
@@ -210,23 +211,35 @@ function Ring() {
   );
 }
 
-function Scene({ reduce }: { reduce: boolean }) {
+function Scene({ reduce, ready }: { reduce: boolean; ready: boolean }) {
   const group = useRef<THREE.Group>(null);
+  const intro = useRef(0);
   const { size } = useThree();
   const scale = size.width < 480 ? 0.78 : 1;
 
   useFrame((state, delta) => {
     if (!group.current) return;
+
+    if (reduce) {
+      intro.current = 1;
+    } else if (ready) {
+      intro.current = Math.min(1, intro.current + delta / 0.9);
+    }
+
+    const ease = 1 - Math.pow(1 - intro.current, 3);
     const targetY = reduce ? 0 : state.pointer.x * 0.26;
     const targetX = reduce ? 0 : -state.pointer.y * 0.13;
+
     group.current.rotation.y = THREE.MathUtils.damp(group.current.rotation.y, targetY, 4, delta);
     group.current.rotation.x = THREE.MathUtils.damp(group.current.rotation.x, targetX, 4, delta);
     group.current.rotation.z = reduce ? 0 : Math.sin(state.clock.elapsedTime * 0.25) * 0.018;
-    group.current.position.y = reduce ? 0 : Math.sin(state.clock.elapsedTime * 0.6) * 0.035;
+    group.current.scale.setScalar(scale * (0.94 + 0.06 * ease));
+    group.current.position.y =
+      (reduce ? 0 : Math.sin(state.clock.elapsedTime * 0.6) * 0.035) + (1 - ease) * -0.1;
   });
 
   return (
-    <group ref={group} scale={scale}>
+    <group ref={group} scale={scale * 0.94}>
       <Chain />
       <Bracelet />
       <Earring x={1.95} rotation={0.08} />
@@ -238,6 +251,7 @@ function Scene({ reduce }: { reduce: boolean }) {
 
 export function JewelryStage() {
   const reduce = useReducedMotion() ?? false;
+  const [ready, setReady] = useState(false);
 
   return (
     <div className="v3-hero-art v3-hero-3d" data-hero="true">
@@ -247,6 +261,7 @@ export function JewelryStage() {
         camera={{ position: [0, 0, 12], fov: 34 }}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         style={{ width: '100%', height: '100%', touchAction: 'pan-y' }}
+        onCreated={() => setReady(true)}
       >
         <ambientLight intensity={0.36} />
         <directionalLight
@@ -279,10 +294,11 @@ export function JewelryStage() {
           </Environment>
         </Suspense>
 
-        <Scene reduce={reduce} />
+        <Scene reduce={reduce} ready={ready} />
 
         <ContactShadows position={[0, -2.05, 0]} opacity={0.18} scale={3.2} blur={2.4} far={4} color="#3a1b24" />
       </Canvas>
+      <StageSkeleton ready={ready} />
       <span className="v3-art-caption">استیل ۳۱۶ / طراحی تهران</span>
     </div>
   );

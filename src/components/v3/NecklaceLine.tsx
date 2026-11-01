@@ -7,8 +7,9 @@ const PATH = 'M120 70 C120 330 210 505 320 545 C430 505 520 330 520 70';
 
 type Bead = { x: number; y: number };
 
-export function NecklaceLine() {
-  const reduce = useReducedMotion();
+export function NecklaceLine({ animate = true }: { animate?: boolean }) {
+  const prefersReduce = useReducedMotion();
+  const reduce = prefersReduce || !animate;
   const pathRef = useRef<SVGPathElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const [beads, setBeads] = useState<Bead[]>([]);
@@ -33,7 +34,7 @@ export function NecklaceLine() {
   return (
     <div
       ref={stageRef}
-      className="v3-hero-art"
+      className={`v3-hero-art${animate ? '' : ' v3-line-static'}`}
       data-hero="true"
       onPointerMove={(event) => {
         if (reduce || !stageRef.current) return;
