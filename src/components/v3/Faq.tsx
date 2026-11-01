@@ -6,6 +6,7 @@ export type FaqItem = { question: string; answer: string };
 
 export function Faq({ items }: { items: FaqItem[] }) {
   const [open, setOpen] = useState<number | null>(null);
+  const current = open === null ? null : items[open];
 
   return (
     <div className="v3-faq-list">
@@ -17,20 +18,19 @@ export function Faq({ items }: { items: FaqItem[] }) {
               type="button"
               className="v3-faq-question"
               aria-expanded={isOpen}
-              aria-controls={`faq-answer-${index}`}
+              aria-controls="faq-answer-panel"
               onClick={() => setOpen(isOpen ? null : index)}
             >
               {item.question}
               <span aria-hidden="true">{isOpen ? '−' : '+'}</span>
             </button>
-            {isOpen ? (
-              <p className="v3-body v3-faq-answer" id={`faq-answer-${index}`}>
-                {item.answer}
-              </p>
-            ) : null}
           </div>
         );
       })}
+
+      <div className="v3-faq-answer" id="faq-answer-panel" aria-live="polite">
+        {current ? <p>{current.answer}</p> : null}
+      </div>
     </div>
   );
 }

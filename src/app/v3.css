@@ -219,8 +219,10 @@ body:has(.v3-root) {
 
 .v3-header .v3-logo {
   font-size: 1.35rem;
-  font-weight: 700;
+  font-weight: 900;
   letter-spacing: 0.24em;
+  -webkit-text-stroke: 0.35px currentColor;
+  text-rendering: geometricPrecision;
 }
 
 .v3-logo small {
@@ -3262,33 +3264,33 @@ html[data-theme='light'] .v3-footer-bottom {
 
 /* Product card motion */
 .v3-grid-motion-float .v3-grid-card {
-  animation: v3-card-float 7s ease-in-out infinite;
+  animation: v3-card-float 3.8s ease-in-out infinite;
   will-change: transform;
 }
 
 .v3-grid-motion-float .v3-grid-card:nth-child(2n) {
-  animation-delay: -2.4s;
-  animation-duration: 8.5s;
+  animation-delay: -1.4s;
+  animation-duration: 4.4s;
 }
 
 .v3-grid-motion-float .v3-grid-card:nth-child(3n) {
-  animation-delay: -4.1s;
-  animation-duration: 7.8s;
+  animation-delay: -2.3s;
+  animation-duration: 4.1s;
 }
 
 .v3-grid-motion-sway .v3-grid-card {
-  animation: v3-card-sway 6s ease-in-out infinite;
+  animation: v3-card-sway 3.3s ease-in-out infinite;
   will-change: transform;
 }
 
 .v3-grid-motion-sway .v3-grid-card:nth-child(2n) {
-  animation-delay: -1.8s;
-  animation-duration: 7s;
+  animation-delay: -1.1s;
+  animation-duration: 3.9s;
 }
 
 .v3-grid-motion-sway .v3-grid-card:nth-child(3n) {
-  animation-delay: -3.3s;
-  animation-duration: 6.5s;
+  animation-delay: -2s;
+  animation-duration: 3.6s;
 }
 
 .v3-grid-motion-float .v3-grid-card:hover,
@@ -3304,17 +3306,17 @@ html[data-theme='light'] .v3-footer-bottom {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-5px);
+    transform: translateY(-7px);
   }
 }
 
 @keyframes v3-card-sway {
   0%,
   100% {
-    transform: translateY(1px) rotate(-0.3deg) scale(1);
+    transform: translateY(1px) rotate(-0.45deg) scale(1);
   }
   50% {
-    transform: translateY(-2px) rotate(0.45deg) scale(1.008);
+    transform: translateY(-3px) rotate(0.6deg) scale(1.012);
   }
 }
 
@@ -3690,9 +3692,19 @@ html[data-theme='light'] .v3-footer-bottom {
 }
 
 .v3-faq-answer {
-  padding: 0.9rem 1.25rem 1.1rem;
+  min-height: 5.25rem;
+  padding: 0.9rem 1.25rem 0;
   max-width: 58ch;
+}
+
+.v3-faq-answer p {
   animation: v3-faq-in 200ms var(--ease);
+}
+
+@media (max-width: 639px) {
+  .v3-faq-answer {
+    min-height: 8rem;
+  }
 }
 
 @keyframes v3-faq-in {
