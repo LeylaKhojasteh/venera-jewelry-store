@@ -255,6 +255,7 @@ test.describe('responsive', () => {
   });
 
   test('cinematic menu opens, previews and closes with Escape', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
     await page.getByRole('button', { name: 'منو' }).click();
     await expect(page.locator('.v3-menu-panel')).toBeVisible();

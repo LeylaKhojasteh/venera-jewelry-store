@@ -184,7 +184,7 @@ export function Ring() {
   return (
     <group position={[1.15, -1.55, 0.7]} rotation={[1.12, 0.1, 0.18]} scale={0.92}>
       <mesh castShadow>
-        <torusGeometry args={[0.34, 0.05, 12, 56]} />
+        <torusGeometry args={[0.32, 0.04, 12, 56]} />
         <meshStandardMaterial
           color="#dedee3"
           metalness={0.9}

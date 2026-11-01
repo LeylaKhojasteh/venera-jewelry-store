@@ -7,7 +7,6 @@ import { ProductRail } from '@/components/v3/ProductRail';
 import { CatalogGrid } from '@/components/v3/CatalogGrid';
 import { CategoryStory } from '@/components/v3/CategoryStory';
 import { Magnetic } from '@/components/v3/Magnetic';
-import { demoContact } from '@/lib/constants';
 import type { ProductCardData } from '@/types';
 
 export const metadata: Metadata = {
@@ -102,69 +101,39 @@ export default async function V3HomePage() {
 
       <CategoryStory products={railProducts} />
 
-      <section className="v3-shell" aria-labelledby="close-title">
-        <div className="v3-close">
+      <section className="v3-section" aria-labelledby="faq-title">
+        <div className="v3-shell v3-faq">
           <div>
-            <h2 id="close-title" className="v3-display">
-              آیتم‌ات را
-              <br />
-              انتخاب کن.
+            <h2 id="faq-title" className="v3-h2">
+              سؤالات پرتکرار
             </h2>
-            <p className="v3-body" style={{ marginTop: '1.25rem', maxWidth: '34ch' }}>
-              گردنبند، دستبند یا گوشواره؛ اگر بین دو اندازه ماندی بنویس، با هم انتخاب می‌کنیم. سفارش‌ها
-              از همین سایت ثبت می‌شوند.
+            <p className="v3-body" style={{ marginTop: '1rem', maxWidth: '30ch' }}>
+              پاسخ سه سؤالی که بیشتر از همه پرسیده می‌شود.
             </p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '2rem' }}>
-              <Magnetic>
-                <Link href="/products" className="v3-btn v3-btn-solid">
-                  دیدن کالکشن
-                </Link>
-              </Magnetic>
-              <a href={`mailto:${demoContact.email}`} className="v3-btn v3-btn-line">
-                نوشتن به ونرا
-              </a>
-            </div>
           </div>
 
-          <svg
-            className="v3-close-art"
-            viewBox="0 0 300 380"
-            role="img"
-            aria-label="طرح خطی گردنبند"
-            style={{ color: 'var(--bone)' }}
-          >
-            <path
-              d="M40 24 C40 220 100 340 150 340 C200 340 260 220 260 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.2"
-              strokeOpacity="0.7"
-            />
+          <div className="v3-faq-list">
             {[
-              [60, 130],
-              [78, 205],
-              [105, 275],
-              [150, 318],
-              [195, 275],
-              [222, 205],
-              [240, 130],
-            ].map(([cx, cy], index) => (
-              <circle
-                key={`${cx}-${cy}`}
-                cx={cx}
-                cy={cy}
-                r={index === 3 ? 5 : 3.2}
-                style={{ fill: index === 3 ? 'var(--copper)' : 'currentColor' }}
-                fillOpacity={index === 3 ? 1 : 0.8}
-              />
+              {
+                question: 'چطور می‌تونم پرداخت کنم؟',
+                answer: 'از قسمت سبد خرید روی تسویه حساب بزنید و وارد درگاه پرداخت شوید.',
+              },
+              {
+                question: 'محصولات اصل هست؟',
+                answer: 'همه محصولات با ضمانت اصالت کالا ارائه می‌شود.',
+              },
+              {
+                question: 'تحویل به چه شکل است؟',
+                answer:
+                  'تحویل توسط پست و بین ۷ الی ۱۰ روز کاری انجام می‌شود و می‌توانید از قسمت سفارشات پروفایل پیگیری کنید.',
+              },
+            ].map((item) => (
+              <details key={item.question} className="v3-faq-item">
+                <summary>{item.question}</summary>
+                <p className="v3-body">{item.answer}</p>
+              </details>
             ))}
-            <path
-              d="M150 340 L166 362 L150 382 L134 362 Z"
-              fill="none"
-              style={{ stroke: 'var(--copper)' }}
-              strokeWidth="1.4"
-            />
-          </svg>
+          </div>
         </div>
       </section>
     </>

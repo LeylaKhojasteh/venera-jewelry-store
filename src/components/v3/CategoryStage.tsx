@@ -12,8 +12,8 @@ function Showcase({ kind, reduce }: { kind: string; reduce: boolean }) {
 
   useFrame((state) => {
     if (!group.current || reduce) return;
-    group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.16;
-    group.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.03;
+    group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.7) * 0.2;
+    group.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.04;
   });
 
   let model: ReactNode;
@@ -39,7 +39,7 @@ function Showcase({ kind, reduce }: { kind: string; reduce: boolean }) {
       break;
     case 'ring':
       model = (
-        <group scale={2.6}>
+        <group scale={2.1}>
           <group position={[-1.15, 1.55, 0]}>
             <Ring />
           </group>

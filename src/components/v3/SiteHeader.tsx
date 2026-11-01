@@ -4,9 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { ChevronDown, Menu, Moon, ShoppingBag, Sun, User, X } from 'lucide-react';
+import { ChevronDown, Menu, Moon, Search, ShoppingBag, Sun, User, X } from 'lucide-react';
 import { useCart } from '@/components/cart/CartProvider';
 import { CartDrawer } from '@/components/v3/CartDrawer';
+import { SearchDialog } from '@/components/layout/SearchDialog';
 import { formatDigits } from '@/lib/money';
 import type { CategoryData } from '@/types';
 import type { SessionUser } from '@/lib/auth/session';
@@ -29,6 +30,7 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
   const [menuOpen, setMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [light, setLight] = useState(true);
   const [hovered, setHovered] = useState<number | null>(null);
   const [origin, setOrigin] = useState({ x: 0, y: 0 });
@@ -280,6 +282,14 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
               <button
                 type="button"
                 className="v3-icon"
+                onClick={() => setSearchOpen(true)}
+                aria-label="جست‌وجوی محصولات"
+              >
+                <Search aria-hidden="true" size={19} />
+              </button>
+              <button
+                type="button"
+                className="v3-icon"
                 style={{ position: 'relative' }}
                 onClick={() => setCartOpen(true)}
                 aria-label={`سبد خرید، ${formatDigits(count)} قلم`}
@@ -382,6 +392,7 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
       ) : null}
 
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+      <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
