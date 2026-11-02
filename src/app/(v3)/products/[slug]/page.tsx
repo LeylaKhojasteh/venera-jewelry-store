@@ -106,7 +106,7 @@ export default async function ProductPage({ params }: PageProps) {
         <div className="v3-shell" style={{ marginTop: '5rem' }}>
           <div className="v3-rail-head">
             <div>
-              <h2 className="v3-h2 enter">شاید این هارو هم دوست داشته باشی</h2>
+              <h2 className="v3-related-heading enter">شاید این هارو هم دوست داشته باشی</h2>
             </div>
             <Link href={`/products?category=${product.categorySlug}`} className="v3-btn v3-btn-line enter-3">
               همهٔ {product.categoryName}ها
