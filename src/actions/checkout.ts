@@ -181,7 +181,7 @@ export async function placeDemoOrderAction(input: {
               unitPrice,
               quantity: item.quantity,
               lineTotal,
-              imageUrl: item.product.images[0]?.url ?? '/images/products/necklace-avid-01.jpg',
+              imageUrl: item.product.images[0]?.url ?? '/images/products/necklace-drop-01.jpg',
             });
 
             await tx.product.update({

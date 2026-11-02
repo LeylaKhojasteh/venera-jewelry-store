@@ -33,9 +33,9 @@ test.describe('storefront', () => {
     await page.goto('/products?discount=1');
     await expect(page.locator('article')).toHaveCount(5);
 
-    await page.goto('/products?q=%D8%A2%D8%B1%DA%A9%D8%A7');
+    await page.goto('/products?q=%D9%82%D8%B7%D8%B1%D9%87');
     await expect(page.locator('article')).toHaveCount(1);
-    await expect(page.getByRole('heading', { name: 'گردنبند آرکا' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'گردنبند قطره' })).toBeVisible();
 
     await page.goto('/products?min=3000000');
     await expect(page.getByText('چیزی با این فیلترها پیدا نشد')).toBeVisible();
@@ -45,14 +45,14 @@ test.describe('storefront', () => {
     const email = uniqueEmail('flow');
     const user = { name: 'کاربر آزمایشی', email, password: 'DemoPass1404' };
 
-    await page.goto('/products/necklace-avid');
-    await expect(page.getByRole('heading', { level: 1, name: 'گردنبند آوید' })).toBeVisible();
+    await page.goto('/products/necklace-drop');
+    await expect(page.getByRole('heading', { level: 1, name: 'گردنبند قطره' })).toBeVisible();
     await page.getByRole('button', { name: '۴۵ سانتی‌متر' }).click();
     await page.getByRole('button', { name: /افزودن به سبد/ }).first().click();
     await expect(page.getByText('به سبد اضافه شد.').first()).toBeVisible();
 
     await page.goto('/cart');
-    await expect(page.getByText('گردنبند آوید').first()).toBeVisible();
+    await expect(page.getByText('گردنبند قطره').first()).toBeVisible();
     await expect(page.getByRole('link', { name: 'ورود و ادامهٔ سفارش' })).toBeVisible();
     await page.setViewportSize({ width: 375, height: 812 });
     await shot(page, 'cart', 375);
@@ -63,7 +63,7 @@ test.describe('storefront', () => {
     await page.waitForURL('http://127.0.0.1:3000/');
 
     await page.goto('/cart');
-    await expect(page.getByText('گردنبند آوید').first()).toBeVisible();
+    await expect(page.getByText('گردنبند قطره').first()).toBeVisible();
     await expect(page.getByRole('link', { name: 'ادامهٔ سفارش' })).toBeVisible();
 
     await page.goto('/profile/addresses');
@@ -123,7 +123,7 @@ test.describe('storefront', () => {
     await page.getByLabel('موضوع').fill('سؤال دربارهٔ اندازهٔ انگشتر');
     await page
       .getByLabel('پیام')
-      .fill('سلام، برای انگشتر روژا بین سایز ۵۲ و ۵۴ مردد هستم؛ کدام را پیشنهاد می‌کنید؟');
+      .fill('سلام، برای انگشتر فیروزه‌ای بین سایز ۵۲ و ۵۴ مردد هستم؛ کدام را پیشنهاد می‌کنید؟');
     await page.getByRole('button', { name: /ارسال پیام/ }).click();
     await expect(page.getByRole('heading', { name: 'پیامت ثبت شد.' })).toBeVisible();
   });
@@ -155,7 +155,7 @@ test.describe('admin', () => {
 
     const row = page
       .locator('div.grid')
-      .filter({ has: page.getByRole('link', { name: 'گردنبند آوید' }) })
+      .filter({ has: page.getByRole('link', { name: 'گردنبند قطره' }) })
       .last();
     const stockInput = row.getByLabel('موجودی');
     const original = await stockInput.inputValue();
@@ -167,7 +167,7 @@ test.describe('admin', () => {
     await page.reload();
     const reloadedRow = page
       .locator('div.grid')
-      .filter({ has: page.getByRole('link', { name: 'گردنبند آوید' }) })
+      .filter({ has: page.getByRole('link', { name: 'گردنبند قطره' }) })
       .last();
     await expect(reloadedRow.getByLabel('موجودی')).toHaveValue(next);
 
@@ -183,7 +183,7 @@ test.describe('admin', () => {
 
 test.describe('responsive', () => {
   const widths = [320, 375, 430, 768, 1024, 1440, 1920];
-  const routes = ['/', '/products', '/products/necklace-avid', '/about', '/contact', '/cart', '/login'];
+  const routes = ['/', '/products', '/products/necklace-drop', '/about', '/contact', '/cart', '/login'];
 
   for (const width of widths) {
     test(`no horizontal overflow at ${width}px`, async ({ page }) => {
@@ -336,7 +336,7 @@ test.describe('responsive', () => {
       for (const [name, route] of [
         ['home', '/'],
         ['catalog', '/products'],
-        ['product', '/products/necklace-avid'],
+        ['product', '/products/necklace-drop'],
         ['about', '/about'],
         ['contact', '/contact'],
         ['ping', '/login'],

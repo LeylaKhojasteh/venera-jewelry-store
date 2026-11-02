@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="v3-section">
+    <div className="v3-about-page">
       <div className="v3-shell">
         <nav className="v3-crumbs" aria-label="مسیر">
           <Link href="/">خانه</Link>

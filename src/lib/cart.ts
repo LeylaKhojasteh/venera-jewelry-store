@@ -26,7 +26,7 @@ function lineFrom(product: ProductRow, variant: VariantRow, quantity: number): C
     productId: product.id,
     slug: product.slug,
     name: product.name,
-    image: product.images[0]?.url ?? '/images/products/necklace-avid-01.jpg',
+    image: product.images[0]?.url ?? '/images/products/necklace-drop-01.jpg',
     imageAlt: product.images[0]?.alt ?? product.name,
     price: product.price,
     compareAtPrice: product.compareAtPrice,
