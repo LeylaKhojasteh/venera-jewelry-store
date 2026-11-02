@@ -30,8 +30,8 @@ export default async function LoginPage({
       <AuthShellV4
         title="خوش برگشتی."
         intro="برای دیدن سفارش‌ها، نشانی‌ها و ادامهٔ خرید وارد شو. سبد مهمان بعد از ورود به حسابت منتقل می‌شود."
-        image="/images/products/necklace-nilo-01.jpg"
-        imageAlt="گردنبند نیلو روی زمینهٔ روشن"
+        image="/images/products/necklace-flower-01.jpg"
+        imageAlt="گردنبند گل روی زمینهٔ روشن"
         quote={site.tagline}
       >
         {resetDone ? (

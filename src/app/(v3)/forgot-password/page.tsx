@@ -15,8 +15,8 @@ export default function ForgotPasswordPage() {
       <AuthShellV4
         title="گذرواژه را فراموش کردی؟"
         intro="ایمیل حسابت را بنویس؛ اگر حسابی با این ایمیل باشد، پیوند تعیین گذرواژهٔ تازه برایت فرستاده می‌شود."
-        image="/images/products/necklace-avid-01.jpg"
-        imageAlt="گردنبند آوید روی زمینهٔ روشن"
+        image="/images/products/necklace-drop-01.jpg"
+        imageAlt="گردنبند قطره روی زمینهٔ روشن"
         quote={site.tagline}
       >
         <ForgotPasswordForm />

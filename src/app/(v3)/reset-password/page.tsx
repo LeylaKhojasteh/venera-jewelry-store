@@ -23,8 +23,8 @@ export default async function ResetPasswordPage({
       <AuthShellV4
         title="گذرواژهٔ تازه."
         intro="یک گذرواژهٔ تازه و امن انتخاب کن. پیوند بازیابی فقط یک بار و تا ۳۰ دقیقه معتبر است."
-        image="/images/products/necklace-mah-tab-01.jpg"
-        imageAlt="گردنبند مهتاب روی زمینهٔ روشن"
+        image="/images/products/necklace-pearl-01.jpg"
+        imageAlt="گردنبند مرواریدی روی زمینهٔ روشن"
         quote={site.tagline}
       >
         {token ? (

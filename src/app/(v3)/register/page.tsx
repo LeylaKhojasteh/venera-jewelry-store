@@ -29,8 +29,8 @@ export default async function RegisterPage({
       <AuthShellV4
         title="از اینجا شروع کن."
         intro="با یک حساب ساده، سفارش‌ها و نشانی‌هایت را یک‌جا نگه می‌داری."
-        image="/images/products/bracelet-ares-01.jpg"
-        imageAlt="دستبند آرس روی زمینهٔ روشن"
+        image="/images/products/bracelet-triple-ring-01.jpg"
+        imageAlt="دستبند حلقه سه‌تایی روی زمینهٔ روشن"
         quote={site.tagline}
       >
         <RegisterForm next={next} />

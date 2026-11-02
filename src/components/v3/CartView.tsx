@@ -42,10 +42,10 @@ export function CartView() {
 
   if (count === 0) {
     const suggestions = [
-      { slug: 'necklace-avid', image: '/images/products/necklace-avid-01.jpg', name: 'گردنبند آوید' },
-      { slug: 'bracelet-ares', image: '/images/products/bracelet-ares-01.jpg', name: 'دستبند آرس' },
-      { slug: 'earrings-alara', image: '/images/products/earrings-alara-01.jpg', name: 'گوشواره الانا' },
-      { slug: 'ring-diyar', image: '/images/products/ring-diyar-01.jpg', name: 'انگشتر دیار' },
+      { slug: 'necklace-drop', image: '/images/products/necklace-drop-01.jpg', name: 'گردنبند قطره' },
+      { slug: 'bracelet-triple-ring', image: '/images/products/bracelet-triple-ring-01.jpg', name: 'دستبند حلقه سه‌تایی' },
+      { slug: 'earrings-clear-flower', image: '/images/products/earrings-clear-flower-01.jpg', name: 'گوشواره گل شفاف' },
+      { slug: 'ring-turquoise', image: '/images/products/ring-turquoise-01.jpg', name: 'انگشتر فیروزه‌ای' },
     ];
 
     return (
