@@ -28,8 +28,8 @@ export default function AboutPage() {
             </div>
             <div className="v3-about-media">
               <Image
-                src="/images/editorial/about-hero.jpg"
-                alt="نمای نزدیک از یک گردنبند ونرا"
+                src="/images/products/necklace-drop-01.jpg"
+                alt="گردنبند قطره ونرا"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 45vw"

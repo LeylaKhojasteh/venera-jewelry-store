@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Minus, Plus, X } from 'lucide-react';
 import { useCart } from '@/components/cart/CartProvider';
+import { lockScroll, unlockScroll } from '@/lib/scroll-lock';
 import { formatDigits, formatToman } from '@/lib/money';
 
 export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -13,14 +14,13 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
 
   useEffect(() => {
     if (!open) return;
-    const previous = document.documentElement.style.overflow;
-    document.documentElement.style.overflow = 'hidden';
+    lockScroll();
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', onKey);
     return () => {
-      document.documentElement.style.overflow = previous;
+      unlockScroll();
       window.removeEventListener('keydown', onKey);
     };
   }, [open, onClose]);

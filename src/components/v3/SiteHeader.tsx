@@ -8,6 +8,7 @@ import { ChevronDown, Menu, Moon, Search, ShoppingBag, Sun, User, X } from 'luci
 import { useCart } from '@/components/cart/CartProvider';
 import { CartDrawer } from '@/components/v3/CartDrawer';
 import { SearchDialog } from '@/components/layout/SearchDialog';
+import { lockScroll, unlockScroll } from '@/lib/scroll-lock';
 import { formatDigits } from '@/lib/money';
 import type { CategoryData } from '@/types';
 import type { SessionUser } from '@/lib/auth/session';
@@ -39,6 +40,14 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
   const themeButtonRef = useRef<HTMLButtonElement>(null);
   const productsRef = useRef<HTMLDivElement>(null);
   const hoverTimer = useRef<number | null>(null);
+  const closeTimer = useRef<number | null>(null);
+
+  const clearProductsTimers = () => {
+    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    hoverTimer.current = null;
+    closeTimer.current = null;
+  };
 
   const previews = [
     categories[0]?.image ?? '/images/hero/hero.jpg',
@@ -59,11 +68,15 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
   useEffect(() => {
     const onPointerDown = (event: MouseEvent) => {
       if (productsRef.current && !productsRef.current.contains(event.target as Node)) {
+        clearProductsTimers();
         setProductsOpen(false);
       }
     };
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setProductsOpen(false);
+      if (event.key === 'Escape') {
+        clearProductsTimers();
+        setProductsOpen(false);
+      }
     };
     document.addEventListener('mousedown', onPointerDown);
     document.addEventListener('keydown', onKey);
@@ -87,10 +100,9 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
   }, []);
 
   useEffect(() => {
-    document.documentElement.style.overflow = menuOpen ? 'hidden' : '';
-    return () => {
-      document.documentElement.style.overflow = '';
-    };
+    if (!menuOpen) return;
+    lockScroll();
+    return () => unlockScroll();
   }, [menuOpen]);
 
   useEffect(() => {
@@ -207,12 +219,12 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
                 className="v3-nav-item"
                 ref={productsRef}
                 onPointerEnter={() => {
-                  if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
+                  clearProductsTimers();
                   hoverTimer.current = window.setTimeout(() => setProductsOpen(true), 140);
                 }}
                 onPointerLeave={() => {
-                  if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
-                  setProductsOpen(false);
+                  clearProductsTimers();
+                  closeTimer.current = window.setTimeout(() => setProductsOpen(false), 260);
                 }}
               >
                 <button
@@ -222,7 +234,7 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
                   aria-expanded={productsOpen}
                   aria-controls="v3-products-menu"
                   onClick={() => {
-                    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
+                    clearProductsTimers();
                     setProductsOpen((value) => !value);
                   }}
                 >
@@ -235,7 +247,15 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
                 </button>
 
                 {productsOpen ? (
-                  <div className="v3-products-menu" id="v3-products-menu">
+                  <div
+                    className="v3-products-menu"
+                    id="v3-products-menu"
+                    onPointerEnter={clearProductsTimers}
+                    onPointerLeave={() => {
+                      clearProductsTimers();
+                      closeTimer.current = window.setTimeout(() => setProductsOpen(false), 260);
+                    }}
+                  >
                     {categories.map((category) => (
                       <Link
                         key={category.slug}

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { X } from 'lucide-react';
 import { useCart } from '@/components/cart/CartProvider';
+import { lockScroll, unlockScroll } from '@/lib/scroll-lock';
 import { formatToman } from '@/lib/money';
 import type { ProductCardData, QuickViewData } from '@/types';
 
@@ -35,14 +36,13 @@ export function QuickView({
 
   useEffect(() => {
     closeRef.current?.focus({ preventScroll: true });
-    const previous = document.documentElement.style.overflow;
-    document.documentElement.style.overflow = 'hidden';
+    lockScroll();
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onCloseRef.current();
     };
     window.addEventListener('keydown', onKey);
     return () => {
-      document.documentElement.style.overflow = previous;
+      unlockScroll();
       window.removeEventListener('keydown', onKey);
     };
   }, []);

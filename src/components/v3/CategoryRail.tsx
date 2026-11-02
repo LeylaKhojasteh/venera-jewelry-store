@@ -3,6 +3,14 @@ import Link from 'next/link';
 import { formatDigits } from '@/lib/money';
 import type { CategoryData, ProductCardData } from '@/types';
 
+// Category art intentionally differs from the best-seller row.
+const categoryArt: Record<string, { src: string; alt: string }> = {
+  necklace: { src: '/images/products/necklace-vintage-01.jpg', alt: 'گردنبند وینتیج ونرا' },
+  bracelet: { src: '/images/products/bracelet-double-chain-01.jpg', alt: 'دستبند زنجیر دوتایی ونرا' },
+  earrings: { src: '/images/products/earrings-heart-01.jpg', alt: 'گوشواره قلبی ونرا' },
+  ring: { src: '/images/products/ring-set-five-stone-01.jpg', alt: 'ست پنج‌تایی سنگی ونرا' },
+};
+
 export function CategoryRail({
   categories,
   products,
@@ -23,7 +31,10 @@ export function CategoryRail({
 
         <div className="v3-category-grid">
           {categories.map((category) => {
-            const image = products.find((product) => product.categorySlug === category.slug)?.image;
+            const art = categoryArt[category.slug];
+            const fallback = products.find((product) => product.categorySlug === category.slug);
+            const src = art?.src ?? fallback?.image;
+            const alt = art?.alt ?? fallback?.imageAlt ?? '';
             return (
               <Link
                 key={category.slug}
@@ -31,8 +42,8 @@ export function CategoryRail({
                 className="v3-category-card"
               >
                 <span className="v3-category-media">
-                  {image ? (
-                    <Image src={image} alt="" fill sizes="(max-width: 640px) 50vw, 25vw" className="object-cover" />
+                  {src ? (
+                    <Image src={src} alt={alt} fill sizes="(max-width: 640px) 50vw, 25vw" className="object-cover" />
                   ) : null}
                 </span>
                 <span className="v3-category-body">

@@ -17,10 +17,10 @@ type ContactValues = {
 };
 
 const topics = [
-  { label: 'سایز و اندازه', subject: 'سؤال دربارهٔ سایز', message: 'سلام، دربارهٔ سایز این اکسسوری راهنمایی می‌خواهم.' },
-  { label: 'موجودی', subject: 'سؤال دربارهٔ موجودی', message: 'سلام، می‌خواهم بدانم این اکسسوری موجود است یا نه.' },
-  { label: 'پیگیری سفارش', subject: 'پیگیری سفارش', message: 'سلام، می‌خواهم وضعیت سفارشم را پیگیری کنم.' },
-  { label: 'همکاری', subject: 'همکاری با ونرا', message: 'سلام، برای همکاری با ونرا پیام می‌دهم.' },
+  { label: 'سایز و اندازه', subject: 'سؤال دربارهٔ سایز' },
+  { label: 'موجودی', subject: 'سؤال دربارهٔ موجودی' },
+  { label: 'پیگیری سفارش', subject: 'پیگیری سفارش' },
+  { label: 'همکاری', subject: 'همکاری با ونرا' },
 ];
 
 export function ContactForm() {
@@ -42,9 +42,6 @@ export function ContactForm() {
   const chooseTopic = (item: (typeof topics)[number]) => {
     setTopic(item.label);
     form.setValue('subject', item.subject, { shouldValidate: true });
-    if (!form.getValues('message')) {
-      form.setValue('message', item.message, { shouldValidate: true });
-    }
   };
 
   const onSubmit = form.handleSubmit(async (values) => {

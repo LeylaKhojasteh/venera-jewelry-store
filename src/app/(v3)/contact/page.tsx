@@ -53,9 +53,6 @@ export default async function ContactPage() {
             <p className="v3-h3" style={{ marginTop: '0.35rem' }}>
               شنبه تا پنجشنبه، ۱۰ تا ۱۸
             </p>
-            <p className="v3-small" style={{ marginTop: '0.4rem' }}>
-              پیام‌ها معمولاً در اولین روز کاری پاسخ داده می‌شوند.
-            </p>
           </div>
 
           <OrderLookup signedIn={Boolean(user)} />

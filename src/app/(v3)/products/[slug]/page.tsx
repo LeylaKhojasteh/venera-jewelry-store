@@ -84,13 +84,6 @@ export default async function ProductPage({ params }: PageProps) {
                 <summary>نگهداری</summary>
                 <p>{product.care}</p>
               </details>
-              <details>
-                <summary>ثبت سفارش</summary>
-                <p>
-                  موجودی انبار هنگام ثبت سفارش بررسی می‌شود و قیمت‌ها از پایگاه‌داده خوانده می‌شوند. اگر
-                  موجودی تغییر کرده باشد، پیش از ثبت به تو اطلاع داده می‌شود.
-                </p>
-              </details>
             </div>
 
             <div className="v3-meta-grid enter-2">
@@ -105,14 +98,6 @@ export default async function ProductPage({ params }: PageProps) {
                 </strong>
               </div>
             </div>
-
-            {product.tags.length > 0 ? (
-              <div className="v3-tags">
-                {product.tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
-            ) : null}
           </div>
         </div>
       </div>
@@ -121,16 +106,15 @@ export default async function ProductPage({ params }: PageProps) {
         <div className="v3-shell" style={{ marginTop: '5rem' }}>
           <div className="v3-rail-head">
             <div>
-              <h2 className="v3-h2 enter">شاید این‌ها هم به کارت بیاید</h2>
-              <p className="v3-body enter-2" style={{ marginTop: '0.75rem' }}>
-                از همان دسته، با همان زبان.
-              </p>
+              <h2 className="v3-h2 enter">شاید این هارو هم دوست داشته باشی</h2>
             </div>
             <Link href={`/products?category=${product.categorySlug}`} className="v3-btn v3-btn-line enter-3">
               همهٔ {product.categoryName}ها
             </Link>
           </div>
-          <CatalogGrid products={related} drift />
+          <div className="v3-related-grid">
+            <CatalogGrid products={related} compact />
+          </div>
         </div>
       ) : null}
 

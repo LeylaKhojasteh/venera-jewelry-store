@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
+import { lockScroll, unlockScroll } from '@/lib/scroll-lock';
 
 /**
  * Thin wrapper over the native <dialog> element: modal focus containment, Escape
@@ -29,14 +30,16 @@ export function Dialog({
     if (!dialog) return;
     if (open && !dialog.open) {
       dialog.showModal();
-      document.documentElement.style.overflow = 'hidden';
+      lockScroll();
     } else if (!open && dialog.open) {
       dialog.close();
-      document.documentElement.style.overflow = '';
+      unlockScroll();
     }
     return () => {
-      if (dialog.open) dialog.close();
-      document.documentElement.style.overflow = '';
+      if (dialog.open) {
+        dialog.close();
+        unlockScroll();
+      }
     };
   }, [open]);
 

@@ -49,9 +49,6 @@ export function PdpBuybox({ product }: { product: ProductDetailData }) {
       <h1 className="v3-pdp-title enter" style={{ marginTop: '0.75rem' }}>
         {product.name}
       </h1>
-      <p className="v3-pdp-sub enter-2">
-        {product.categoryName} · {product.materials}
-      </p>
 
       <p className="v3-pdp-price enter-2">
         {formatToman(product.price)}
@@ -64,8 +61,6 @@ export function PdpBuybox({ product }: { product: ProductDetailData }) {
         {product.discount ? <span className="v3-badge">٪{formatDigits(product.discount)}</span> : null}
         {product.isBestSeller ? <span className="v3-badge v3-badge-quiet">پرفروش</span> : null}
       </div>
-
-      <p className="v3-body v3-pdp-desc enter-3">{product.description}</p>
 
       {variants.length > 0 ? (
         <fieldset className="v3-filter-group enter-3" style={{ marginTop: '1.5rem' }}>
@@ -91,25 +86,6 @@ export function PdpBuybox({ product }: { product: ProductDetailData }) {
             ))}
           </div>
         </fieldset>
-      ) : null}
-
-      {selected ? (
-        <div className="v3-pdp-fit">
-          <svg viewBox="0 0 220 130" aria-hidden="true">
-            <path
-              d="M30 20 C30 90 70 112 110 112 C150 112 190 90 190 20"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.1"
-              className="v3-pdp-fit-line"
-            />
-            <g className="v3-pdp-pendant">
-              <path d="M110 112 L124 132 L110 152 L96 132 Z" fill="none" stroke="var(--copper)" strokeWidth="1.3" />
-            </g>
-            <circle cx="190" cy="20" r="2.5" fill="var(--copper)" className="v3-pdp-live" />
-          </svg>
-          <p className="v3-small">طول انتخابی: {selected.label}</p>
-        </div>
       ) : null}
 
       {error ? (
@@ -160,7 +136,7 @@ export function PdpBuybox({ product }: { product: ProductDetailData }) {
 
       <p className="v3-pdp-stock">
         {available > 0
-          ? `${formatDigits(available)} عدد در انبار${selected ? ` (${selected.label})` : ''}`
+          ? `${formatDigits(available)} عدد در انبار`
           : 'این گزینه فعلاً موجود نیست.'}
       </p>
     </div>

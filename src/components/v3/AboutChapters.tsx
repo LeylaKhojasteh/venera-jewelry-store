@@ -8,20 +8,20 @@ const chapters = [
   {
     title: 'طرح‌های خاص',
     text: 'ماموریت ما ارائه بهترین تنوع و کیفیت با مناسب‌ترین قیمت است.',
-    image: '/images/editorial/macro.jpg',
-    alt: 'جزئیات سطح فلز در یک اکسسوری ونرا',
+    image: '/images/products/bracelet-spiral-silver-01.jpg',
+    alt: 'دستبند حلزونی نقره‌ای ونرا',
   },
   {
     title: 'رضایت مشتری',
     text: 'جلب رضایت مشتریان همیشگی و رشد کردن در کنار هم.',
-    image: '/images/editorial/about-hero.jpg',
-    alt: 'نمای نزدیک از گردنبند ونرا',
+    image: '/images/products/earrings-butterfly-01.jpg',
+    alt: 'گوشواره پروانه اویزی ونرا',
   },
   {
     title: 'دستیابی به اهداف بلند مدت',
     text: 'تبدیل شدن به بزرگ‌ترین ارائه‌دهنده اکسسوری در تهران با حمایت شما و تعهد ما به ارائه بهترین خدمات و پشتیبانی.',
-    image: '/images/products/ring-diyar-01.jpg',
-    alt: 'انگشتر دیار ونرا',
+    image: '/images/products/ring-set-six-gold-01.jpg',
+    alt: 'ست شش‌تایی مینیمال طلایی ونرا',
   },
 ];
 
