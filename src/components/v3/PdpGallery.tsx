@@ -2,6 +2,8 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { X, ZoomIn } from 'lucide-react';
+import { Dialog } from '@/components/ui/Dialog';
 
 export function PdpGallery({
   images,
@@ -11,6 +13,7 @@ export function PdpGallery({
   name: string;
 }) {
   const [active, setActive] = useState(0);
+  const [zoomOpen, setZoomOpen] = useState(false);
   const current = images[active] ?? images[0];
   if (!current) return null;
 
@@ -26,6 +29,14 @@ export function PdpGallery({
           sizes="(max-width: 1024px) 100vw, 54vw"
           className="animate-drift object-cover"
         />
+        <button
+          type="button"
+          className="v3-pdp-zoom-trigger"
+          onClick={() => setZoomOpen(true)}
+          aria-label="بزرگ‌نمایی تصویر محصول"
+        >
+          <ZoomIn aria-hidden="true" size={18} />
+        </button>
       </div>
 
       {images.length > 1 ? (
@@ -44,6 +55,28 @@ export function PdpGallery({
           ))}
         </div>
       ) : null}
+
+      <Dialog
+        open={zoomOpen}
+        onClose={() => setZoomOpen(false)}
+        labelledBy="pdp-zoom-title"
+        className="v3-zoom-dialog"
+      >
+        <div className="v3-zoom-inner">
+          <h2 id="pdp-zoom-title" className="sr-only">
+            بزرگ‌نمایی تصویر {name}
+          </h2>
+          <button
+            type="button"
+            className="v3-icon v3-zoom-close"
+            onClick={() => setZoomOpen(false)}
+            aria-label="بستن بزرگ‌نمایی"
+          >
+            <X aria-hidden="true" size={20} />
+          </button>
+          <Image src={current.url} alt={current.alt} fill sizes="96vw" className="object-contain" />
+        </div>
+      </Dialog>
     </div>
   );
 }

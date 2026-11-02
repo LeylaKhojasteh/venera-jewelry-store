@@ -406,8 +406,6 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
               </div>
             </details>
           </div>
-
-          <p className="v3-menu-foot">تهران · اکسسوری استیل · ۱۴۰۵</p>
         </div>
       ) : null}
 
