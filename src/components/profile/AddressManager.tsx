@@ -233,7 +233,7 @@ export function AddressManager({ addresses, next }: { addresses: AddressItem[]; 
     <div>
       <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">
         <div>
-          <h1 className="display text-3xl">نشانی‌های من</h1>
+          <h1 className="v3-profile-greeting">نشانی‌های من</h1>
           <p className="mt-2 text-sm text-ink-soft">
             نشانی‌ها فقط برای همین حساب ذخیره می‌شوند و در تکمیل سفارش انتخاب می‌شوند.
           </p>

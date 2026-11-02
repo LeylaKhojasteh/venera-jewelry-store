@@ -24,7 +24,7 @@ export default async function OrdersPage() {
     <div>
       <div className="v3-catalog-head" style={{ marginBottom: '1.5rem' }}>
         <div>
-          <h1 className="v3-display">سفارش‌های من</h1>
+          <h1 className="v3-profile-greeting">سفارش‌های من</h1>
           <p className="v3-lead" style={{ marginTop: '1rem', maxWidth: '38ch' }}>
             همهٔ سفارش‌های این حساب، با جزئیات کامل. وضعیت‌ها را تیم ونرا تغییر می‌دهد.
           </p>
