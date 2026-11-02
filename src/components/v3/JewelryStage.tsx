@@ -215,7 +215,7 @@ function Scene({ reduce, ready }: { reduce: boolean; ready: boolean }) {
   const group = useRef<THREE.Group>(null);
   const intro = useRef(0);
   const { size } = useThree();
-  const scale = size.width < 480 ? 0.78 : 1;
+  const scale = size.width < 360 ? 0.95 : size.width < 480 ? 1.08 : 1;
 
   useFrame((state, delta) => {
     if (!group.current) return;
