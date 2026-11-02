@@ -11,45 +11,51 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="v3-shell v3-section">
-      <nav className="v3-crumbs" aria-label="مسیر">
-        <Link href="/">خانه</Link>
-        <span aria-hidden="true">/</span>
-        <span aria-current="page">دربارهٔ ونرا</span>
-      </nav>
+    <div className="v3-section">
+      <div className="v3-shell">
+        <nav className="v3-crumbs" aria-label="مسیر">
+          <Link href="/">خانه</Link>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">دربارهٔ ونرا</span>
+        </nav>
+      </div>
 
-      <div className="v3-about-hero">
-        <div>
-          <h1 className="v3-about-title">ونرا ؛ سیاره ی جزئیات به یاد ماندنی</h1>
-        </div>
-        <div className="v3-about-media">
-          <Image
-            src="/images/editorial/about-hero.jpg"
-            alt="نمای نزدیک از یک گردنبند ونرا"
-            fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 45vw"
-            className="animate-drift object-cover"
-          />
+      <div className="v3-about-hero-band">
+        <div className="v3-shell">
+          <div className="v3-about-hero">
+            <div>
+              <h1 className="v3-about-title">ونرا ؛ سیاره ی جزئیات به یاد ماندنی</h1>
+            </div>
+            <div className="v3-about-media">
+              <Image
+                src="/images/editorial/about-hero.jpg"
+                alt="نمای نزدیک از یک گردنبند ونرا"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="animate-drift object-cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      <section className="v3-section" aria-labelledby="about-design">
-        <div className="v3-shell">
+      <div className="v3-shell">
+        <section className="v3-section" aria-labelledby="about-design">
           <h2 id="about-design" className="v3-h2">
             سه تصمیم، که مسیر ما را شکل می‌دهد.
           </h2>
           <AboutChapters />
-        </div>
-      </section>
+        </section>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-        <Link href="/products" className="v3-btn v3-btn-solid">
-          دیدن کالکشن
-        </Link>
-        <Link href="/contact" className="v3-btn v3-btn-line">
-          گفتگو با ونرا
-        </Link>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+          <Link href="/products" className="v3-btn v3-btn-solid">
+            دیدن کالکشن
+          </Link>
+          <Link href="/contact" className="v3-btn v3-btn-line">
+            گفتگو با ونرا
+          </Link>
+        </div>
       </div>
     </div>
   );

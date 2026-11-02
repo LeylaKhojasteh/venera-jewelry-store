@@ -30,7 +30,7 @@ function toCard(product: CardPayload): ProductCardData {
     price: product.price,
     compareAtPrice: product.compareAtPrice,
     discount: discountPercent(product.price, product.compareAtPrice),
-    image: primary?.url ?? '/images/products/placeholder.jpg',
+    image: primary?.url ?? '/images/products/necklace-avid-01.jpg',
     imageAlt: primary?.alt ?? product.name,
     hoverImage: secondary?.url ?? null,
     hoverImageAlt: secondary?.alt ?? null,

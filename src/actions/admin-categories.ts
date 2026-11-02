@@ -45,7 +45,7 @@ export async function saveCategoryAction(
   const id = String(formData.get('id') ?? '').trim();
   const data = {
     ...parsed.data,
-    image: parsed.data.image || '/images/products/placeholder.jpg',
+    image: parsed.data.image || '/images/categories/necklace.jpg',
     imageAlt: parsed.data.imageAlt || parsed.data.name,
   };
 

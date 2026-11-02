@@ -49,7 +49,7 @@ cp .env.example .env
 
 # 3. Create the schema
 npx prisma migrate deploy        # applies prisma/migrations/*
-npm run db:seed                  # idempotent: 4 categories, 11 products, demo users
+npm run db:seed                  # idempotent: 4 categories, 22 products, demo users
 
 # 4. Run
 npm run dev                      # http://localhost:3000
@@ -116,7 +116,7 @@ are implemented. `/profile`, `/checkout`, `/admin`, `/cart`, `/order-success`, `
 prisma/
   schema.prisma            PostgreSQL models, enums, indexes, check constraint
   migrations/…/migration.sql
-  seed.ts                  idempotent seed (11 products, variants, demo users)
+  seed.ts                  idempotent seed (22 products, variants, demo users)
 src/
   app/
     (v3)/                   v4 storefront layout (header/footer/cart provider) + all pages
@@ -145,10 +145,11 @@ Server Components fetch data directly; Client Components exist only for interact
 - All prices are integers in **Toman**. `compareAtPrice` is enforced with a database CHECK
   constraint to be strictly greater than `price`, so discount percentages are computed from
   real numbers.
-- The catalogue holds the ten products from the brief plus one extra necklace (نیلو) added at the
-  owner’s request, with four necklace photographs supplied by the owner. All four necklaces are
-  women’s, in 316 stainless steel, priced between 1,000,000 and 2,000,000 Toman. The five discounted
-  items are still 1, 4, 6, 7 and 10; percentages are derived at render time.
+- The catalogue holds 22 products (5 necklaces, 6 bracelets, 6 earrings, 5 rings). All product
+  photographs are the owner-supplied files from `incoming/`, converted to 1200×1500 JPEG.
+  Active prices run from 580,000 to 2,450,000 Toman; five products carry a 30% or 40% discount
+  and six are marked as best sellers. Prices and discount/best-seller flags are demo merchandising
+  data and should be confirmed by the owner.
 - Seeding is idempotent: products/categories are upserted by slug; images are recreated;
   variants are upserted and stale variants are removed; demo users are upserted.
 - **Order placement** (`src/actions/checkout.ts`):
@@ -210,10 +211,8 @@ Server Components fetch data directly; Client Components exist only for interact
 
 ## Images and fonts
 
-- All imagery is local under `public/images` (30 rendered files, ~4.6 MB), cropped and
-  colour-graded to one warm campaign look. No runtime hotlinks. The four necklace product
-  photographs, the necklace category image and the homepage hero are owner-supplied and
-  recorded as such.
+- All imagery is local under `public/images`; product photos are the 22 owner-supplied files from
+  `incoming/`, converted to 1200×1500 JPEG. No runtime hotlinks.
 - Admin image uploads are stored as `BYTEA` in `ProductImage.data` and served from
   `/api/product-images/[id]`, so they survive Vercel deployments and are included in
   database backups. Keep individual uploads under the server-action limit.

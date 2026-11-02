@@ -25,7 +25,7 @@ test.describe('storefront', () => {
     await expect(page.getByRole('heading', { level: 1, name: 'همه محصولات' })).toBeVisible();
 
     await page.goto('/products?category=necklace');
-    await expect(page.locator('article')).toHaveCount(4);
+    await expect(page.locator('article')).toHaveCount(5);
 
     await page.goto('/products?gender=men');
     await expect(page.locator('article')).toHaveCount(3);
@@ -37,7 +37,7 @@ test.describe('storefront', () => {
     await expect(page.locator('article')).toHaveCount(1);
     await expect(page.getByRole('heading', { name: 'گردنبند آرکا' })).toBeVisible();
 
-    await page.goto('/products?min=2000000');
+    await page.goto('/products?min=3000000');
     await expect(page.getByText('چیزی با این فیلترها پیدا نشد')).toBeVisible();
   });
 
