@@ -9,7 +9,7 @@ import { formatDigits } from '@/lib/money';
 import type { CatalogParams } from '@/lib/catalog-url';
 
 export const metadata: Metadata = {
-  title: 'همهٔ زیورآلات',
+  title: 'همه محصولات',
   description:
     'کاتالوگ ونرا: گردنبند، دستبند، گوشواره و انگشتر استیل با فیلتر دسته‌بندی، جنسیت، قیمت و موجودی.',
   alternates: { canonical: '/products' },
@@ -68,11 +68,7 @@ export default async function ProductsPage({ searchParams }: PageProps) {
 
       <div className="v3-catalog-head">
         <div>
-          <h1 className="v3-display">همهٔ زیورآلات</h1>
-          <p className="v3-lead" style={{ marginTop: '1rem', maxWidth: '42ch' }}>
-            گردنبند، دستبند، گوشواره و انگشتر؛ همه از استیل ۳۱۶. فیلترها روی سرور اجرا می‌شوند، پس
-            هر نتیجه همان چیزی است که در انبار هست.
-          </p>
+          <h1 className="v3-page-title">همه محصولات</h1>
         </div>
         <p className="v3-catalog-count">{formatDigits(catalog.total)} آیتم</p>
       </div>

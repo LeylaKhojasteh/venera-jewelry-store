@@ -22,7 +22,7 @@ test.describe('storefront', () => {
     await expect(productsMenu.getByRole('link', { name: 'همه محصولات' })).toBeVisible();
     await productsMenu.getByRole('link', { name: 'همه محصولات' }).click();
     await expect(page).toHaveURL(/\/products/);
-    await expect(page.getByRole('heading', { level: 1, name: 'همهٔ زیورآلات' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'همه محصولات' })).toBeVisible();
 
     await page.goto('/products?category=necklace');
     await expect(page.locator('article')).toHaveCount(4);

@@ -2937,7 +2937,8 @@ html[data-theme='light'] .v3-footer-bottom {
   gap: 2rem;
 }
 
-.v3-profile-greeting {
+.v3-profile-greeting,
+.v3-page-title {
   font-family: 'Estedad', sans-serif;
   font-size: clamp(1.25rem, 2.2vw, 2rem);
   font-weight: 600;

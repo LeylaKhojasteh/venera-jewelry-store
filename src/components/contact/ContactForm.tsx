@@ -120,10 +120,7 @@ export function ContactForm() {
         <input id="contact-company" type="text" tabIndex={-1} autoComplete="off" {...form.register('company')} />
       </div>
 
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-        <p className="max-w-sm text-[0.68rem] leading-6 text-ink-soft">
-          اطلاعات این فرم فقط برای پاسخ‌گویی استفاده می‌شود.
-        </p>
+      <div className="mt-6 flex justify-end">
         <button type="submit" disabled={submitting} className={cn('btn btn-primary min-w-[10rem]', submitting && 'opacity-70')}>
           {submitting ? <Loader2 aria-hidden="true" className="size-4 animate-spin" /> : <Send aria-hidden="true" className="size-4" />}
           {submitting ? 'در حال ارسال…' : 'ارسال پیام'}

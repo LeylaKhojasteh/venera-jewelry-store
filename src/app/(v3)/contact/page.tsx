@@ -6,8 +6,7 @@ import { demoContact } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'تماس با ما',
-  description:
-    'با ونرا گفتگو کن: سؤال دربارهٔ اندازه، جنس، موجودی یا همکاری. پیام‌ها در پایگاه‌داده ذخیره می‌شوند.',
+  description: 'برای سؤال درباره جنس، موجودی یا پیگیری سفارش با تیم ونرا در تماس باش.',
   alternates: { canonical: '/contact' },
 };
 
@@ -22,10 +21,10 @@ export default function ContactPage() {
 
       <div className="v3-catalog-head">
         <div>
-          <h1 className="v3-display">از شنیدن صدای شما خوشحالیم.</h1>
-          <p className="v3-lead" style={{ marginTop: '1rem', maxWidth: '40ch' }}>
-            اگر دربارهٔ اندازه، جنس، موجودی یا یک سفارش سؤال داری، همین‌جا بنویس. تیم ونرا پیام را
-            می‌بیند و در اولین فرصت پاسخ می‌دهد.
+          <h1 className="v3-page-title">از شنیدن نظرات شما خوشحال می‌شویم</h1>
+          <p className="v3-lead" style={{ marginTop: '1rem', maxWidth: '42ch' }}>
+            اگر درباره جنس یا موجودی سوال داری یا می‌خوای سفارشت رو پیگیری کنی همین‌جا بنویس. تیم ما
+            در اولین فرصت باهات تماس می‌گیره.
           </p>
         </div>
       </div>
@@ -64,9 +63,6 @@ export default function ContactPage() {
                 </p>
               </div>
             </div>
-            <p className="v3-small" style={{ marginTop: '1.25rem' }}>
-              برای سؤال دربارهٔ اندازه، نام آیتم و اندازهٔ فعلی‌ات را بنویس تا دقیق‌تر راهنمایی کنیم.
-            </p>
           </div>
         </aside>
       </div>
