@@ -94,11 +94,15 @@ them, and the login page labels the customer account as demo-only.
 | `/checkout` | Address selection, review, demo order placement (auth required) |
 | `/order-success/[id]` | Owner-only confirmation with order number |
 | `/login`, `/register` | Credential auth with merge of the guest cart |
+| `/forgot-password`, `/reset-password` | Hashed, single-use password recovery (Resend email in production) |
 | `/profile` | Summary, recent orders, default address |
 | `/profile/addresses` | Create / edit / delete / set default |
 | `/profile/orders`, `/profile/orders/[id]` | Own order history and details |
 | `/about`, `/contact` | Editorial story; validated contact form persisted to PostgreSQL |
-| `/admin` | Protected dashboard (products, orders, messages), role-gated in layout **and** every action |
+| `/admin` | Protected dashboard (products, categories, orders, customers, messages); role-gated in layout **and** every action |
+| `/admin/products/new`, `/admin/products/[id]` | Create/edit products, upload JPEG/PNG/WebP images, manage variants |
+| `/admin/orders/[id]` | Full order, customer, address and line-item view |
+| `/admin/categories`, `/admin/customers` | Category editor and customer overview |
 
 `not-found`, route-level `error`, scoped `loading` skeletons, empty states and breadcrumbs
 are implemented. `/profile`, `/checkout`, `/admin`, `/cart`, `/order-success`, `/login`,
@@ -194,8 +198,13 @@ Server Components fetch data directly; Client Components exist only for interact
   should move it to Redis/Upstash so limits apply across serverless instances.
 - Admin routes call `requireAdmin()` in the layout and re-check the role inside every admin
   action. Public registration cannot choose a role.
-- Security headers are set in `next.config.ts`; there is no CSP because Next's inline
-  bootstrap requires a nonce/middleware, which is out of scope here.
+- Security headers are set in `next.config.ts`, including a production CSP, HSTS,
+  COOP/CORP and `frame-ancestors 'none'`. Uploaded images are checked by magic bytes,
+  served with a fixed MIME type and `nosniff`.
+- Password recovery tokens are random 32-byte values stored only as SHA-256 hashes,
+  expire after 30 minutes, are single-use and invalidate existing sessions.
+  `RESEND_API_KEY` and `EMAIL_FROM` enable delivery; without them the link is only
+  written to the server log.
 
 ---
 
@@ -205,6 +214,9 @@ Server Components fetch data directly; Client Components exist only for interact
   colour-graded to one warm campaign look. No runtime hotlinks. The four necklace product
   photographs, the necklace category image and the homepage hero are owner-supplied and
   recorded as such.
+- Admin image uploads are stored as `BYTEA` in `ProductImage.data` and served from
+  `/api/product-images/[id]`, so they survive Vercel deployments and are included in
+  database backups. Keep individual uploads under the server-action limit.
 - Sources, authors and licences are recorded in [`docs/asset-manifest.md`](docs/asset-manifest.md).
   The majority are CC0 museum plates (The Met via Wikimedia Commons); three modern ring
   photographs and one torc are CC BY 2.0 and are credited there.
@@ -247,6 +259,7 @@ See [`docs/qa-report.md`](docs/qa-report.md) for the recorded run and
    | `DIRECT_URL` | Neon **direct** URL (used only for migrations) |
    | `AUTH_SECRET` | 32+ random bytes |
    | `NEXT_PUBLIC_SITE_URL` | `https://<project>.vercel.app` |
+   | `RESEND_API_KEY`, `EMAIL_FROM` | optional; required for real password-recovery email |
    | `SHIPPING_FLAT_TOMAN`, `FREE_SHIPPING_THRESHOLD_TOMAN` | integers |
    | `SEED_*` | only if you intend to seed the deployed database |
 
@@ -271,14 +284,14 @@ The code is deployable, but these are product/business decisions, not code gaps:
 - [ ] Decide whether checkout stays demo-only (`DEMO_PLACED`) or gets a real payment gateway; the current UI never claims a payment was taken.
 - [ ] Add shipping, returns, privacy and terms pages; they are not part of the current routes.
 - [ ] Move the in-process rate limiter to Redis/Upstash if the site runs on more than one serverless instance.
-- [ ] Add a CSP with a nonce before handling real customer accounts; security headers are already set, CSP is not.
-- [ ] Expand the admin only if needed: it edits price, stock and visibility, but does not create products or upload images.
+- [ ] Replace the current CSP `'unsafe-inline'` allowance with a nonce-based policy before handling high-risk accounts.
+- [ ] Set `RESEND_API_KEY` and `EMAIL_FROM` if password-recovery email should actually be delivered.
 
 ## Known limitations
 
-- No payment gateway, email delivery, password recovery or order cancellation restocking —
-  deliberately out of scope, documented in the UI where relevant.
-- Rate limiting is in-process (see above).
+- No payment gateway, order cancellation restocking or automated marketing email. Password recovery exists but needs `RESEND_API_KEY` + `EMAIL_FROM` to deliver mail.
+- Admin can create/edit products, upload images, manage variants and categories, and inspect orders/customers; bulk import and image reordering are not built.
+- The rate limiter is in-process (see above).
 - Imagery is archival/museum photography rather than a commissioned campaign; this is called
   out on the About page and in the asset manifest. The four necklace photographs and the necklace
   category image are owner-supplied and their licensing must be confirmed before deployment.

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default async function ProfilePage() {
   const user = await requireUser('/profile');
 
-  const [orders, orderCount, addressCount, defaultAddress] = await Promise.all([
+  const [orders, orderCount, defaultAddress] = await Promise.all([
     prisma.order.findMany({
       where: { userId: user.id },
       orderBy: { createdAt: 'desc' },
@@ -23,23 +23,14 @@ export default async function ProfilePage() {
       include: { items: { select: { quantity: true } } },
     }),
     prisma.order.count({ where: { userId: user.id } }),
-    prisma.address.count({ where: { userId: user.id } }),
     prisma.address.findFirst({ where: { userId: user.id, isDefault: true } }),
   ]);
-
-  const spent = await prisma.order.aggregate({
-    where: { userId: user.id, status: { not: 'CANCELLED' } },
-    _sum: { total: true },
-  });
 
   return (
     <div>
       <div className="v3-catalog-head" style={{ marginBottom: '1.5rem' }}>
         <div>
-          <h1 className="v3-display">سلام، {user.name.split(' ')[0]}.</h1>
-          <p className="v3-lead" style={{ marginTop: '1rem', maxWidth: '38ch' }}>
-            وضعیت سفارش‌ها، نشانی‌ها و اطلاعات حسابت اینجاست.
-          </p>
+          <h1 className="v3-profile-greeting">سلام، {user.name.split(' ')[0]}.</h1>
         </div>
         <Link href="/products" className="v3-btn v3-btn-line">
           رفتن به کالکشن
@@ -51,18 +42,6 @@ export default async function ProfilePage() {
         <div className="v3-stat">
           <dt>سفارش‌های ثبت‌شده</dt>
           <dd>{new Intl.NumberFormat('fa-IR').format(orderCount)}</dd>
-        </div>
-        <div className="v3-stat">
-          <dt>مجموع سفارش‌ها</dt>
-          <dd>{formatToman(spent._sum.total ?? 0)}</dd>
-        </div>
-        <div className="v3-stat">
-          <dt>نشانی‌های ذخیره‌شده</dt>
-          <dd>{new Intl.NumberFormat('fa-IR').format(addressCount)}</dd>
-        </div>
-        <div className="v3-stat">
-          <dt>نوع حساب</dt>
-          <dd>{user.role === 'ADMIN' ? 'مدیر' : 'مشتری'}</dd>
         </div>
       </dl>
 

@@ -53,8 +53,21 @@ model User {
   addresses      Address[]
   orders         Order[]
   cart           Cart?
+  resetTokens    PasswordResetToken[]
 
   @@index([role])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
 }
 
 model Address {
@@ -131,6 +144,8 @@ model ProductImage {
   width     Int     @default(1200)
   height    Int     @default(1500)
   sortOrder Int     @default(0)
+  data      Bytes?
+  mimeType  String?
 
   @@index([productId, sortOrder])
 }

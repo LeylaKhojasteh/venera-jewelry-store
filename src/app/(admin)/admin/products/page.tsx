@@ -24,9 +24,14 @@ export default async function AdminProductsPage() {
             وگرنه ذخیره نمی‌شود.
           </p>
         </div>
-        <Link href="/products" className="v3-btn v3-btn-line">
-          دیدن فروشگاه
-        </Link>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <Link href="/admin/products/new" className="v3-btn v3-btn-solid">
+            محصول جدید
+          </Link>
+          <Link href="/products" className="v3-btn v3-btn-line">
+            دیدن فروشگاه
+          </Link>
+        </div>
       </div>
 
       <p className="v3-small" style={{ marginTop: '1rem' }}>

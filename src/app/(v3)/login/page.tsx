@@ -20,6 +20,7 @@ export default async function LoginPage({
   const params = await searchParams;
   const nextParam = Array.isArray(params.next) ? params.next[0] : params.next;
   const next = safeNextPath(nextParam) ?? '/';
+  const resetDone = (Array.isArray(params.reset) ? params.reset[0] : params.reset) === '1';
 
   const user = await getCurrentUser();
   if (user) redirect(next);
@@ -33,6 +34,11 @@ export default async function LoginPage({
         imageAlt="گردنبند نیلو روی زمینهٔ روشن"
         quote={site.tagline}
       >
+        {resetDone ? (
+          <p className="mb-4 border-s-2 border-success bg-success/5 px-4 py-3 text-sm text-success">
+            گذرواژه‌ات تغییر کرد. حالا با گذرواژهٔ تازه وارد شو.
+          </p>
+        ) : null}
         <LoginForm next={next} />
       </AuthShellV4>
     </div>

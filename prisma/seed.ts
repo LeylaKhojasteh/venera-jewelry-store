@@ -463,7 +463,7 @@ async function main() {
       passwordHash: await bcrypt.hash(adminPassword, 12),
       role: 'ADMIN',
     },
-    update: { role: 'ADMIN' },
+    update: { role: 'ADMIN', passwordHash: await bcrypt.hash(adminPassword, 12) },
     select: { id: true },
   });
 
@@ -475,7 +475,7 @@ async function main() {
       passwordHash: await bcrypt.hash(customerPassword, 12),
       role: 'CUSTOMER',
     },
-    update: {},
+    update: { passwordHash: await bcrypt.hash(customerPassword, 12) },
     select: { id: true },
   });
 

@@ -2937,6 +2937,13 @@ html[data-theme='light'] .v3-footer-bottom {
   gap: 2rem;
 }
 
+.v3-profile-greeting {
+  font-family: 'Estedad', sans-serif;
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  font-weight: 600;
+  color: var(--bone);
+}
+
 @media (min-width: 1024px) {
   .v3-profile {
     grid-template-columns: 14rem minmax(0, 1fr);
@@ -3610,6 +3617,92 @@ html[data-theme='light'] .v3-footer-bottom {
 
 .v3-admin-message.is-new {
   border-inline-start: 2px solid var(--copper);
+}
+
+.v3-admin-form {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--ink-2);
+}
+
+.v3-admin-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .v3-admin-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.v3-admin-textarea {
+  min-height: 7rem;
+  padding-block: 0.5rem;
+  resize: vertical;
+}
+
+.v3-admin-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.v3-admin-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.v3-admin-media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .v3-admin-media-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.v3-admin-media-item {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.v3-admin-media-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.v3-admin-media-item .v3-icon {
+  position: absolute;
+  top: 0.25rem;
+  inset-inline-end: 0.25rem;
+  width: 2rem;
+  height: 2rem;
+  background: var(--ink-2);
+  color: var(--bone);
+}
+
+.v3-admin-variant-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 900px) {
+  .v3-admin-variant-form {
+    grid-template-columns: 8rem 1fr 7rem 8rem auto;
+  }
 }
 
 .v3-admin-check {

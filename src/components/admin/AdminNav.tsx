@@ -2,14 +2,16 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, LogOut, MessageSquare, Package, ShoppingCart, Store } from 'lucide-react';
+import { LayoutDashboard, LogOut, MessageSquare, Package, ShoppingCart, Store, Tags, Users } from 'lucide-react';
 import { logoutAction } from '@/actions/auth';
 import { AdminThemeToggle } from '@/components/admin/AdminThemeToggle';
 
 const links = [
   { href: '/admin', label: 'نمای کلی', icon: LayoutDashboard },
   { href: '/admin/products', label: 'محصولات', icon: Package },
+  { href: '/admin/categories', label: 'دسته‌ها', icon: Tags },
   { href: '/admin/orders', label: 'سفارش‌ها', icon: ShoppingCart },
+  { href: '/admin/customers', label: 'مشتریان', icon: Users },
   { href: '/admin/messages', label: 'پیام‌ها', icon: MessageSquare },
 ];
 

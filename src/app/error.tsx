@@ -1,0 +1,29 @@
+'use client';
+
+import '@/app/v3.css';
+import Link from 'next/link';
+import { RotateCcw } from 'lucide-react';
+
+export default function GlobalError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
+  return (
+    <div className="v3-root" style={{ minHeight: '100svh' }}>
+      <div className="v3-section">
+        <div className="v3-shell">
+          <h1 className="v3-display">چیزی درست پیش نرفت.</h1>
+          <p className="v3-lead" style={{ marginTop: '1rem', maxWidth: '44ch' }}>
+            یک بار دیگر تلاش کن. اگر مشکل ادامه داشت، از فرم تماس خبر بده.
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1.5rem' }}>
+            <button type="button" onClick={reset} className="v3-btn v3-btn-solid">
+              <RotateCcw aria-hidden="true" size={16} />
+              تلاش دوباره
+            </button>
+            <Link href="/" className="v3-btn v3-btn-line">
+              بازگشت به خانه
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

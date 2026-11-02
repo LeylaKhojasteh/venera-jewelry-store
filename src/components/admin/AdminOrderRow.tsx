@@ -76,10 +76,7 @@ export function AdminOrderRow({ order }: { order: AdminOrder }) {
         </select>
         <div className="v3-small" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginTop: '0.25rem' }}>
           {saving ? <Loader2 aria-hidden="true" size={12} className="animate-spin" /> : null}
-          {message ??
-            (status === 'DEMO_PLACED' ? (
-              <Link href={`/admin/orders?focus=${order.id}`}>جزئیات</Link>
-            ) : null)}
+          {message ?? <Link href={`/admin/orders/${order.id}`}>جزئیات کامل</Link>}
         </div>
       </div>
     </div>

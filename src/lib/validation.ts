@@ -31,6 +31,21 @@ export const loginSchema = z.object({
   password: z.string().min(1, 'گذرواژه را وارد کن.').max(72, 'گذرواژه طولانی است.'),
 });
 
+export const forgotPasswordSchema = z.object({
+  email,
+});
+
+export const resetPasswordSchema = z
+  .object({
+    token: z.string().min(32, 'پیوند بازیابی معتبر نیست.').max(200),
+    password,
+    confirmPassword: z.string().min(1, 'تکرار گذرواژه را وارد کن.'),
+  })
+  .refine((values) => values.password === values.confirmPassword, {
+    message: 'گذرواژه و تکرارش یکی نیستند.',
+    path: ['confirmPassword'],
+  });
+
 export const registerSchema = z
   .object({
     name,
@@ -136,10 +151,10 @@ export type ProductQuery = z.infer<typeof productQuerySchema>;
 export const adminProductSchema = z.object({
   id: z.string().min(1),
   price: z.coerce.number().int().min(0).max(1_000_000_000),
-  compareAtPrice: z
-    .union([z.coerce.number().int().min(0).max(1_000_000_000), z.literal('')])
-    .optional()
-    .transform((v) => (v === '' || v === undefined ? null : v)),
+  compareAtPrice: z.preprocess(
+    (value) => (value === '' || value === null || value === undefined ? null : Number(value)),
+    z.number().int().min(0).max(1_000_000_000).nullable(),
+  ),
   stock: z.coerce.number().int().min(0).max(100_000),
   isActive: z.boolean().optional().default(false),
   isFeatured: z.boolean().optional().default(false),

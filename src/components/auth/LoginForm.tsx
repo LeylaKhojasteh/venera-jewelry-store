@@ -101,6 +101,12 @@ export function LoginForm({ next }: { next: string }) {
       </button>
 
       <p className="text-center text-xs text-ink-soft">
+        <Link href="/forgot-password" className="text-plum underline-offset-4 hover:underline">
+          گذرواژه را فراموش کردی؟
+        </Link>
+      </p>
+
+      <p className="text-center text-xs text-ink-soft">
         حساب نداری؟{' '}
         <Link href={`/register?next=${encodeURIComponent(next)}`} className="text-plum underline-offset-4 hover:underline">
           یک حساب بساز

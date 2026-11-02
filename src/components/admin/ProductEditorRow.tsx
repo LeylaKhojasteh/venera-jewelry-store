@@ -78,6 +78,9 @@ export function ProductEditorRow({ product }: { product: AdminProduct }) {
             {product.sku}
           </p>
           <p className="v3-small">{product.categoryName}</p>
+          <Link href={`/admin/products/${product.id}`} className="v3-small" style={{ color: 'var(--copper)' }}>
+            ویرایش کامل
+          </Link>
         </div>
       </div>
 
