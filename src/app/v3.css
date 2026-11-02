@@ -2953,6 +2953,325 @@ html[data-theme='light'] .v3-footer-bottom {
   color: var(--bone);
 }
 
+.v3-about-chapters {
+  margin-top: 2.5rem;
+}
+
+.v3-contact-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .v3-contact-layout {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+    gap: 2rem;
+    align-items: start;
+  }
+}
+
+.v3-contact-side {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.v3-contact-card {
+  padding: 1.25rem;
+  background: var(--ink-2);
+}
+
+.v3-contact-form {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--ink-2);
+}
+
+.v3-contact-form-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.v3-topic-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.v3-contact-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .v3-contact-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.v3-contact-form-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.v3-contact-success {
+  padding: 2rem;
+  background: var(--ink-2);
+}
+
+.v3-contact-success-icon {
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  background: var(--bone);
+  color: var(--ink);
+}
+
+.v3-order-lookup {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.v3-order-lookup .v3-admin-input {
+  flex: 1;
+}
+
+.v3-order-lookup .v3-btn {
+  min-height: 2.5rem;
+  padding-inline: 0.8rem;
+}
+
+.v3-channel-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 420px) {
+  .v3-channel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.v3-channel-card {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem;
+  background: var(--ink);
+  color: var(--bone);
+  transition: background-color 180ms var(--ease);
+}
+
+.v3-channel-card:hover {
+  background: var(--ink-3);
+}
+
+.v3-channel-label {
+  display: block;
+  color: var(--bone-dim);
+  font-size: 12px;
+}
+
+.v3-channel-value {
+  display: block;
+  overflow: hidden;
+  max-width: 12rem;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.v3-about-chapters-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .v3-about-chapters-grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+.v3-about-chapters-media {
+  position: sticky;
+  top: 6rem;
+  align-self: start;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 900px) {
+  .v3-about-chapters-media {
+    grid-template-columns: minmax(0, 1fr) 2.25rem;
+    gap: 1rem;
+  }
+}
+
+.v3-about-frame {
+  position: relative;
+  height: min(42vh, 24rem);
+  overflow: hidden;
+  background: var(--ink-2);
+}
+
+@media (min-width: 900px) {
+  .v3-about-frame {
+    height: min(68vh, 36rem);
+  }
+}
+
+.v3-about-frame-image {
+  position: absolute;
+  inset: 0;
+}
+
+.v3-about-frame-image img {
+  object-fit: cover;
+}
+
+.v3-about-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+@media (min-width: 900px) {
+  .v3-about-progress {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.v3-about-progress-rail {
+  position: relative;
+  display: block;
+  width: 2px;
+  height: 2px;
+  flex: 1;
+  overflow: hidden;
+  background: var(--line);
+}
+
+@media (min-width: 900px) {
+  .v3-about-progress-rail {
+    width: 2px;
+    height: 8rem;
+  }
+}
+
+.v3-about-progress-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: var(--copper);
+  transform-origin: top;
+}
+
+.v3-about-progress-dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+@media (min-width: 900px) {
+  .v3-about-progress-dots {
+    flex-direction: column;
+  }
+}
+
+.v3-about-progress-dots button {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.v3-about-progress-dots button::before {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 0.4rem;
+  height: 0.4rem;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--line);
+  transition: background-color 200ms var(--ease), transform 200ms var(--ease);
+}
+
+.v3-about-progress-dots button.is-active::before {
+  transform: translate(-50%, -50%) scale(1.45);
+  background: var(--copper);
+}
+
+.v3-about-chapters-copy {
+  display: grid;
+  gap: 0;
+}
+
+.v3-about-chapter {
+  display: flex;
+  min-height: 46vh;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.38;
+  transition: opacity 400ms var(--ease);
+}
+
+@media (min-width: 900px) {
+  .v3-about-chapter {
+    min-height: 68vh;
+  }
+}
+
+.v3-about-chapter.is-active {
+  opacity: 1;
+}
+
+.v3-about-chapter-rule {
+  display: block;
+  width: 2.25rem;
+  height: 2px;
+  margin-bottom: 1rem;
+  background: var(--copper);
+}
+
+.v3-about-chapter h3 {
+  max-width: 18ch;
+}
+
+.v3-about-chapter p {
+  margin-top: 0.85rem;
+  max-width: 38ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-about-chapter {
+    transition: none;
+  }
+}
+
 @media (min-width: 1024px) {
   .v3-profile {
     grid-template-columns: 14rem minmax(0, 1fr);

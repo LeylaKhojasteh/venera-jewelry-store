@@ -4,10 +4,9 @@ import { useState } from 'react';
 import { useForm, type Resolver } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Check, Loader2, Send } from 'lucide-react';
-import { Input, Textarea } from '@/components/ui/Field';
 import { submitContactAction } from '@/actions/contact';
 import { contactSchema } from '@/lib/validation';
-import { cn } from '@/lib/utils';
+import { formatDigits } from '@/lib/money';
 
 type ContactValues = {
   name: string;
@@ -17,10 +16,19 @@ type ContactValues = {
   company: string;
 };
 
+const topics = [
+  { label: 'سایز و اندازه', subject: 'سؤال دربارهٔ سایز', message: 'سلام، دربارهٔ سایز این اکسسوری راهنمایی می‌خواهم.' },
+  { label: 'موجودی', subject: 'سؤال دربارهٔ موجودی', message: 'سلام، می‌خواهم بدانم این اکسسوری موجود است یا نه.' },
+  { label: 'پیگیری سفارش', subject: 'پیگیری سفارش', message: 'سلام، می‌خواهم وضعیت سفارشم را پیگیری کنم.' },
+  { label: 'همکاری', subject: 'همکاری با ونرا', message: 'سلام، برای همکاری با ونرا پیام می‌دهم.' },
+];
+
 export function ContactForm() {
   const [formError, setFormError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
+  const [reference, setReference] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [topic, setTopic] = useState<string | null>(null);
   const [startedAt] = useState(() => Date.now());
 
   const form = useForm<ContactValues>({
@@ -30,6 +38,14 @@ export function ContactForm() {
   });
 
   const message = form.watch('message');
+
+  const chooseTopic = (item: (typeof topics)[number]) => {
+    setTopic(item.label);
+    form.setValue('subject', item.subject, { shouldValidate: true });
+    if (!form.getValues('message')) {
+      form.setValue('message', item.message, { shouldValidate: true });
+    }
+  };
 
   const onSubmit = form.handleSubmit(async (values) => {
     setFormError(null);
@@ -45,73 +61,133 @@ export function ContactForm() {
       setFormError(result.message);
       return;
     }
+    setReference(result.data.id.slice(0, 8).toUpperCase());
     setSent(true);
     form.reset();
+    setTopic(null);
   });
 
   if (sent) {
     return (
-      <div className="border border-line bg-paper-soft p-8 text-center sm:p-12" role="status">
-        <span className="mx-auto flex size-12 items-center justify-center rounded-full border border-success/40 text-success">
-          <Check aria-hidden="true" className="size-6" />
+      <div className="v3-contact-success" role="status">
+        <span className="v3-contact-success-icon">
+          <Check aria-hidden="true" size={22} />
         </span>
-        <h2 className="display mt-5 text-2xl">پیامت ثبت شد.</h2>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-8 text-ink-soft">
-          پیامت ثبت شد. تیم ونرا در اولین فرصت آن را می‌بیند و اگر لازم باشد پاسخ می‌دهد.
+        <h2 className="v3-h3">پیامت ثبت شد.</h2>
+        <p className="v3-body" style={{ marginTop: '0.5rem', maxWidth: '42ch' }}>
+          پیام تو با شمارهٔ پیگیری{' '}
+          <strong className="font-latin" dir="ltr">
+            {reference}
+          </strong>{' '}
+          ثبت شد. تیم ونرا معمولاً در اولین روز کاری پاسخ می‌دهد.
         </p>
-        <button type="button" onClick={() => setSent(false)} className="btn btn-outline mt-7">
-          ارسال پیام دیگر
-        </button>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1rem' }}>
+          <button type="button" onClick={() => setSent(false)} className="v3-btn v3-btn-solid">
+            ارسال پیام دیگر
+          </button>
+          <a href="mailto:hello@venera.example" className="v3-btn v3-btn-line">
+            ایمیل مستقیم
+          </a>
+        </div>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="border border-line bg-paper-soft p-6 sm:p-8">
+    <form onSubmit={onSubmit} noValidate className="v3-contact-form">
+      <div className="v3-contact-form-head">
+        <h2 className="v3-h3">فرم تماس</h2>
+        <p className="v3-small">موضوع را انتخاب کن یا خودت بنویس.</p>
+      </div>
+
       {formError ? (
-        <p role="alert" className="mb-5 border-s-2 border-error bg-error/5 px-4 py-3 text-sm text-error">
+        <p role="alert" className="v3-qv-error">
           {formError}
         </p>
       ) : null}
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Input
-          label="نام"
-          autoComplete="name"
-          placeholder="نام تو"
-          error={form.formState.errors.name?.message}
-          {...form.register('name')}
-        />
-        <Input
-          label="ایمیل"
-          type="email"
-          inputMode="email"
-          dir="ltr"
-          autoComplete="email"
-          placeholder="you@example.com"
-          error={form.formState.errors.email?.message}
-          {...form.register('email')}
-        />
+      <div className="v3-topic-chips" role="group" aria-label="انتخاب سریع">
+        {topics.map((item) => (
+          <button
+            key={item.label}
+            type="button"
+            className="v3-choice"
+            aria-pressed={topic === item.label}
+            onClick={() => chooseTopic(item)}
+          >
+            {item.label}
+          </button>
+        ))}
       </div>
 
-      <div className="mt-4">
-        <Input
-          label="موضوع"
+      <div className="v3-contact-form-grid">
+        <div>
+          <label htmlFor="contact-name" className="v3-admin-label">
+            نام
+          </label>
+          <input
+            id="contact-name"
+            className="v3-admin-input"
+            autoComplete="name"
+            placeholder="نام تو"
+            aria-invalid={Boolean(form.formState.errors.name)}
+            {...form.register('name')}
+          />
+          {form.formState.errors.name ? <p className="v3-qv-error">{form.formState.errors.name.message}</p> : null}
+        </div>
+        <div>
+          <label htmlFor="contact-email" className="v3-admin-label">
+            ایمیل
+          </label>
+          <input
+            id="contact-email"
+            className="v3-admin-input"
+            type="email"
+            inputMode="email"
+            dir="ltr"
+            autoComplete="email"
+            placeholder="you@example.com"
+            aria-invalid={Boolean(form.formState.errors.email)}
+            {...form.register('email')}
+          />
+          {form.formState.errors.email ? <p className="v3-qv-error">{form.formState.errors.email.message}</p> : null}
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="contact-subject" className="v3-admin-label">
+          موضوع
+        </label>
+        <input
+          id="contact-subject"
+          className="v3-admin-input"
           placeholder="دربارهٔ چه چیزی می‌نویسی؟"
-          error={form.formState.errors.subject?.message}
+          aria-invalid={Boolean(form.formState.errors.subject)}
           {...form.register('subject')}
         />
+        {form.formState.errors.subject ? <p className="v3-qv-error">{form.formState.errors.subject.message}</p> : null}
       </div>
 
-      <div className="mt-4">
-        <Textarea
-          label="پیام"
+      <div>
+        <label htmlFor="contact-message" className="v3-admin-label">
+          پیام
+        </label>
+        <textarea
+          id="contact-message"
           rows={6}
+          className="v3-admin-input v3-admin-textarea"
           placeholder="سؤالت را بنویس؛ اگر دربارهٔ یک آیتم خاص است، نامش را هم بیاور."
-          error={form.formState.errors.message?.message}
+          aria-invalid={Boolean(form.formState.errors.message)}
           {...form.register('message')}
         />
-        <p className="mt-1 text-end text-[0.65rem] text-ink-soft">{new Intl.NumberFormat('fa-IR').format(message?.length ?? 0)} / ۲۰۰۰</p>
+        <div className="v3-contact-form-foot">
+          {form.formState.errors.message ? (
+            <p className="v3-qv-error">{form.formState.errors.message.message}</p>
+          ) : (
+            <span />
+          )}
+          <span className="v3-small">{formatDigits(message?.length ?? 0)} / ۲۰۰۰</span>
+        </div>
       </div>
 
       {/* Honeypot: hidden from people, tempting for bots. */}
@@ -120,12 +196,10 @@ export function ContactForm() {
         <input id="contact-company" type="text" tabIndex={-1} autoComplete="off" {...form.register('company')} />
       </div>
 
-      <div className="mt-6 flex justify-end">
-        <button type="submit" disabled={submitting} className={cn('btn btn-primary min-w-[10rem]', submitting && 'opacity-70')}>
-          {submitting ? <Loader2 aria-hidden="true" className="size-4 animate-spin" /> : <Send aria-hidden="true" className="size-4" />}
-          {submitting ? 'در حال ارسال…' : 'ارسال پیام'}
-        </button>
-      </div>
+      <button type="submit" disabled={submitting} className="v3-btn v3-btn-solid">
+        {submitting ? <Loader2 aria-hidden="true" size={16} className="animate-spin" /> : <Send aria-hidden="true" size={16} />}
+        {submitting ? 'در حال ارسال…' : 'ارسال پیام'}
+      </button>
     </form>
   );
 }
