@@ -19,7 +19,7 @@ export default function AboutPage() {
 
       <div className="v3-about-hero">
         <div>
-          <h1 className="v3-page-title">ونرا ؛ سیاره ی جزئیات به یاد ماندنی</h1>
+          <h1 className="v3-about-title">ونرا ؛ سیاره ی جزئیات به یاد ماندنی</h1>
         </div>
         <div className="v3-about-media">
           <Image
@@ -78,6 +78,9 @@ export default function AboutPage() {
       </section>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+        <Link href="/products" className="v3-btn v3-btn-solid">
+          دیدن کالکشن
+        </Link>
         <Link href="/contact" className="v3-btn v3-btn-line">
           گفتگو با ونرا
         </Link>

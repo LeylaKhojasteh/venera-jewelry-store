@@ -2945,6 +2945,14 @@ html[data-theme='light'] .v3-footer-bottom {
   color: var(--bone);
 }
 
+.v3-about-title {
+  font-family: 'Estedad', sans-serif;
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--bone);
+}
+
 @media (min-width: 1024px) {
   .v3-profile {
     grid-template-columns: 14rem minmax(0, 1fr);
