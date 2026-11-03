@@ -3,10 +3,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { ADMIN, CUSTOMER, assertNoOverflow, login, register, uniqueEmail } from './helpers';
 
-const shots = path.join('docs', 'screenshots');
-fs.mkdirSync(shots, { recursive: true });
+const shots = path.join('test-results', 'screenshots');
 
 async function shot(page: import('@playwright/test').Page, name: string, width: number) {
+  fs.mkdirSync(shots, { recursive: true });
   await page.screenshot({ path: path.join(shots, `${name}-${width}.png`), fullPage: true });
 }
 

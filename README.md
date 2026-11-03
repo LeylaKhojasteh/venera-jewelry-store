@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/screenshots/readme-home.jpg" alt="صفحهٔ اصلی فروشگاه ونرا" width="100%" />
+  <img src="docs/readme/home.jpg" alt="صفحهٔ اصلی فروشگاه ونرا" width="100%" />
 </p>
 
 <h1 align="center">ونرا | اکسسوری استیل</h1>
@@ -33,21 +33,21 @@
 ## یک فروشگاه، چهار تجربهٔ متفاوت
 
 ### صفحهٔ اصلی
-![صفحهٔ اصلی فروشگاه ونرا](docs/screenshots/readme-home.jpg)
+![صفحهٔ اصلی فروشگاه ونرا](docs/readme/home.jpg)
 
 ### صفحهٔ محصول
-![صفحهٔ محصول ونرا](docs/screenshots/readme-product.jpg)
+![صفحهٔ محصول ونرا](docs/readme/product.jpg)
 
 ### ورود و حساب کاربری
-![صفحهٔ ورود ونرا](docs/screenshots/readme-login.jpg)
+![صفحهٔ ورود ونرا](docs/readme/login.jpg)
 
 ### پنل مدیریت
-![پنل مدیریت فروشگاه ونرا](docs/screenshots/readme-admin.jpg)
+![پنل مدیریت فروشگاه ونرا](docs/readme/admin.jpg)
 
 <p align="center">
-  <img src="docs/screenshots/readme-mobile.jpg" alt="نمای موبایل فروشگاه ونرا" width="300" />
+  <img src="docs/readme/mobile.jpg" alt="نمای موبایل فروشگاه ونرا" width="300" />
   &nbsp;
-  <img src="docs/screenshots/readme-product.jpg" alt="نمای محصول ونرا" width="460" />
+  <img src="docs/readme/product.jpg" alt="نمای محصول ونرا" width="460" />
 </p>
 
 ---

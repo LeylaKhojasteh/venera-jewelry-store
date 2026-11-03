@@ -1310,7 +1310,8 @@ body:has(.v3-root) {
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: none;
+  animation-duration: 360ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   mix-blend-mode: normal;
 }
 
@@ -4441,63 +4442,67 @@ html[data-theme='light'] .v3-footer-bottom {
   }
 
   .v3-story {
-    height: 240vh;
+    height: auto;
   }
 
   .v3-story-sticky {
-    display: flex;
-    align-items: center;
-    height: 100svh;
-    padding-top: 4.5rem;
-  }
-
-  .v3-story-mobile {
     display: none;
   }
 
-  .v3-story-grid {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-    align-content: center;
+  .v3-story-mobile {
+    display: block;
+    padding-block: clamp(3rem, 8vw, 4.5rem);
   }
 
-  .v3-story-art {
-    width: min(34vh, 16rem);
-    max-height: 32vh;
-    margin-inline: auto;
+  .v3-story-mobile .v3-h2 {
+    font-size: 1.8rem;
   }
 
-  .v3-story-copy {
-    min-width: 0;
+  .v3-story-mobile-list {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-bottom: 0.75rem;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .v3-story-copy .v3-h2 {
-    font-size: 1.7rem;
+  .v3-story-mobile-list::-webkit-scrollbar {
+    display: none;
   }
 
-  .v3-story-panels {
-    min-height: 9.5rem;
-    margin-top: 0.5rem;
-  }
-
-  .v3-story-panel {
-    grid-template-columns: 4.25rem 1fr;
+  .v3-story-mobile-row {
+    display: flex;
+    flex: 0 0 min(66vw, 17rem);
+    flex-direction: column;
+    align-items: stretch;
     gap: 0.65rem;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
-  .v3-story-photo {
-    width: 4.25rem;
+  .v3-story-mobile-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--ink);
   }
 
-  .v3-story-text .v3-btn {
-    min-height: 2.25rem;
-    margin-top: 0.5rem;
-    padding-inline: 0.7rem;
-    font-size: 12px;
+  .v3-story-mobile-row .v3-story-name {
+    font-size: 17px;
+    line-height: 1.35;
   }
 
-  .v3-story-dots {
-    margin-top: 0.5rem;
+  .v3-story-mobile-price {
+    align-self: flex-start;
+    font-size: 14px;
+    color: var(--bone-dim);
+    white-space: nowrap;
   }
 
   .v3-qv-overlay {

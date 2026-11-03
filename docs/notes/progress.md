@@ -54,7 +54,7 @@ horizontal overflow          7 widths × 7 routes — none
 
 ## Suggested next steps
 
-1. Open `docs/screenshots` and review the two viewports; adjust crops/rhythm if the art direction
+1. Open `test-results/screenshots` and review the two viewports; adjust crops/rhythm if the art direction
    needs a final human pass.
 2. Replace archival plates with a commissioned shoot when available (same aspect ratios and paths,
    so no code changes are needed beyond the manifest).

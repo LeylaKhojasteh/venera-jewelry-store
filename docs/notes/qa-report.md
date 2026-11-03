@@ -38,7 +38,7 @@ Run date: 2026-10-27 (Asia/Tehran) · Build: Next.js 16.4.3 · Browser: Microsof
 
 ## 3. Screenshots captured from the running production build
 
-Stored in [`docs/screenshots`](screenshots). Captured at 375 px and 1440 px where the flow allows:
+Stored in the local, git-ignored `test-results/screenshots` folder. Captured at 375 px and 1440 px where the flow allows:
 
 | Page | 375 px | 1440 px |
 | --- | --- | --- |
@@ -59,7 +59,7 @@ Stored in [`docs/screenshots`](screenshots). Captured at 375 px and 1440 px wher
 
 - **Visual judgement.** This session's model has no image input, so the PNGs were produced and their
   layout was checked with computed browser measurements, but no one visually reviewed them in this
-  run. A human should open `docs/screenshots` once before calling the art direction "approved".
+  run. A human should open `test-results/screenshots` once before calling the art direction "approved".
 - **Lighthouse scores** were not run, so no performance/accessibility score is claimed.
 - **Real device testing** (iOS Safari, Android Chrome) was not performed; Edge desktop engine with
   Android-like viewports was used.

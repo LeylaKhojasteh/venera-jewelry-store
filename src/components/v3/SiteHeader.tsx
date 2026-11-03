@@ -174,28 +174,12 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
       return;
     }
 
-    const rect = themeButtonRef.current?.getBoundingClientRect();
-    const x = rect ? rect.left + rect.width / 2 : window.innerWidth - 48;
-    const y = rect ? rect.top + rect.height / 2 : 32;
-    const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
-
     const transition = doc.startViewTransition(apply);
-    transition.ready
-      .then(() => {
-        document.documentElement.animate(
-          {
-            clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`],
-          },
-          {
-            duration: 520,
-            easing: 'ease-out',
-            pseudoElement: '::view-transition-new(root)',
-          },
-        );
-      })
-      .catch(() => {
-        // the theme is already applied; only the reveal failed
-      });
+    // The platform cross-fade is stable on mobile; a custom clip animation
+    // can flash between the old and new snapshots while it waits to start.
+    transition.finished.catch(() => {
+      // the theme is already applied; only the reveal failed
+    });
   };
 
   return (
