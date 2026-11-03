@@ -12,7 +12,7 @@ import {
 const name = z
   .string()
   .transform((v) => normalizePersian(v))
-  .pipe(z.string().min(3, 'نام و نام خانوادگی باید حداقل ۳ نویسه باشد.').max(60, 'نام طولانی است.'));
+  .pipe(z.string().min(3, 'نام و نام خانوادگی باید حداقل ۳ کاراکتر باشد.').max(60, 'نام طولانی است.'));
 
 const email = z
   .string()
@@ -21,7 +21,7 @@ const email = z
 
 const password = z
   .string()
-  .min(8, 'گذرواژه باید حداقل ۸ نویسه باشد.')
+  .min(8, 'گذرواژه باید حداقل ۸ کاراکتر باشد.')
   .max(72, 'گذرواژه طولانی است.')
   .regex(/[A-Za-z]/, 'گذرواژه باید حداقل یک حرف لاتین داشته باشد.')
   .regex(/\d/, 'گذرواژه باید حداقل یک رقم داشته باشد.');
@@ -76,11 +76,11 @@ export const addressSchema = z.object({
   street: z
     .string()
     .transform((v) => normalizePersian(v))
-    .pipe(z.string().min(10, 'نشانی کامل‌تری بنویس (حداقل ۱۰ نویسه).').max(300, 'نشانی طولانی است.')),
+    .pipe(z.string().min(10, 'نشانی کامل‌تری بنویس (حداقل ۱۰ کاراکتر).').max(300, 'نشانی طولانی است.')),
   label: z
     .string()
     .transform((v) => normalizePersian(v))
-    .pipe(z.string().max(24, 'برچسب حداکثر ۲۴ نویسه است.'))
+    .pipe(z.string().max(24, 'برچسب حداکثر ۲۴ کاراکتر است.'))
     .optional()
     .or(z.literal('').transform(() => undefined)),
   isDefault: z.boolean().optional().default(false),
@@ -98,7 +98,7 @@ export const contactSchema = z.object({
   message: z
     .string()
     .transform((v) => normalizePersian(v))
-    .pipe(z.string().min(10, 'متن پیام باید حداقل ۱۰ نویسه باشد.').max(2000, 'پیام حداکثر ۲۰۰۰ نویسه است.')),
+    .pipe(z.string().min(10, 'متن پیام باید حداقل ۱۰ کاراکتر باشد.').max(2000, 'پیام حداکثر ۲۰۰۰ کاراکتر است.')),
   // Honeypot: real visitors leave this empty.
   company: z.string().max(0).optional().or(z.literal('')),
   startedAt: z.coerce.number().optional(),

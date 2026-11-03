@@ -48,7 +48,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
             dir="ltr"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            placeholder="حداقل ۸ نویسه، شامل حرف و رقم"
+            placeholder="حداقل ۸ کاراکتر، شامل حرف و رقم"
             className="field-input pe-12"
             required
           />

@@ -87,7 +87,7 @@ export function RegisterForm({ next }: { next: string }) {
           type={showPassword ? 'text' : 'password'}
           autoComplete="new-password"
           dir="ltr"
-          placeholder="حداقل ۸ نویسه، شامل حرف و رقم"
+          placeholder="حداقل ۸ کاراکتر، شامل حرف و رقم"
           error={form.formState.errors.password?.message}
           {...form.register('password')}
         />
