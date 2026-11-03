@@ -14,8 +14,6 @@
 
 <p align="center">
   <a href="https://venera-alpha.vercel.app"><strong>مشاهدهٔ فروشگاه ←</strong></a>
-  &nbsp;·&nbsp;
-  <a href="https://venera-alpha.vercel.app/contact"><strong>گفتگو دربارهٔ پروژه</strong></a>
 </p>
 
 ---
@@ -44,11 +42,7 @@
 ### پنل مدیریت
 ![پنل مدیریت فروشگاه ونرا](docs/screenshots/readme-admin.jpg)
 
-<p align="center">
-  <img src="docs/screenshots/readme-mobile.jpg" alt="نمای موبایل فروشگاه ونرا" width="300" />
-  &nbsp;
-  <img src="docs/screenshots/readme-product.jpg" alt="نمای محصول ونرا" width="460" />
-</p>
+
 
 ---
 
@@ -138,13 +132,9 @@ EMAIL_FROM=
 - ایمیل تراکنشی و بازیابی رمز
 - شرایط ارسال، بازگشت کالا و صفحات حقوقی
 
-اگر صاحب یک برند اکسسوری هستید و می‌خواهید فروشگاهتان هم این‌قدر جدی دیده شود، از همین‌جا شروع کنیم:
+اگر صاحب یک برند هستید و می‌خواهید فروشگاهتان هم این‌قدر جدی دیده شود، از همین‌جا شروع کنیم:
 
-<p align="center">
-  <a href="https://venera-alpha.vercel.app"><strong>دیدن فروشگاه</strong></a>
-  &nbsp;·&nbsp;
-  <a href="https://venera-alpha.vercel.app/contact"><strong>گفتگو دربارهٔ تحویل</strong></a>
-</p>
+
 
 ---
 
