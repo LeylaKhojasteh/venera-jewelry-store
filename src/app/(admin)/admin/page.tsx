@@ -38,10 +38,7 @@ export default async function AdminOverviewPage() {
     <div>
       <div className="v3-catalog-head" style={{ marginBottom: '1rem' }}>
         <div>
-          <h1 className="v3-display">نمای کلی فروشگاه</h1>
-          <p className="v3-lead" style={{ marginTop: '0.75rem', maxWidth: '40ch' }}>
-            اعداد از پایگاه‌دادهٔ همین نسخه خوانده می‌شوند.
-          </p>
+          <h1 className="v3-admin-title">نمای کلی فروشگاه</h1>
         </div>
         <Link href="/admin/products" className="v3-btn v3-btn-solid">
           مدیریت محصولات

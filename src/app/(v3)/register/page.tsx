@@ -25,12 +25,11 @@ export default async function RegisterPage({
   if (user) redirect(next);
 
   return (
-    <div className="v3-shell v3-section">
+    <div className="v3-shell v3-auth-page">
       <AuthShellV4
+        variant="center"
         title="از اینجا شروع کن."
         intro="با یک حساب ساده، سفارش‌ها و نشانی‌هایت را یک‌جا نگه می‌داری."
-        image="/images/products/bracelet-triple-ring-01.jpg"
-        imageAlt="دستبند حلقه سه‌تایی روی زمینهٔ روشن"
         quote={site.tagline}
       >
         <RegisterForm next={next} />

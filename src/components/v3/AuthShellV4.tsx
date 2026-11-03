@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
+import { AuthOrnaments } from '@/components/v3/AuthOrnaments';
 
 export function AuthShellV4({
   title,
@@ -8,14 +9,30 @@ export function AuthShellV4({
   imageAlt,
   quote,
   children,
+  variant = 'split',
 }: {
   title: string;
   intro: string;
-  image: string;
-  imageAlt: string;
+  image?: string;
+  imageAlt?: string;
   quote: string;
   children: ReactNode;
+  variant?: 'split' | 'center';
 }) {
+  if (variant === 'center') {
+    return (
+      <div className="v3-auth-centered">
+        <AuthOrnaments />
+        <div className="v3-auth-card">
+          <h1 className="v3-auth-title">{title}</h1>
+          <p className="v3-auth-intro">{intro}</p>
+          {children}
+          <p className="v3-auth-note">«{quote}»</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="v3-auth">
       <div className="v3-auth-copy">
@@ -27,8 +44,19 @@ export function AuthShellV4({
       </div>
 
       <div className="v3-auth-art">
-        <Image src={image} alt={imageAlt} fill priority sizes="(max-width: 1024px) 100vw, 46vw" className="animate-drift object-cover" />
-        <div className="veil" style={{ position: 'absolute', inset: 0 }} />
+        {image ? (
+          <>
+            <Image
+              src={image}
+              alt={imageAlt ?? ''}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 46vw"
+              className="animate-drift object-cover"
+            />
+            <div className="veil" style={{ position: 'absolute', inset: 0 }} />
+          </>
+        ) : null}
         <p className="v3-auth-quote">«{quote}»</p>
       </div>
     </div>

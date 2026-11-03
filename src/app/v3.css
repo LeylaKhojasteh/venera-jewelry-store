@@ -3554,6 +3554,133 @@ html[data-theme='light'] .v3-footer-bottom {
   color: #f7f2ea;
 }
 
+.v3-auth-page {
+  display: flex;
+  align-items: center;
+  padding-top: calc(4.5rem + 1rem);
+  padding-bottom: 2rem;
+}
+
+.v3-auth-centered {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-height: calc(100svh - 7.5rem);
+  place-items: center;
+  overflow: hidden;
+  padding-block: clamp(2rem, 5vw, 4rem);
+}
+
+.v3-auth-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 28rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background: var(--ink-2);
+}
+
+.v3-auth-title {
+  font-size: clamp(1.7rem, 2.8vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.v3-auth-intro {
+  max-width: 38ch;
+  margin-top: 0.7rem;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--bone-dim);
+}
+
+.v3-auth-card form {
+  margin-top: 1.5rem;
+}
+
+.v3-auth-note {
+  margin-top: 1.6rem;
+  color: var(--copper);
+  font-size: 12px;
+  text-align: center;
+}
+
+.v3-auth-ornaments {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  color: var(--copper);
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+.v3-auth-ornament {
+  position: absolute;
+  display: block;
+  height: auto;
+}
+
+.v3-auth-ornament.is-necklace {
+  top: 1%;
+  right: 1%;
+  width: clamp(9rem, 15vw, 14rem);
+  transform: rotate(-4deg);
+}
+
+.v3-auth-ornament.is-earring {
+  top: 11%;
+  left: 2%;
+  width: clamp(6rem, 10vw, 9rem);
+  opacity: 0.75;
+  transform: rotate(7deg);
+}
+
+.v3-auth-ornament.is-ring {
+  bottom: 3%;
+  left: 4%;
+  width: clamp(7rem, 12vw, 11rem);
+  transform: rotate(-8deg);
+}
+
+.v3-auth-ornament.is-chain {
+  right: 4%;
+  bottom: 5%;
+  width: clamp(8rem, 13vw, 12rem);
+  opacity: 0.65;
+  transform: rotate(4deg);
+}
+
+@media (max-width: 639px) {
+  .v3-auth-page {
+    padding-top: calc(4.5rem + 0.5rem);
+    padding-bottom: 1rem;
+  }
+
+  .v3-auth-centered {
+    min-height: calc(100svh - 7rem);
+    padding-block: 1.5rem;
+  }
+
+  .v3-auth-ornament.is-necklace {
+    top: 0;
+    right: -0.75rem;
+    width: 8rem;
+    opacity: 0.55;
+  }
+
+  .v3-auth-ornament.is-ring {
+    left: -0.75rem;
+    bottom: 0;
+    width: 7rem;
+    opacity: 0.55;
+  }
+
+  .v3-auth-ornament.is-earring,
+  .v3-auth-ornament.is-chain {
+    display: none;
+  }
+}
+
 @media (min-width: 900px) {
   .v3-auth,
   .v3-about-hero {
@@ -3867,6 +3994,12 @@ html[data-theme='light'] .v3-footer-bottom {
 .v3-admin-main .v3-display {
   font-size: clamp(1.75rem, 4vw, 3rem);
   line-height: 1.12;
+}
+
+.v3-admin-title {
+  font-size: clamp(1.5rem, 2.3vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .v3-checkout > * {

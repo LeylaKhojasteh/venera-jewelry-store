@@ -26,12 +26,11 @@ export default async function LoginPage({
   if (user) redirect(next);
 
   return (
-    <div className="v3-shell v3-section">
+    <div className="v3-shell v3-auth-page">
       <AuthShellV4
+        variant="center"
         title="خوش برگشتی."
         intro="برای دیدن سفارش‌ها، نشانی‌ها و ادامهٔ خرید وارد شو. سبد مهمان بعد از ورود به حسابت منتقل می‌شود."
-        image="/images/products/necklace-flower-01.jpg"
-        imageAlt="گردنبند گل روی زمینهٔ روشن"
         quote={site.tagline}
       >
         {resetDone ? (
