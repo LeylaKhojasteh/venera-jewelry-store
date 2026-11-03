@@ -59,13 +59,27 @@ const shapes = [
 
 export function CategoryStory({ products }: { products: ProductCardData[] }) {
   const ref = useRef<HTMLElement>(null);
+  const panelsRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
 
   useMotionValueEvent(scrollYProgress, 'change', (value) => {
+    // On phones the story is a horizontal carousel; vertical section progress
+    // must not fight the panel scroll position.
+    if (window.matchMedia('(max-width: 899px)').matches) return;
     const next = Math.min(products.length - 1, Math.max(0, Math.floor(value * products.length)));
     setActive((current) => (current === next ? current : next));
   });
+
+  const onPanelsScroll = () => {
+    const el = panelsRef.current;
+    if (!el || window.matchMedia('(min-width: 900px)').matches) return;
+    const max = el.scrollWidth - el.clientWidth;
+    if (max <= 0) return;
+    const progress = Math.min(1, Math.abs(el.scrollLeft) / max);
+    const next = Math.min(products.length - 1, Math.round(progress * (products.length - 1)));
+    setActive((current) => (current === next ? current : next));
+  };
 
   if (products.length === 0) return null;
 
@@ -88,7 +102,12 @@ export function CategoryStory({ products }: { products: ProductCardData[] }) {
               تنوع به سبک ونرا
             </h2>
 
-            <div className="v3-story-panels">
+            <div
+              className="v3-story-panels"
+              ref={panelsRef}
+              onScroll={onPanelsScroll}
+              aria-label="محصولات این مجموعه"
+            >
               {products.map((product, index) => {
                 return (
                   <div
@@ -101,7 +120,7 @@ export function CategoryStory({ products }: { products: ProductCardData[] }) {
                         src={product.image}
                         alt={product.imageAlt}
                         fill
-                        sizes="(max-width: 900px) 60vw, 22vw"
+                        sizes="(max-width: 900px) 30vw, 22vw"
                         className="object-cover"
                       />
                     </div>
@@ -127,23 +146,6 @@ export function CategoryStory({ products }: { products: ProductCardData[] }) {
               ))}
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className="v3-story-mobile v3-shell">
-        <h2 className="v3-h2">تنوع به سبک ونرا</h2>
-        <div className="v3-story-mobile-list">
-          {products.map((product) => (
-            <Link key={product.id} href={`/products/${product.slug}`} className="v3-story-mobile-row">
-              <span className="v3-story-mobile-media">
-                <Image src={product.image} alt={product.imageAlt} fill sizes="96px" className="object-cover" />
-              </span>
-              <span>
-                <span className="v3-story-name">{product.name}</span>
-              </span>
-              <span className="v3-story-mobile-price">{formatToman(product.price)}</span>
-            </Link>
-          ))}
         </div>
       </div>
     </section>
