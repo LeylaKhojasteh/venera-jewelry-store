@@ -1,12 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useTransition } from 'react';
+import { useState } from 'react';
 import { AnimatePresence } from 'motion/react';
 import { QuickView } from '@/components/v3/QuickView';
-import { getQuickView } from '@/actions/quick-view';
 import { formatDigits, formatToman } from '@/lib/money';
-import type { ProductCardData, QuickViewData } from '@/types';
+import type { ProductCardData } from '@/types';
 
 export function CatalogGrid({
   products,
@@ -20,19 +19,9 @@ export function CatalogGrid({
   motionKind?: 'float' | 'sway';
 }) {
   const [selected, setSelected] = useState<ProductCardData | null>(null);
-  const [detail, setDetail] = useState<QuickViewData | null>(null);
-  const [loading, startTransition] = useTransition();
 
   const open = (product: ProductCardData) => {
     setSelected(product);
-    setDetail(null);
-    startTransition(async () => {
-      try {
-        setDetail(await getQuickView(product.slug));
-      } catch {
-        setDetail(null);
-      }
-    });
   };
 
   return (
@@ -90,8 +79,6 @@ export function CatalogGrid({
           <QuickView
             key={selected.id}
             product={selected}
-            detail={detail}
-            loading={loading}
             onClose={() => setSelected(null)}
           />
         ) : null}

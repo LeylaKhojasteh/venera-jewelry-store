@@ -1,20 +1,17 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef, useState, useTransition } from 'react';
+import { useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Tilt } from '@/components/v3/Tilt';
 import { QuickView } from '@/components/v3/QuickView';
-import { getQuickView } from '@/actions/quick-view';
 import { formatToman } from '@/lib/money';
-import type { ProductCardData, QuickViewData } from '@/types';
+import type { ProductCardData } from '@/types';
 
 export function ProductRail({ products }: { products: ProductCardData[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState<ProductCardData | null>(null);
-  const [detail, setDetail] = useState<QuickViewData | null>(null);
-  const [loading, startTransition] = useTransition();
 
   const move = (direction: 1 | -1) => {
     const track = trackRef.current;
@@ -26,15 +23,6 @@ export function ProductRail({ products }: { products: ProductCardData[] }) {
 
   const open = (product: ProductCardData) => {
     setSelected(product);
-    setDetail(null);
-    startTransition(async () => {
-      try {
-        const data = await getQuickView(product.slug);
-        setDetail(data);
-      } catch {
-        setDetail(null);
-      }
-    });
   };
 
   return (
@@ -102,8 +90,6 @@ export function ProductRail({ products }: { products: ProductCardData[] }) {
           <QuickView
             key={selected.id}
             product={selected}
-            detail={detail}
-            loading={loading}
             onClose={() => setSelected(null)}
           />
         ) : null}

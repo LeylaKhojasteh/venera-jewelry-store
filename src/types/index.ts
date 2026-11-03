@@ -21,6 +21,10 @@ export type ProductCardData = {
   isBestSeller: boolean;
   isFeatured: boolean;
   hasVariants: boolean;
+  description: string;
+  materials: string;
+  stock: number;
+  variants: ProductVariantData[];
 };
 
 export type ProductVariantData = {
@@ -42,21 +46,6 @@ export type ProductDetailData = ProductCardData & {
   images: { id: string; url: string; alt: string; width: number; height: number }[];
   variants: ProductVariantData[];
   createdAt: string;
-};
-
-export type QuickViewData = {
-  id: string;
-  slug: string;
-  name: string;
-  price: number;
-  compareAtPrice: number | null;
-  description: string;
-  materials: string;
-  categoryName: string;
-  inStock: boolean;
-  stock: number;
-  images: { url: string; alt: string }[];
-  variants: ProductVariantData[];
 };
 
 export type CartLineData = {

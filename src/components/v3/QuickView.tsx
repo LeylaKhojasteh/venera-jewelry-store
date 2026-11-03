@@ -8,17 +8,13 @@ import { X } from 'lucide-react';
 import { useCart } from '@/components/cart/CartProvider';
 import { lockScroll, unlockScroll } from '@/lib/scroll-lock';
 import { formatToman } from '@/lib/money';
-import type { ProductCardData, QuickViewData } from '@/types';
+import type { ProductCardData } from '@/types';
 
 export function QuickView({
   product,
-  detail,
-  loading,
   onClose,
 }: {
   product: ProductCardData;
-  detail: QuickViewData | null;
-  loading: boolean;
   onClose: () => void;
 }) {
   const { add } = useCart();
@@ -45,10 +41,10 @@ export function QuickView({
     };
   }, []);
 
-  const variants = detail?.variants ?? [];
+  const variants = product.variants;
   const chosen = variantId ?? (variants.length === 1 ? variants[0]?.id : null);
-  const image = detail?.images[0]?.url ?? product.image;
-  const imageAlt = detail?.images[0]?.alt ?? product.imageAlt;
+  const image = product.image;
+  const imageAlt = product.imageAlt;
 
   const addToCart = async () => {
     if (variants.length > 0 && !chosen) {
@@ -97,7 +93,7 @@ export function QuickView({
 
         <div className="v3-qv-copy">
           <p className="v3-small">
-            {detail?.categoryName ?? product.categoryName} · {detail?.materials ?? 'استیل ۳۱۶'}
+            {product.categoryName} · {product.materials}
           </p>
           <h2 id="qv-title" className="v3-h2">
             {product.name}
@@ -109,60 +105,52 @@ export function QuickView({
             ) : null}
           </p>
 
-          {loading ? (
-            <p className="v3-small">در حال خواندن جزئیات…</p>
-          ) : detail ? (
-            <>
-              <p className="v3-body v3-qv-desc">{detail.description}</p>
+          <p className="v3-body v3-qv-desc">{product.description}</p>
 
-              {variants.length > 0 ? (
-                <fieldset className="v3-qv-variants">
-                  <legend className="v3-small">
-                    {variants[0]?.kind === 'SIZE' ? 'اندازه' : variants[0]?.kind === 'COLOR' ? 'رنگ' : 'پرداخت'}
-                  </legend>
-                  <div>
-                    {variants.map((variant) => (
-                      <button
-                        key={variant.id}
-                        type="button"
-                        className="v3-choice"
-                        aria-pressed={chosen === variant.id}
-                        disabled={variant.stock <= 0}
-                        onClick={() => {
-                          setVariantId(variant.id);
-                          setError(null);
-                        }}
-                      >
-                        {variant.label}
-                      </button>
-                    ))}
-                  </div>
-                </fieldset>
-              ) : null}
-
-              {error ? (
-                <p className="v3-qv-error" role="alert">
-                  {error}
-                </p>
-              ) : null}
-
-              <div className="v3-qv-actions">
-                <button
-                  type="button"
-                  className="v3-btn v3-btn-solid"
-                  onClick={addToCart}
-                  disabled={pending || !detail.inStock}
-                >
-                  {pending ? 'در حال افزودن…' : 'افزودن به سبد'}
-                </button>
-                <Link href={`/products/${product.slug}`} className="v3-btn v3-btn-line" onClick={onClose}>
-                  صفحهٔ کامل
-                </Link>
+          {variants.length > 0 ? (
+            <fieldset className="v3-qv-variants">
+              <legend className="v3-small">
+                {variants[0]?.kind === 'SIZE' ? 'اندازه' : variants[0]?.kind === 'COLOR' ? 'رنگ' : 'پرداخت'}
+              </legend>
+              <div>
+                {variants.map((variant) => (
+                  <button
+                    key={variant.id}
+                    type="button"
+                    className="v3-choice"
+                    aria-pressed={chosen === variant.id}
+                    disabled={variant.stock <= 0}
+                    onClick={() => {
+                      setVariantId(variant.id);
+                      setError(null);
+                    }}
+                  >
+                    {variant.label}
+                  </button>
+                ))}
               </div>
-            </>
-          ) : (
-            <p className="v3-small">جزئیات این آیتم در دسترس نیست.</p>
-          )}
+            </fieldset>
+          ) : null}
+
+          {error ? (
+            <p className="v3-qv-error" role="alert">
+              {error}
+            </p>
+          ) : null}
+
+          <div className="v3-qv-actions">
+            <button
+              type="button"
+              className="v3-btn v3-btn-solid"
+              onClick={addToCart}
+              disabled={pending || !product.inStock}
+            >
+              {pending ? 'در حال افزودن…' : 'افزودن به سبد'}
+            </button>
+            <Link href={`/products/${product.slug}`} className="v3-btn v3-btn-line" onClick={onClose}>
+              صفحهٔ کامل
+            </Link>
+          </div>
         </div>
       </motion.div>
     </motion.div>

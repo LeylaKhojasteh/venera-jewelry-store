@@ -16,6 +16,7 @@ export type { ProductQueryLike };
 const cardInclude = {
   category: { select: { name: true, slug: true } },
   images: { orderBy: { sortOrder: 'asc' }, take: 2 },
+  variants: { orderBy: { sortOrder: 'asc' } },
   _count: { select: { variants: true } },
 } satisfies Prisma.ProductInclude;
 
@@ -41,6 +42,16 @@ function toCard(product: CardPayload): ProductCardData {
     isBestSeller: product.isBestSeller,
     isFeatured: product.isFeatured,
     hasVariants: product._count.variants > 0,
+    description: product.description,
+    materials: product.materials,
+    stock: product.stock,
+    variants: product.variants.map((variant) => ({
+      id: variant.id,
+      kind: variant.kind,
+      label: variant.label,
+      stock: variant.stock,
+      priceDelta: variant.priceDelta,
+    })),
   };
 }
 
