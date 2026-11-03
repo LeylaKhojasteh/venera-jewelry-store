@@ -249,24 +249,27 @@ See [`docs/qa-report.md`](docs/qa-report.md) for the recorded run and
 
 ## Deployment (Vercel + Neon)
 
-1. Create a Neon project through the Vercel Marketplace and copy both connection strings.
+Current production: **https://venera-alpha.vercel.app** (Vercel project `venera`, Neon free database).
+
+1. Create a Neon project through the Vercel Marketplace; the integration writes the connection variables.
 2. Set environment variables in Vercel (Production + Preview):
 
    | Key | Value |
    | --- | --- |
-   | `DATABASE_URL` | Neon **pooled** URL (`…-pooler…`, `sslmode=require&pgbouncer=true`) |
-   | `DIRECT_URL` | Neon **direct** URL (used only for migrations) |
+   | `DATABASE_URL` | Neon **pooled** URL (written by the integration) |
+   | `DATABASE_URL_UNPOOLED` | Neon **direct** URL, used only for migrations |
    | `AUTH_SECRET` | 32+ random bytes |
-   | `NEXT_PUBLIC_SITE_URL` | `https://<project>.vercel.app` |
+   | `NEXT_PUBLIC_SITE_URL` | `https://venera-alpha.vercel.app` |
    | `RESEND_API_KEY`, `EMAIL_FROM` | optional; required for real password-recovery email |
    | `SHIPPING_FLAT_TOMAN`, `FREE_SHIPPING_THRESHOLD_TOMAN` | integers |
    | `SEED_*` | only if you intend to seed the deployed database |
 
-3. Build command: `prisma generate && next build` (the `build` script already does this).
-4. Apply migrations **before** promoting the deployment, with the direct URL:
-   `DATABASE_URL="$DIRECT_URL" npx prisma migrate deploy`.
-5. Seed once (optional, demo only): `DATABASE_URL="$DIRECT_URL" npm run db:seed`.
-6. No filesystem writes are required at runtime; uploads are not part of this build.
+3. Framework preset: **Next.js**; build command: `prisma generate && next build` (the `build` script already does this).
+4. Apply migrations **before** promoting the deployment, with the unpooled URL:
+   `DATABASE_URL="$DATABASE_URL_UNPOOLED" npx prisma migrate deploy`.
+5. Seed once (demo only): `DATABASE_URL="$DATABASE_URL_UNPOOLED" npm run db:seed`.
+   The seed preserves existing passwords; set `SEED_RESET_PASSWORDS=true` only for a deliberate reset.
+6. No filesystem writes are required at runtime; uploads live in Postgres `BYTEA`.
 
 The repository does not contain secrets; `.env` is git-ignored and `.env.example` documents
 every key.
@@ -278,8 +281,8 @@ every key.
 The code is deployable, but these are product/business decisions, not code gaps:
 
 - [ ] Replace the placeholder phone, email and address in `src/lib/constants.ts` (`demoContact`) and the About page.
-- [ ] Replace demo seed credentials and never run the demo seed on the production database with the published passwords.
-- [ ] Add the owner photographs for bracelets, earrings and rings; confirm the licence for every image in `docs/asset-manifest.md`.
+- [ ] The production admin password was rotated after seeding; keep it out of git and rotate again if it is shared.
+- [ ] Confirm the licence for every owner-supplied photo in `docs/asset-manifest.md`; all 22 product photos are local.
 - [ ] Decide whether checkout stays demo-only (`DEMO_PLACED`) or gets a real payment gateway; the current UI never claims a payment was taken.
 - [ ] Add shipping, returns, privacy and terms pages; they are not part of the current routes.
 - [ ] Move the in-process rate limiter to Redis/Upstash if the site runs on more than one serverless instance.
