@@ -21,3 +21,4 @@ Thumbs.db
 # raw photos dropped for processing (keep the instructions tracked)
 incoming/*
 !incoming/README.md
+.env*

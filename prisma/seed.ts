@@ -663,6 +663,10 @@ async function main() {
     throw new Error('Demo seed passwords must be at least 10 characters.');
   }
 
+  const resetPasswords = process.env.SEED_RESET_PASSWORDS === 'true';
+  const adminPasswordHash = resetPasswords ? await bcrypt.hash(adminPassword, 12) : null;
+  const customerPasswordHash = resetPasswords ? await bcrypt.hash(customerPassword, 12) : null;
+
   const admin = await prisma.user.upsert({
     where: { email: adminEmail.toLowerCase() },
     create: {
@@ -671,7 +675,7 @@ async function main() {
       passwordHash: await bcrypt.hash(adminPassword, 12),
       role: 'ADMIN',
     },
-    update: { role: 'ADMIN', passwordHash: await bcrypt.hash(adminPassword, 12) },
+    update: { role: 'ADMIN', ...(adminPasswordHash ? { passwordHash: adminPasswordHash } : {}) },
     select: { id: true },
   });
 
@@ -683,7 +687,7 @@ async function main() {
       passwordHash: await bcrypt.hash(customerPassword, 12),
       role: 'CUSTOMER',
     },
-    update: { passwordHash: await bcrypt.hash(customerPassword, 12) },
+    update: customerPasswordHash ? { passwordHash: customerPasswordHash } : {},
     select: { id: true },
   });
 
