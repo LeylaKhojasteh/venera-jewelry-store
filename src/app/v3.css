@@ -3586,9 +3586,9 @@ html[data-theme='light'] .v3-footer-bottom {
   letter-spacing: -0.02em;
 }
 
-.v3-auth-intro {
+.v3-auth-card .v3-auth-intro {
   max-width: 38ch;
-  margin-top: 0.7rem;
+  margin-top: 1.25rem;
   font-size: 15px;
   line-height: 1.75;
   color: var(--bone-dim);
@@ -3598,11 +3598,23 @@ html[data-theme='light'] .v3-footer-bottom {
   margin-top: 1.5rem;
 }
 
-.v3-auth-note {
-  margin-top: 1.6rem;
-  color: var(--copper);
-  font-size: 12px;
-  text-align: center;
+.v3-password-field {
+  position: relative;
+}
+
+.v3-password-field .field-input {
+  padding-left: 3.25rem;
+}
+
+.v3-password-toggle {
+  position: absolute;
+  left: 0.4rem;
+  top: 2.15rem;
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  color: var(--ink-soft);
 }
 
 .v3-auth-ornaments {

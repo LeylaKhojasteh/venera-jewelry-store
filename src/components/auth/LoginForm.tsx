@@ -74,7 +74,7 @@ export function LoginForm({ next }: { next: string }) {
         {...form.register('email')}
       />
 
-      <div className="relative">
+      <div className="v3-password-field">
         <Input
           label="گذرواژه"
           type={showPassword ? 'text' : 'password'}
@@ -82,13 +82,12 @@ export function LoginForm({ next }: { next: string }) {
           dir="ltr"
           placeholder="••••••••"
           error={form.formState.errors.password?.message}
-          className="pe-12"
           {...form.register('password')}
         />
         <button
           type="button"
           onClick={() => setShowPassword((value) => !value)}
-          className="absolute end-2 top-[2.15rem] flex size-9 items-center justify-center text-ink-soft"
+          className="v3-password-toggle"
           aria-label={showPassword ? 'پنهان کردن گذرواژه' : 'نمایش گذرواژه'}
         >
           {showPassword ? <EyeOff aria-hidden="true" className="size-4" /> : <Eye aria-hidden="true" className="size-4" />}

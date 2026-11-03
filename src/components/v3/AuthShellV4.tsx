@@ -27,7 +27,6 @@ export function AuthShellV4({
           <h1 className="v3-auth-title">{title}</h1>
           <p className="v3-auth-intro">{intro}</p>
           {children}
-          <p className="v3-auth-note">«{quote}»</p>
         </div>
       </div>
     );
