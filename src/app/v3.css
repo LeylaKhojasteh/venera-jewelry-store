@@ -1506,7 +1506,7 @@ html[data-theme='light'] .v3-footer-bottom {
 }
 
 .v3-qv-media img {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .v3-qv-copy {
@@ -4501,7 +4501,7 @@ html[data-theme='light'] .v3-footer-bottom {
 
   .v3-qv-media {
     min-height: 0;
-    height: 30vh;
+    height: 35vh;
   }
 
   .v3-qv-copy {

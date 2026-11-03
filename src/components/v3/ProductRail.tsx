@@ -105,7 +105,6 @@ export function ProductRail({ products }: { products: ProductCardData[] }) {
             detail={detail}
             loading={loading}
             onClose={() => setSelected(null)}
-            layoutPrefix="rail"
           />
         ) : null}
       </AnimatePresence>

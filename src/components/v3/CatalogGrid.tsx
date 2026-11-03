@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useTransition } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence } from 'motion/react';
 import { QuickView } from '@/components/v3/QuickView';
 import { getQuickView } from '@/actions/quick-view';
 import { formatDigits, formatToman } from '@/lib/money';
@@ -11,13 +11,11 @@ import type { ProductCardData, QuickViewData } from '@/types';
 export function CatalogGrid({
   products,
   drift = false,
-  layoutPrefix = 'grid',
   compact = false,
   motionKind,
 }: {
   products: ProductCardData[];
   drift?: boolean;
-  layoutPrefix?: string;
   compact?: boolean;
   motionKind?: 'float' | 'sway';
 }) {
@@ -48,7 +46,7 @@ export function CatalogGrid({
               onClick={() => open(product)}
               aria-label={`نمای سریع ${product.name}`}
             >
-              <motion.div layoutId={`${layoutPrefix}-media-${product.id}`} className="v3-grid-media">
+              <div className="v3-grid-media">
                 <Image
                   src={product.image}
                   alt={product.imageAlt}
@@ -70,7 +68,7 @@ export function CatalogGrid({
                   {product.discount ? <span className="v3-badge">٪{formatDigits(product.discount)}</span> : null}
                   {product.isBestSeller ? <span className="v3-badge v3-badge-quiet">پرفروش</span> : null}
                 </span>
-              </motion.div>
+              </div>
               <span className="v3-grid-body">
                 <span className="v3-grid-name" role="heading" aria-level={3}>
                   {product.name}
@@ -95,7 +93,6 @@ export function CatalogGrid({
             detail={detail}
             loading={loading}
             onClose={() => setSelected(null)}
-            layoutPrefix={layoutPrefix}
           />
         ) : null}
       </AnimatePresence>

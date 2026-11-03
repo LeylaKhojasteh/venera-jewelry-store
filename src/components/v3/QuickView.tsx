@@ -15,13 +15,11 @@ export function QuickView({
   detail,
   loading,
   onClose,
-  layoutPrefix = 'qv',
 }: {
   product: ProductCardData;
   detail: QuickViewData | null;
   loading: boolean;
   onClose: () => void;
-  layoutPrefix?: string;
 }) {
   const { add } = useCart();
   const [variantId, setVariantId] = useState<string | null>(null);
@@ -84,18 +82,18 @@ export function QuickView({
         role="dialog"
         aria-modal="true"
         aria-labelledby="qv-title"
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 16 }}
-        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        exit={{ opacity: 0, y: 8 }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
       >
         <button ref={closeRef} type="button" className="v3-icon v3-qv-close" onClick={onClose} aria-label="بستن">
           <X aria-hidden="true" size={20} />
         </button>
 
-        <motion.div layoutId={`${layoutPrefix}-media-${product.id}`} className="v3-qv-media">
-          <Image src={image} alt={imageAlt} fill sizes="(max-width: 768px) 100vw, 42vw" className="object-cover" />
-        </motion.div>
+        <div className="v3-qv-media">
+          <Image src={image} alt={imageAlt} fill sizes="(max-width: 768px) 100vw, 42vw" className="object-contain" />
+        </div>
 
         <div className="v3-qv-copy">
           <p className="v3-small">

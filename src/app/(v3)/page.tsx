@@ -73,7 +73,7 @@ export default async function V3HomePage() {
               همه پرفروش‌ها
             </Link>
           </div>
-          <CatalogGrid products={bestSellers.slice(0, 4)} layoutPrefix="best" compact motionKind="float" />
+          <CatalogGrid products={bestSellers.slice(0, 4)} compact motionKind="float" />
         </div>
       </section>
 
@@ -92,7 +92,7 @@ export default async function V3HomePage() {
               همهٔ تخفیف‌ها
             </Link>
           </div>
-          <CatalogGrid products={discounted.slice(0, 4)} layoutPrefix="sale" compact motionKind="sway" />
+          <CatalogGrid products={discounted.slice(0, 4)} compact motionKind="sway" />
         </div>
       </section>
 
