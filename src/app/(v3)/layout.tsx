@@ -34,6 +34,12 @@ export default async function V3Layout({ children }: { children: ReactNode }) {
           <BackToTop />
         </div>
         <Preloader />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "window.setTimeout(function(){var e=document.querySelector('.v3-preloader');if(!e)return;e.style.transition='transform 850ms cubic-bezier(0.22,1,0.36,1)';e.style.transform='translateY(-100%)';e.style.pointerEvents='none';},3000)",
+          }}
+        />
       </div>
     </CartProvider>
   );

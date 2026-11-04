@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import { usePathname } from 'next/navigation';
-import { lockScroll, unlockScroll } from '@/lib/scroll-lock';
 
 const LETTERS = ['V', 'E', 'N', 'E', 'R', 'A'];
 
@@ -16,7 +15,6 @@ export function Preloader() {
   const isHome = pathname === '/';
   const [visible, setVisible] = useState(isHome);
   const [leaving, setLeaving] = useState(false);
-  const released = useRef(false);
 
   useEffect(() => {
     if (!isHome || !visible) return;
@@ -24,20 +22,11 @@ export function Preloader() {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return;
 
-    lockScroll();
-    released.current = false;
-
     let finished = false;
     let loadDone = false;
     let minTimer: number | undefined;
     let leaveTimer: number | undefined;
     const started = performance.now();
-
-    const release = () => {
-      if (released.current) return;
-      released.current = true;
-      unlockScroll();
-    };
 
     const finish = () => {
       if (finished) return;
@@ -45,7 +34,6 @@ export function Preloader() {
       setLeaving(true);
       document.querySelector('.v3-site')?.classList.add('is-revealed');
       leaveTimer = window.setTimeout(() => {
-        release();
         setVisible(false);
       }, 900);
     };
@@ -71,7 +59,6 @@ export function Preloader() {
       window.clearTimeout(fallback);
       if (minTimer) window.clearTimeout(minTimer);
       if (leaveTimer) window.clearTimeout(leaveTimer);
-      release();
       document.querySelector('.v3-site')?.classList.remove('is-revealed');
     };
   }, [isHome, visible]);
