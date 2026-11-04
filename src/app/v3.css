@@ -4751,6 +4751,110 @@ html[data-theme='light'] .v3-footer-bottom {
   }
 }
 
+/* First-load curtain */
+.v3-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: clamp(1.1rem, 3vw, 1.6rem);
+  background: var(--ink);
+  color: var(--bone);
+  transition:
+    transform 850ms var(--ease),
+    opacity 500ms var(--ease);
+}
+
+.v3-preloader.is-leaving {
+  transform: translateY(-100%);
+  opacity: 0.98;
+  pointer-events: none;
+}
+
+.v3-preloader-logo {
+  display: flex;
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: clamp(2.1rem, 8vw, 4.25rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1;
+}
+
+.v3-preloader-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em);
+  filter: blur(5px);
+  animation: v3-preloader-letter 620ms var(--ease) forwards;
+  animation-delay: calc(80ms * var(--i));
+}
+
+.v3-preloader-line {
+  position: relative;
+  display: block;
+  width: min(11rem, 48vw);
+  height: 1px;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.v3-preloader-line::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background: var(--copper);
+  transform: scaleX(0);
+  transform-origin: right;
+  animation: v3-preloader-line 1050ms 180ms var(--ease) forwards;
+}
+
+.v3-preloader-label {
+  color: var(--bone-dim);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+}
+
+.v3-site.is-revealed main {
+  animation: v3-site-rise 760ms 80ms var(--ease) both;
+}
+
+@keyframes v3-preloader-letter {
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes v3-preloader-line {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes v3-site-rise {
+  from {
+    opacity: 0.45;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-preloader {
+    display: none;
+  }
+
+  .v3-site.is-revealed main {
+    animation: none;
+  }
+}
+
 /* PDP image zoom */
 .v3-pdp-zoom-trigger {
   position: absolute;

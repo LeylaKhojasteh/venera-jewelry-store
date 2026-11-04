@@ -267,6 +267,7 @@ test.describe('responsive', () => {
 
   test('quick view adds a piece and opens the cart drawer', async ({ page }) => {
     await page.goto('/');
+    await page.locator('.v3-preloader').waitFor({ state: 'detached', timeout: 5000 }).catch(() => {});
     await page.locator('.v3-grid-open').first().click({ force: true });
     await expect(page.locator('.v3-qv')).toBeVisible();
     await expect(page.locator('.v3-qv-variants .v3-choice').first()).toBeVisible();
