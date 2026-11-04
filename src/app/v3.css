@@ -3631,27 +3631,44 @@ html[data-theme='light'] .v3-footer-bottom {
   }
 
   .v3-auth-centered {
-    min-height: calc(100svh - 7rem);
-    padding-block: 1.5rem;
+    min-height: calc(100svh - 6.5rem);
+    padding-block: 6.5rem 6rem;
+  }
+
+  .v3-auth-ornaments {
+    opacity: 1;
   }
 
   .v3-auth-ornament.is-necklace {
-    top: 0;
-    right: -0.75rem;
-    width: 8rem;
-    opacity: 0.55;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 4.5rem;
+    opacity: 0.58;
+    transform: rotate(-4deg);
+  }
+
+  .v3-auth-ornament.is-earring {
+    top: 0.75rem;
+    left: 0.5rem;
+    width: 4.25rem;
+    opacity: 0.6;
+    transform: rotate(7deg);
   }
 
   .v3-auth-ornament.is-ring {
-    left: -0.75rem;
-    bottom: 0;
-    width: 7rem;
-    opacity: 0.55;
+    left: 0.75rem;
+    bottom: 0.25rem;
+    width: 4.5rem;
+    opacity: 0.58;
+    transform: rotate(-8deg);
   }
 
-  .v3-auth-ornament.is-earring,
   .v3-auth-ornament.is-chain {
-    display: none;
+    right: 0.5rem;
+    bottom: 0.75rem;
+    width: 5.5rem;
+    opacity: 0.55;
+    transform: rotate(4deg);
   }
 }
 
