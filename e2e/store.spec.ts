@@ -259,7 +259,7 @@ test.describe('responsive', () => {
     await page.goto('/');
     await page.getByRole('button', { name: 'منو' }).click();
     await expect(page.locator('.v3-menu-panel')).toBeVisible();
-    await expect(page.locator('.v3-menu-links a')).toHaveCount(5);
+    await expect(page.locator('.v3-menu-links a')).toHaveCount(6);
     await expect(page.locator('.v3-menu-preview img')).toHaveCount(1);
     await page.keyboard.press('Escape');
     await expect(page.locator('.v3-menu-panel')).toHaveCount(0);

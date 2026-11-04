@@ -354,16 +354,41 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
                   {item.label}
                 </Link>
               ))}
-              <Link
-                href={user ? '/profile' : '/login'}
-                onClick={closeMenu}
-                onPointerEnter={() => setHovered(4)}
-                onFocus={() => setHovered(4)}
-                className={hovered !== null && hovered !== 4 ? 'is-dim' : undefined}
-                style={{ '--i': nav.length } as CSSProperties}
-              >
-                {user ? 'حساب من' : 'ورود'}
-              </Link>
+              {user ? (
+                <Link
+                  href="/profile"
+                  onClick={closeMenu}
+                  onPointerEnter={() => setHovered(nav.length)}
+                  onFocus={() => setHovered(nav.length)}
+                  className={hovered !== null && hovered !== nav.length ? 'is-dim' : undefined}
+                  style={{ '--i': nav.length } as CSSProperties}
+                >
+                  حساب من
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={closeMenu}
+                    onPointerEnter={() => setHovered(nav.length)}
+                    onFocus={() => setHovered(nav.length)}
+                    className={hovered !== null && hovered !== nav.length ? 'is-dim' : undefined}
+                    style={{ '--i': nav.length } as CSSProperties}
+                  >
+                    ورود
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={closeMenu}
+                    onPointerEnter={() => setHovered(nav.length + 1)}
+                    onFocus={() => setHovered(nav.length + 1)}
+                    className={hovered !== null && hovered !== nav.length + 1 ? 'is-dim' : undefined}
+                    style={{ '--i': nav.length + 1 } as CSSProperties}
+                  >
+                    ساخت حساب
+                  </Link>
+                </>
+              )}
             </nav>
 
             <div className="v3-menu-preview" aria-hidden="true">
@@ -372,6 +397,10 @@ export function SiteHeader({ user, categories }: { user: SessionUser | null; cat
           </div>
 
           <div className="v3-menu-cats">
+            <button type="button" className="v3-menu-theme" onClick={toggleTheme}>
+              {light ? <Moon aria-hidden="true" size={18} /> : <Sun aria-hidden="true" size={18} />}
+              <span>{light ? 'تم تیره' : 'تم روشن'}</span>
+            </button>
             <details className="v3-menu-accordion">
               <summary>
                 دسته‌بندی محصولات

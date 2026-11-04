@@ -476,10 +476,6 @@ body:has(.v3-root) {
   .v3-actions {
     gap: 0;
   }
-
-  .v3-actions .v3-icon:nth-child(4) {
-    display: none;
-  }
 }
 
 @media (max-width: 380px) {
@@ -498,6 +494,10 @@ body:has(.v3-root) {
   }
 
   .v3-logo small {
+    display: none;
+  }
+
+  .v3-actions > .v3-icon:first-child {
     display: none;
   }
 }
@@ -571,6 +571,19 @@ body:has(.v3-root) {
   flex-wrap: wrap;
   gap: 0.5rem 1.5rem;
   padding-top: 1rem;
+}
+
+.v3-menu-theme {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--bone);
+  cursor: pointer;
+  font-size: 14px;
 }
 
 .v3-menu-cats a {
