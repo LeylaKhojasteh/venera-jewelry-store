@@ -32,6 +32,21 @@ const nextConfig: NextConfig = {
     deviceSizes: [320, 375, 430, 640, 768, 1024, 1280, 1440, 1920, 2400],
     imageSizes: [96, 128, 200, 256, 320, 400, 512],
   },
+  async redirects() {
+    return [
+      { source: '/products/necklace-avid', destination: '/products/necklace-drop', permanent: true },
+      { source: '/products/necklace-mahtab', destination: '/products/necklace-pearl', permanent: true },
+      { source: '/products/necklace-arka', destination: '/products/necklace-minimal', permanent: true },
+      { source: '/products/necklace-nilo', destination: '/products/necklace-flower', permanent: true },
+      { source: '/products/bracelet-celine', destination: '/products/bracelet-spiral-silver', permanent: true },
+      { source: '/products/bracelet-ares', destination: '/products/bracelet-triple-ring', permanent: true },
+      { source: '/products/bracelet-nova', destination: '/products/bracelet-silver-simple', permanent: true },
+      { source: '/products/earrings-alara', destination: '/products/earrings-clear-flower', permanent: true },
+      { source: '/products/earrings-livora', destination: '/products/earrings-lotus', permanent: true },
+      { source: '/products/ring-roja', destination: '/products/ring-turquoise', permanent: true },
+      { source: '/products/ring-diyar', destination: '/products/ring-royal-double', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {
