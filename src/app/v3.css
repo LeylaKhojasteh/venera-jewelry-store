@@ -4780,8 +4780,19 @@ html[data-theme='light'] .v3-footer-bottom {
   letter-spacing: 0.16em;
   line-height: 1;
   /* Keep the original thick stems; only lift the hairlines with a fine stroke. */
-  -webkit-text-stroke: 0.45px currentColor;
+  -webkit-text-stroke: 0.55px currentColor;
   paint-order: stroke fill;
+}
+
+/* Browsers without text-stroke get the same weight through a fine outline. */
+@supports not (-webkit-text-stroke: 0.55px currentColor) {
+  .v3-preloader-logo {
+    text-shadow:
+      0.22px 0 currentColor,
+      -0.22px 0 currentColor,
+      0 0.22px currentColor,
+      0 -0.22px currentColor;
+  }
 }
 
 .v3-preloader-letter {
