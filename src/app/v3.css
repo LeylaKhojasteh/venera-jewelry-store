@@ -4776,13 +4776,12 @@ html[data-theme='light'] .v3-footer-bottom {
   display: flex;
   font-family: 'Bodoni Moda', Georgia, serif;
   font-size: clamp(2.1rem, 8vw, 4.25rem);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.16em;
   line-height: 1;
-  /* Bodoni's hairlines disappear at phone sizes; a hair of stroke keeps them readable. */
-  -webkit-text-stroke: 0.35px currentColor;
+  /* Keep the original thick stems; only lift the hairlines with a fine stroke. */
+  -webkit-text-stroke: 0.45px currentColor;
   paint-order: stroke fill;
-  text-shadow: 0 0 0.01em currentColor;
 }
 
 .v3-preloader-letter {
