@@ -782,7 +782,7 @@ body:has(.v3-root) {
 
 @media (min-width: 1024px) {
   .v3-hero-3d {
-    height: calc(100svh - 8rem);
+    height: 100%;
     min-height: 34rem;
   }
 }
@@ -1399,7 +1399,7 @@ body:has(.v3-root) {
 
   .v3-hero-art {
     min-height: 34rem;
-    height: calc(100svh - 8rem);
+    height: min(calc(100svh - 8rem), 56rem);
   }
 
   .v3-art-inner {

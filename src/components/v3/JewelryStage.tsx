@@ -215,7 +215,11 @@ function Scene({ reduce, ready }: { reduce: boolean; ready: boolean }) {
   const group = useRef<THREE.Group>(null);
   const intro = useRef(0);
   const { size } = useThree();
-  const scale = size.width < 360 ? 0.95 : size.width < 480 ? 1.16 : 1;
+  // Tall/narrow hero canvases (large 4K monitors) crop the outer bracelet.
+  // Pull the composition back as the canvas gets taller than it is wide.
+  const aspect = size.width / Math.max(1, size.height);
+  const desktopScale = Math.min(1, Math.max(0.55, 1 - (0.92 - aspect) * 0.65));
+  const scale = size.width < 360 ? 0.95 : size.width < 480 ? 1.16 : desktopScale;
 
   useFrame((state, delta) => {
     if (!group.current) return;
