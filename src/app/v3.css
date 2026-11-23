@@ -4010,15 +4010,9 @@ html[data-theme='light'] .v3-footer-bottom {
 
 .v3-admin-metrics {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-
-@media (min-width: 640px) {
-  .v3-admin-metrics {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 @media (min-width: 1200px) {
@@ -4029,7 +4023,7 @@ html[data-theme='light'] .v3-footer-bottom {
 
 .v3-admin-card {
   display: block;
-  padding: 1.1rem;
+  padding: 0.75rem;
   background: var(--ink-2);
   transition: background-color 180ms var(--ease);
 }
@@ -4042,24 +4036,37 @@ html[data-theme='light'] .v3-footer-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  font-size: 13px;
+  gap: 0.35rem;
+  font-size: 12px;
+  line-height: 1.4;
   color: var(--bone-dim);
+}
+
+.v3-admin-card-head svg {
+  flex: none;
 }
 
 .v3-admin-card-value {
   display: block;
-  margin-top: 0.75rem;
-  font-size: 24px;
+  margin-top: 0.4rem;
+  font-size: 20px;
+  line-height: 1.2;
   color: var(--bone);
   font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .v3-admin-card-detail {
   display: block;
-  margin-top: 0.15rem;
-  font-size: 12px;
+  margin-top: 0.1rem;
+  font-size: 11px;
+  line-height: 1.4;
   color: var(--bone-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .v3-admin-table-wrap {
